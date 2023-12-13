@@ -1,0 +1,13 @@
+D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csprojAssemblyReference.cache
+D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.CoreCompileInputs.cache
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\VoxelWorld.exe.config
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\VoxelWorld.exe
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\VoxelWorld.pdb
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.dll
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.pdb
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.xml
+D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.CopyComplete
+D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.exe
+D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.pdb
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\AssimpNet.dll
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\AssimpNet.xml
