@@ -2,66 +2,32 @@
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using VoxelWorld.Classes.Engine;
 
 namespace VoxelWorld.Classes.Render
 {
     public class Window : GameWindow
     {
+        public static int WindowWidth = 1920 / 2;
+        public static int WindowHeight = 1080 / 2;
 
-        public Window() : base(800, 600, GraphicsMode.Default, "OpenTK Window")
+        public Window() : base(WindowWidth, WindowHeight, GraphicsMode.Default, "OpenTK Window")
         {
             VSync = VSyncMode.On;
         }
 
 
-        float[] vertices =
-            {
-                0,0,1,
-                1,0,1,
-                1,1,1,
-
-                1,0,0,
-                0,1,0,
-                1,1,0,
-            };
-
-        float[] colors =
-            {
-                1f,0f,0f,
-                0f,1f,0f,
-                0f,0f,1f,
-
-                0f,1f,1f,
-                1f,0f,1f,
-                1f,1f,0f,
-            };
-
-
-        int vertexVBO;
-        int colorVBO;
-
         Camera camera = new Camera(); // Создание камеры
+        Mesh mesh = new Mesh();
+        GUI crosshair = new GUI();
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
 
             camera.ready();
-
-            // VBO
-            vertexVBO = GL.GenBuffer(); // Запись VBO в переменную
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO); // Активация VBO
-                // Занасенее данных в буффер
-                GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
-
-            //ColorVBO Тоже самое что и с VBO
-            colorVBO = GL.GenBuffer(); // Запись VBO в переменную
-            GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO); // Активация VBO
-                                                                // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, colors.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
-
+            mesh.ready();
         }
 
 
@@ -71,7 +37,7 @@ namespace VoxelWorld.Classes.Render
             base.OnUpdateFrame(e);
 
             camera.physicsProcess();
-            // Дополнительная логика обновления
+            Input.Update();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -79,25 +45,9 @@ namespace VoxelWorld.Classes.Render
             base.OnRenderFrame(e);
 
             camera.renderProcess();
+            mesh.renderProcess();
+            crosshair.renderProcess();
 
-            // Подключение VBO
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO);
-                GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-
-            // Подключение colorVBO
-            GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO);
-                GL.ColorPointer(3, ColorPointerType.Float, 0, 0);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-
-            GL.EnableClientState(ArrayCap.VertexArray);// Разрешение испрользования массива вершин
-            GL.EnableClientState(ArrayCap.ColorArray);
-                GL.DrawArrays(BeginMode.Triangles, 0, vertices.Length); 
-            GL.DisableClientState(ArrayCap.VertexArray);// Выключение отображеия по массиву вершин
-            GL.DisableClientState(ArrayCap.ColorArray);
-     
 
             SwapBuffers();
         }
@@ -105,6 +55,18 @@ namespace VoxelWorld.Classes.Render
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            WindowWidth = Width;
+            WindowHeight = Height;
+
+            GL.Viewport(0, 0, Width, Height);
+
+            camera.onWindowResize(e);
         }
 
         static void Main(string[] args)

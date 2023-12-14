@@ -5,37 +5,69 @@ namespace VoxelWorld.Classes.Render
 {
     class Mesh
     {
-        private int vertexBufferObject;
-        private int vertexArrayObject;
 
-        public Mesh()
+        float[] vertices =
+            {
+                0,0,1,
+                1,0,1,
+                1,1,1,
+
+                1,0,0,
+                0,1,0,
+                1,1,0,
+            };
+
+        float[] colors =
+            {
+                1f,0f,0f,
+                0f,1f,0f,
+                0f,0f,1f,
+
+                0f,1f,1f,
+                1f,0f,1f,
+                1f,1f,0f,
+            };
+
+
+        int vertexVBO;
+        int colorVBO;
+
+        public void ready()
         {
-            // Создаем VAO для Mesh
-            vertexArrayObject = GL.GenVertexArray();
-            GL.BindVertexArray(vertexArrayObject);
+            // VBO
+            vertexVBO = GL.GenBuffer(); // Запись VBO в переменную
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO); // Активация VBO
+                                                                // Занасенее данных в буффер
+            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
 
-            // Используем VBO, созданный в Window.cs
-            vertexBufferObject = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
-
-            // Устанавливаем указатель атрибута позиции
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(0);
-
-            // Отвязываем VAO и VBO
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindVertexArray(0);
+            //ColorVBO Тоже самое что и с VBO
+            colorVBO = GL.GenBuffer(); // Запись VBO в переменную
+            GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO); // Активация VBO
+                                                               // Занасенее данных в буффер
+            GL.BufferData(BufferTarget.ArrayBuffer, colors.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
         }
 
-        public void Render()
+        public void renderProcess()
         {
-            // Используем VAO для рендеринга Mesh
-            GL.BindVertexArray(vertexArrayObject);
+            // Подключение VBO
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO);
+            GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
-            // Рендеринг Mesh (например, вызов GL.DrawArrays или GL.DrawElements)
 
-            // Отвязываем VAO
-            GL.BindVertexArray(0);
+            // Подключение colorVBO
+            GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO);
+            GL.ColorPointer(3, ColorPointerType.Float, 0, 0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+
+
+            GL.EnableClientState(ArrayCap.VertexArray);// Разрешение испрользования массива вершин
+            GL.EnableClientState(ArrayCap.ColorArray);
+            GL.DrawArrays(BeginMode.Triangles, 0, vertices.Length);
+            GL.DisableClientState(ArrayCap.VertexArray);// Выключение отображеия по массиву вершин
+            GL.DisableClientState(ArrayCap.ColorArray);
         }
     }
 }
