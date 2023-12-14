@@ -19,8 +19,25 @@ namespace VoxelWorld.Classes.Render
 
 
         Camera camera = new Camera(); // Создание камеры
-        Mesh mesh = new Mesh();
+        //Mesh mesh = new Mesh(new float[] {
+        //        0,0,1,
+        //        1,0,1,
+        //        1,1,1,
+
+        //        1,0,0,
+        //        0,1,0,
+        //        1,1,0,
+        //    }, new float[] {
+        //        1f,0f,0f,
+        //        0f,1f,0f,
+        //        0f,0f,1f,
+
+        //        0f,1f,1f,
+        //        1f,0f,1f,
+        //        1f,1f,0f,
+        //    });
         ColorRect crosshair = new ColorRect(0.0003f);
+        ChunkRenderer chunk;
 
         protected override void OnLoad(EventArgs e)
         {
@@ -28,7 +45,8 @@ namespace VoxelWorld.Classes.Render
             //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
 
             camera.ready();
-            mesh.ready();
+            //mesh.ready();
+            chunk = new ChunkRenderer();
         }
 
 
@@ -46,8 +64,10 @@ namespace VoxelWorld.Classes.Render
             base.OnRenderFrame(e);
 
             camera.renderProcess();
-            mesh.renderProcess();
+            //mesh.renderProcess();
+            chunk.renderProcess();
             crosshair.renderProcess();
+            
 
 
             SwapBuffers();

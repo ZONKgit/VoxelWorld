@@ -32,6 +32,12 @@ namespace VoxelWorld.Classes.Render
         int vertexVBO;
         int colorVBO;
 
+        public Mesh(float[] vertices, float[] colors)
+        {
+            this.vertices = vertices;
+            this.colors = colors;
+        }
+
         public void ready()
         {
             // VBO
@@ -45,7 +51,7 @@ namespace VoxelWorld.Classes.Render
             colorVBO = GL.GenBuffer(); // Запись VBO в переменную
             GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO); // Активация VBO
                                                                // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, colors.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, colors.Length * sizeof(float), colors, BufferUsageHint.StaticDraw);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
         }
 
@@ -65,7 +71,7 @@ namespace VoxelWorld.Classes.Render
 
             GL.EnableClientState(ArrayCap.VertexArray);// Разрешение испрользования массива вершин
             GL.EnableClientState(ArrayCap.ColorArray);
-            GL.DrawArrays(BeginMode.Triangles, 0, vertices.Length);
+                GL.DrawArrays(BeginMode.Triangles, 0, vertices.Length);
             GL.DisableClientState(ArrayCap.VertexArray);// Выключение отображеия по массиву вершин
             GL.DisableClientState(ArrayCap.ColorArray);
         }

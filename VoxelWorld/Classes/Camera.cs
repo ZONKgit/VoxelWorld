@@ -77,13 +77,13 @@ namespace VoxelWorld.Classes
         {
             // Вращение камерой
             rotation.X += mouseRelative.Y * Input.mouseSensitivity;
-            rotation.Y -= mouseRelative.X * Input.mouseSensitivity;
+            rotation.Y += mouseRelative.X * Input.mouseSensitivity;
         }
 
         public void onWindowResize(EventArgs e)
         {
             float aspectRatio = (float)Window.WindowWidth / Window.WindowHeight;
-            Matrix4 perspective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(45), aspectRatio, 0.1f, 1000f);
+            Matrix4 perspective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(90), aspectRatio, 0.1f, 1000f);
 
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref perspective);
