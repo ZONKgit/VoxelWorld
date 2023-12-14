@@ -8,13 +8,7 @@ namespace VoxelWorld.Classes.Render
 
     public class GUI
     {
-        float[] crosshairVertices =
-        {
-        -0.001f, -0.001f, -0.1f,
-        -0.001f, 0.001f, -0.1f,
-        0.001f, 0.001f, -0.1f,
-        0.001f, -0.001f, -0.1f
-        };
+        public float[] vertices = {};
 
         public void renderProcess()
         {
@@ -27,8 +21,8 @@ namespace VoxelWorld.Classes.Render
             float offsetZ = modelviewMatrix[14];
 
             // Создание копии массива
-            float[] verticesWithOffset = new float[crosshairVertices.Length];
-            Array.Copy(crosshairVertices, verticesWithOffset, crosshairVertices.Length);
+            float[] verticesWithOffset = new float[vertices.Length];
+            Array.Copy(vertices, verticesWithOffset, vertices.Length);
 
             // Добавление оффсетов
             for (int i = 0; i < verticesWithOffset.Length; i += 3)
@@ -40,7 +34,7 @@ namespace VoxelWorld.Classes.Render
 
             GL.VertexPointer(3, VertexPointerType.Float, 0, verticesWithOffset);
             GL.EnableClientState(ArrayCap.VertexArray);
-            GL.DrawArrays(BeginMode.TriangleFan, 0, 4);
+                GL.DrawArrays(BeginMode.TriangleFan, 0, 4);
             GL.DisableClientState(ArrayCap.VertexArray);
         }
     }

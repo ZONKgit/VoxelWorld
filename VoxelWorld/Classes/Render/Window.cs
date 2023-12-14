@@ -3,6 +3,7 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using VoxelWorld.Classes.Engine;
+using VoxelWorld.Classes.Render.GUIClasses;
 
 namespace VoxelWorld.Classes.Render
 {
@@ -11,7 +12,7 @@ namespace VoxelWorld.Classes.Render
         public static int WindowWidth = 1920 / 2;
         public static int WindowHeight = 1080 / 2;
 
-        public Window() : base(WindowWidth, WindowHeight, GraphicsMode.Default, "OpenTK Window")
+        public Window() : base(WindowWidth, WindowHeight, GraphicsMode.Default, "Voxel World")
         {
             VSync = VSyncMode.On;
         }
@@ -19,7 +20,7 @@ namespace VoxelWorld.Classes.Render
 
         Camera camera = new Camera(); // Создание камеры
         Mesh mesh = new Mesh();
-        GUI crosshair = new GUI();
+        ColorRect crosshair = new ColorRect(0.0003f);
 
         protected override void OnLoad(EventArgs e)
         {
