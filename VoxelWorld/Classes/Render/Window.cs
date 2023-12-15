@@ -45,7 +45,12 @@ namespace VoxelWorld.Classes.Render
         {
             base.OnLoad(e);
 
+            // Ширина линий
             GL.LineWidth(2.0f);
+            // Backface Culling
+            GL.Enable(EnableCap.CullFace);  // Включить отсечение граней
+            GL.CullFace(CullFaceMode.Back); // Указать, что нужно отсекать задние грани
+
 
             camera.ready();
             chunk.ready();

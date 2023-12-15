@@ -61,22 +61,22 @@ namespace VoxelWorld.Classes.Render
         private void GenerateBackSide(Vector3 Pos, float colorR, float colorB)
         {
             vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
-            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
             vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
 
             vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
-            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
             vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
         }
         private void GenerateRightSide(Vector3 Pos, float colorR, float colorB)
         {
             vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
-            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
             vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
 
             vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
-            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
             vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
         }
         private void GenerateLeftSide(Vector3 Pos, float colorR, float colorB)
         {
@@ -91,12 +91,12 @@ namespace VoxelWorld.Classes.Render
         private void GenerateTopSide(Vector3 Pos, float colorR, float colorB)
         {
             vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
-            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
             vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
 
             vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
-            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
             vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
         }
         private void GenerateBottomSide(Vector3 Pos, float colorR, float colorB)
         {
