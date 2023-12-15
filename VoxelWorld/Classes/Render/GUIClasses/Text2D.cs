@@ -47,6 +47,8 @@ namespace VoxelWorld.Classes.Render.GUIClasses
 
         public void drawChar(Vector2 pos, char ch, Vector4 color)
         {
+       
+
             GL.LoadIdentity();
             float[] modelviewMatrix = new float[16];
             GL.GetFloat(GetPName.ModelviewMatrix, modelviewMatrix);
@@ -112,6 +114,8 @@ namespace VoxelWorld.Classes.Render.GUIClasses
             GL.DisableClientState(ArrayCap.TextureCoordArray);
             GL.DisableClientState(ArrayCap.VertexArray);
             GL.BindTexture(TextureTarget.Texture2D, 0);
+
+         
         }
     }
 }

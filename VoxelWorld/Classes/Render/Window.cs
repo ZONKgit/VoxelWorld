@@ -24,15 +24,17 @@ namespace VoxelWorld.Classes.Render
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
             // Ширина линий
             GL.LineWidth(2.0f);
             // Backface Culling
-            //GL.Enable(EnableCap.CullFace);  // Включить отсечение граней
-            //GL.CullFace(CullFaceMode.Back); // Указать, что нужно отсекать задние грани
+            GL.Enable(EnableCap.CullFace);  // Включить отсечение граней
+            GL.CullFace(CullFaceMode.Back); // Указать, что нужно отсекать задние грани
             // Alpha канал
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
+            GL.Enable(EnableCap.AlphaTest);
+            GL.AlphaFunc(AlphaFunction.Greater, 0.0f);
 
             world.Ready();
         }
