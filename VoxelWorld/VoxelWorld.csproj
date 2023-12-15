@@ -135,6 +135,7 @@
     <Compile Include="Classes\Engine\PerlinNoise.cs" />
     <Compile Include="Classes\Engine\TextureLoader.cs" />
     <Compile Include="Classes\Render\ChunkRenderer.cs" />
+    <Compile Include="Classes\Render\Text3D.cs" />
     <Compile Include="Classes\Render\GUI.cs" />
     <Compile Include="Classes\Render\GUIClasses\ColorRect.cs" />
     <Compile Include="Classes\Render\GUIClasses\Text2D.cs" />

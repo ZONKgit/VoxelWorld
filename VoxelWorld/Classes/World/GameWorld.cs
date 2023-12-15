@@ -12,7 +12,7 @@ namespace VoxelWorld.Classes.World
 
         Camera camera = new Camera(); // Создание камеры
         Chunk chunk = new Chunk();
-        Text2D text = new Text2D();
+        
 
         public void loadChunks()
         {
@@ -55,17 +55,19 @@ namespace VoxelWorld.Classes.World
 
         public void Ready()
         {
-            camera.Ready();
             chunk.Ready();
-            text.Ready();
+            camera.Ready();
+            
+            
             loadChunks();
         }
 
         public void RenderProcess()
         {
+           
             camera.RenderProcess();
             chunk.RenderProcess();
-            text.RenderProcess();
+           
             RenderChunks();
         }
 

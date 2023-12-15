@@ -1,46 +1,65 @@
-﻿using OpenTK;
+﻿using System;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using VoxelWorld.Classes.Engine;
+using VoxelWorld.Classes.Render;
 
 namespace VoxelWorld.Classes.Render.GUIClasses
 {
     class Text2D
     {
+        // Загрузка текстуры
         TextureLoader texLoader = new TextureLoader();
         int texture;
 
-        // Загрузка текстуры
+        Vector2 Position = new Vector2(-1f, -1.0f);
+
+        public Text2D(Vector2 Pos)
+        {
+            Position = Pos;
+        }
+
         public void Ready()
         {
-            texture = texLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Fonts/Default.png");
+            texture = texLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Fonts/Verdana.png");
         }
 
         public void RenderProcess()
         {
-            drawText(new Vector3(0f, -1f, 0f), new Vector4(0,1,1,1));
+            drawText(Position, new Vector4(1f, 0f, 0f, 1f));
         }
 
-        public void drawText(Vector3 pos, Vector4 color, string text = "Null text", float ind = 1)// ind Отступ у символов
+
+        public void drawText(Vector2 pos, Vector4 color, string text = "Null 2D text", float ind = 1)// ind Отступ у символов
         {
             int charNum = 0;
 
             foreach (char c in text)
             {
                 charNum++;
-                drawChar(new Vector2(charNum * ind, 0), c, color);
+                drawChar(pos+new Vector2(charNum * ind, 0), c, color);
             }
         }
 
         public void drawChar(Vector2 pos, char ch, Vector4 color)
         {
+            GL.LoadIdentity();
+            float[] modelviewMatrix = new float[16];
+            GL.GetFloat(GetPName.ModelviewMatrix, modelviewMatrix);
+
+            float scale = 0.01f;
+
+            // Vertices
             float[] rectCoord = {
-                0.0f +pos.X, 0.0f + pos.Y,
-                1.0f + pos.X, 0.0f + pos.Y,
-                1.0f + pos.X, 1.0f + pos.Y,
-                0.0f + pos.X, 1.0f + pos.Y };
+                0.0f*scale + pos.X*scale, 0.0f*scale + pos.Y*scale, -0.1f,
+                1.0f*scale + pos.X*scale, 0.0f*scale + pos.Y*scale, -0.1f,
+                1.0f*scale + pos.X*scale, 1.0f*scale + pos.Y*scale, -0.1f,
+                0.0f*scale + pos.X*scale, 1.0f*scale + pos.Y*scale, -0.1f
+            };
 
 
-            float[] rectTex = { 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f };
+            //UV
+            float[] rectTex = { 0.0f, 1.0f, -0.1f, 1.0f, -0.1f, 0.0f, 0.0f, -0.1f };
 
             GL.Enable(EnableCap.Texture2D);
             GL.BindTexture(TextureTarget.Texture2D, texture);
@@ -63,17 +82,31 @@ namespace VoxelWorld.Classes.Render.GUIClasses
             rectTex[1] = rectTex[3] = bottom;
             rectTex[5] = rectTex[7] = top;
 
-            GL.EnableClientState(ArrayCap.VertexArray);
+
+
+            float offsetX = modelviewMatrix[12];
+            float offsetY = modelviewMatrix[13];
+            float offsetZ = modelviewMatrix[14];
+
+            // Создание копии массива
+            float[] verticesWithOffset = new float[rectCoord.Length];
+            Array.Copy(rectCoord, verticesWithOffset, rectCoord.Length);
+
+            // Добавление оффсетов
+            for (int i = 0; i < verticesWithOffset.Length; i += 3)
+            {
+                verticesWithOffset[i] += offsetX;
+                verticesWithOffset[i + 1] += offsetY;
+                verticesWithOffset[i + 2] += offsetZ;
+            }
+
             GL.EnableClientState(ArrayCap.TextureCoordArray);
-
-            GL.VertexPointer(2, VertexPointerType.Float, 0, rectCoord);
+            GL.VertexPointer(3, VertexPointerType.Float, 0, verticesWithOffset);
+            GL.EnableClientState(ArrayCap.VertexArray);
             GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, rectTex);
-            GL.DrawArrays(PrimitiveType.TriangleFan, 0, 4);
-
-            GL.DisableClientState(ArrayCap.VertexArray);
+                GL.DrawArrays(BeginMode.TriangleFan, 0, 4);
             GL.DisableClientState(ArrayCap.TextureCoordArray);
-
-            GL.PopMatrix();
+            GL.DisableClientState(ArrayCap.VertexArray);
             GL.BindTexture(TextureTarget.Texture2D, 0);
         }
     }

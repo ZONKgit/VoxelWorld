@@ -11,6 +11,7 @@ namespace VoxelWorld.Classes
     public class Camera
     {
         ColorRect crosshair = new ColorRect(0.0006f);
+        Text2D text = new Text2D(new Vector2(-10, 9));
 
         public Camera()
         {
@@ -33,6 +34,8 @@ namespace VoxelWorld.Classes
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref perspective);
             GL.MatrixMode(MatrixMode.Modelview);
+
+            text.Ready();
         }
 
         public void RenderProcess()
@@ -43,6 +46,8 @@ namespace VoxelWorld.Classes
 
             // Рендер GUI
             crosshair.RenderProcess();
+            text.RenderProcess();
+
 
             // Применение преобразовний
             GL.LoadIdentity();
@@ -50,7 +55,6 @@ namespace VoxelWorld.Classes
             GL.Rotate(rotation.Y, 0f, 1f, 0f);
             GL.Rotate(rotation.Z, 0f, 0f, 1f);
             GL.Translate(-position);
-
         }
 
         public void PhysicsProcess()
