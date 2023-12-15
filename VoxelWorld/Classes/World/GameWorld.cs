@@ -11,7 +11,7 @@ namespace VoxelWorld.Classes.World
     {
         Chunk[,] Chunks;
 
-        Camera camera = new Camera(); // Создание камеры
+        Player player = new Player(); // Создание игрока
 
 
         public void loadChunks()
@@ -89,23 +89,23 @@ namespace VoxelWorld.Classes.World
 
         public void Ready()
         {
-            camera.Ready();
+            player.Ready();
             loadChunks();
         }
         public void RenderProcess()
         {
-            camera.RenderProcess();
+            player.RenderProcess();
             RenderChunks();
         }
         public void PhysicsProcess()
         {
-            camera.PhysicsProcess();
+            player.PhysicsProcess();
 
         }
 
         public void OnResizeWindow(EventArgs e)
         {
-            camera.OnResizeWindow(e);
+            player.OnResizeWindow(e);
         }
     }
 }

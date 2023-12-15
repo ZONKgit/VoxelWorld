@@ -19,9 +19,10 @@ namespace VoxelWorld.Classes
             Input.OnMouseMove += HandleMouseMove;
         }
 
-        public float moveSpeed = 0.1f;
-
         public Vector3 front;
+    
+        public Vector3 LocalRotation = new Vector3(0, 0, 0);
+        public Vector3 LocalPosition = new Vector3(0, 0, 0);
 
         public Vector3 rotation = new Vector3(0, 0, 0);
         public Vector3 position = new Vector3(0, 0, 0);
@@ -62,46 +63,12 @@ namespace VoxelWorld.Classes
 
         public void PhysicsProcess()
         {
-            // Ходьба
-            float YAngle = -rotation.Y / 180f * (float)Math.PI;
-            if (Input.IsKeyPressed(Input.KeyMovmentForward))
-            {
-                position.X -= (float)Math.Sin(YAngle) * moveSpeed;
-                position.Z -= (float)Math.Cos(YAngle) * moveSpeed;
-            }
-            if (Input.IsKeyPressed(Input.KeyMovmentRight))
-            {
-                position.X += (float)Math.Sin(YAngle + (float)Math.PI * 0.5) * moveSpeed;
-                position.Z += (float)Math.Cos(YAngle + (float)Math.PI * 0.5) * moveSpeed;
-            }
-            if (Input.IsKeyPressed(Input.KeyMovmentLeft))
-            {
-                position.X += (float)Math.Sin(YAngle - (float)Math.PI * 0.5) * moveSpeed;
-                position.Z += (float)Math.Cos(YAngle - (float)Math.PI * 0.5) * moveSpeed;
-            }
-            if (Input.IsKeyPressed(Input.KeyMovmentBackward)) 
-            {
-                position.X += (float)Math.Sin(YAngle) * moveSpeed;
-                position.Z += (float)Math.Cos(YAngle) * moveSpeed;
-            }
-            // Прыжок и красться
-            if (Input.IsKeyPressed(Input.KeyJump)){
-                position.Y += moveSpeed;
-            }
-            if (Input.IsKeyPressed(Input.KeyCrouch)){
-                position.Y -= moveSpeed;
-            }
-
-
-
             // Вывод позиции
             text.Text = new Vector3(
                 (float)Math.Round(position.X),
                 (float)Math.Round(position.Y),
                 (float)Math.Round(position.Z)
             ).ToString();
-
-
 
             // Нахождение Front
             float yaw = MathHelper.DegreesToRadians(rotation.Y);
@@ -110,15 +77,15 @@ namespace VoxelWorld.Classes
             float frontX = (float)(Math.Cos(yaw) * Math.Cos(pitch));
             float frontY = (float)Math.Sin(pitch);
             float frontZ = (float)(Math.Sin(yaw) * Math.Cos(pitch));
+
+            front = new Vector3(frontX, frontY, frontZ);
         }
         private void HandleMouseMove(Vector2 mouseRelative)
         {
             // Вращение камерой
-            rotation.X += mouseRelative.Y * Input.mouseSensitivity;
-            if (rotation.X > 90.0f) rotation.X = 90.0f; // Ограничение от -90 до 90 градусов
-            else if (rotation.X < -90.0f) rotation.X = -90.0f;
-
-            rotation.Y += mouseRelative.X * Input.mouseSensitivity;
+            LocalRotation.X += mouseRelative.Y * Input.mouseSensitivity;
+            if (LocalRotation.X > 90.0f) LocalRotation.X = 90.0f; // Ограничение от -90 до 90 градусов
+            else if (LocalRotation.X < -90.0f) LocalRotation.X = -90.0f;
         }
         public void OnResizeWindow(EventArgs e)
         {

@@ -30,7 +30,7 @@ namespace VoxelWorld.Classes.Render.GUIClasses
 
         public void RenderProcess()
         {
-            drawText(Position, new Vector4(1f, 0f, 0f, 1f), Text);
+            drawText(Position, new Vector4(0f, 0f, 0f, 1f), Text);
         }
 
 
