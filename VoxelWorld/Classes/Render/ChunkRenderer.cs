@@ -14,7 +14,7 @@ namespace VoxelWorld.Classes.Render
         List<float> vertices = new List<float>();
         List<float> colors = new List<float>();
 
-        public void GenerateChunkMesh(int ChunkSizeX, int ChunkSizeY, int ChunkSizeZ, int[,,] ChunkData)
+        public void GenerateChunkMesh(int ChunkSizeX, int ChunkSizeY, int ChunkSizeZ, int[,,] ChunkData, Vector2 ChunkPos)
         {
             for (int x = 0; x < ChunkSizeX; x++)
             {
@@ -28,17 +28,17 @@ namespace VoxelWorld.Classes.Render
                             float randomB = (float)random.NextDouble();
 
                             //Front side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x, y, z-1), ChunkData) == 0) GenerateFrontSide(new Vector3(x, y, z), randomR, randomB);
+                            if (Chunk.GetBlockAtPosition(new Vector3(x, y, z-1), ChunkData) == 0) GenerateFrontSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Back side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x, y , z+1), ChunkData) == 0) GenerateBackSide(new Vector3(x, y, z), randomR, randomB);
+                            if (Chunk.GetBlockAtPosition(new Vector3(x, y , z+1), ChunkData) == 0) GenerateBackSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Right side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x-1, y, z), ChunkData) == 0) GenerateRightSide(new Vector3(x, y, z), randomR, randomB);
+                            if (Chunk.GetBlockAtPosition(new Vector3(x-1, y, z), ChunkData) == 0) GenerateRightSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Left side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x+1, y, z), ChunkData) == 0) GenerateLeftSide(new Vector3(x, y, z), randomR, randomB);
+                            if (Chunk.GetBlockAtPosition(new Vector3(x+1, y, z), ChunkData) == 0) GenerateLeftSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Top side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x, y+1, z), ChunkData) == 0) GenerateTopSide(new Vector3(x, y, z), randomR, randomB);
+                            if (Chunk.GetBlockAtPosition(new Vector3(x, y+1, z), ChunkData) == 0) GenerateTopSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Bottom side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x, y-1, z), ChunkData) == 0) GenerateBottomSide(new Vector3(x, y, z), randomR, randomB);
+                            if (Chunk.GetBlockAtPosition(new Vector3(x, y-1, z), ChunkData) == 0) GenerateBottomSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                         }
                     }
                 }

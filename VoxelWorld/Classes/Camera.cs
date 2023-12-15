@@ -4,12 +4,14 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Render;
-using OpenTK.Input;
+using VoxelWorld.Classes.Render.GUIClasses;
 
 namespace VoxelWorld.Classes
 {
     public class Camera
     {
+        ColorRect crosshair = new ColorRect(0.0006f);
+
         public Camera()
         {
             Input.OnMouseMove += HandleMouseMove;
@@ -20,7 +22,7 @@ namespace VoxelWorld.Classes
         public Vector3 rotation = new Vector3(0, 0, 0);
         public Vector3 position = new Vector3(0, 0, 0);
 
-        public void ready()
+        public void Ready()
         {
             GL.Enable(EnableCap.DepthTest); // Включение буффера глубины
 
@@ -33,11 +35,14 @@ namespace VoxelWorld.Classes
             GL.MatrixMode(MatrixMode.Modelview);
         }
 
-        public void renderProcess()
+        public void RenderProcess()
         {
             GL.ClearColor(new Color4(0.7f, 0.7f, 1f, 1.0f)); // Очищение экрана цветом...
             GL.Clear(ClearBufferMask.ColorBufferBit);
             GL.Clear(ClearBufferMask.DepthBufferBit); // Очищение буффера глубины
+
+            // Рендер GUI
+            crosshair.RenderProcess();
 
             // Применение преобразовний
             GL.LoadIdentity();
@@ -45,10 +50,10 @@ namespace VoxelWorld.Classes
             GL.Rotate(rotation.Y, 0f, 1f, 0f);
             GL.Rotate(rotation.Z, 0f, 0f, 1f);
             GL.Translate(-position);
-          
+
         }
 
-        public void physicsProcess()
+        public void PhysicsProcess()
         {
             // Ходьба
             float YAngle = -rotation.Y / 180f * (float)Math.PI;
@@ -85,10 +90,13 @@ namespace VoxelWorld.Classes
         {
             // Вращение камерой
             rotation.X += mouseRelative.Y * Input.mouseSensitivity;
+            if (rotation.X > 90.0f) rotation.X = 90.0f; // Ограничение от -90 до 90 градусов
+            else if (rotation.X < -90.0f) rotation.X = -90.0f;
+
             rotation.Y += mouseRelative.X * Input.mouseSensitivity;
         }
 
-        public void onWindowResize(EventArgs e)
+        public void OnResizeWindow(EventArgs e)
         {
             float aspectRatio = (float)Window.WindowWidth / Window.WindowHeight;
             Matrix4 perspective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(90), aspectRatio, 0.1f, 1000f);

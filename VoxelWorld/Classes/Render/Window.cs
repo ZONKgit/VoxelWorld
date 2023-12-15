@@ -19,27 +19,7 @@ namespace VoxelWorld.Classes.Render
             VSync = VSyncMode.On;
         }
 
-
-        Camera camera = new Camera(); // Создание камеры
-        //Mesh mesh = new Mesh(new float[] {
-        //        0,0,1,
-        //        1,0,1,
-        //        1,1,1,
-
-        //        1,0,0,
-        //        0,1,0,
-        //        1,1,0,
-        //    }, new float[] {
-        //        1f,0f,0f,
-        //        0f,1f,0f,
-        //        0f,0f,1f,
-
-        //        0f,1f,1f,
-        //        1f,0f,1f,
-        //        1f,1f,0f,
-        //    });
-        ColorRect crosshair = new ColorRect(0.0003f);
-        Chunk chunk = new Chunk();
+        GameWorld world = new GameWorld();
 
         protected override void OnLoad(EventArgs e)
         {
@@ -51,10 +31,7 @@ namespace VoxelWorld.Classes.Render
             GL.Enable(EnableCap.CullFace);  // Включить отсечение граней
             GL.CullFace(CullFaceMode.Back); // Указать, что нужно отсекать задние грани
 
-
-            camera.ready();
-            chunk.ready();
-            //mesh.ready();
+            world.Ready();
         }
 
 
@@ -63,7 +40,7 @@ namespace VoxelWorld.Classes.Render
         {
             base.OnUpdateFrame(e);
 
-            camera.physicsProcess();
+            world.PhysicsProcess();
 
             // Смена режима отрисовки
             if (Input.IsKeyJustPressed(Input.KeyDebugWireframe))
@@ -88,12 +65,9 @@ namespace VoxelWorld.Classes.Render
         {
             base.OnRenderFrame(e);
 
-            camera.renderProcess();
-            //mesh.renderProcess();
-            chunk.renderProcess();
-            crosshair.renderProcess();
-            
+           
 
+            world.RenderProcess();
 
             SwapBuffers();
         }
@@ -112,7 +86,7 @@ namespace VoxelWorld.Classes.Render
 
             GL.Viewport(0, 0, Width, Height);
 
-            camera.onWindowResize(e);
+            world.OnResizeWindow(e);
         }
 
         static void Main(string[] args)

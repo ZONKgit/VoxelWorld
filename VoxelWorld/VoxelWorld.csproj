@@ -132,12 +132,14 @@
   <ItemGroup>
     <Compile Include="Classes\Camera.cs" />
     <Compile Include="Classes\Engine\Input.cs" />
+    <Compile Include="Classes\Engine\PerlinNoise.cs" />
     <Compile Include="Classes\Render\ChunkRenderer.cs" />
     <Compile Include="Classes\Render\GUI.cs" />
     <Compile Include="Classes\Render\GUIClasses\ColorRect.cs" />
     <Compile Include="Classes\Render\Mesh.cs" />
     <Compile Include="Classes\Render\Window.cs" />
     <Compile Include="Classes\World\Chunk.cs" />
+    <Compile Include="Classes\World\GameWorld.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

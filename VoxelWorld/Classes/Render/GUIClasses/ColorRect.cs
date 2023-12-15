@@ -15,10 +15,10 @@ namespace VoxelWorld.Classes.Render.GUIClasses
             this.size = size;
             vertices = new float[]
             {
-            -size, -size, -0.1f,
-            -size, size, -0.1f,
+            size, -size, -0.1f,
             size, size, -0.1f,
-            size, -size, -0.1f
+            -size, size, -0.1f,
+            -size, -size, -0.1f
             };
         }
     }

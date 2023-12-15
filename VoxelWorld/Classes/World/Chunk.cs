@@ -1,17 +1,21 @@
 ﻿using System;
 using OpenTK;
 using VoxelWorld.Classes.Render;
+using VoxelWorld.Classes.Engine;
 
 namespace VoxelWorld.Classes.World
 {
     public class Chunk
     {
+        Perlin2D Noise = new Perlin2D();
         ChunkRenderer Renderer = new ChunkRenderer();
 
         // Размеры чанка
         public const int ChunkSizeX = 16;
         public const int ChunkSizeY = 256;
         public const int ChunkSizeZ = 16;
+
+        public Vector2 Position = new Vector2(0, 0); //Позиция чанка по X и Z (Y всегда 0)
 
         // Данные чанка
         public int[,,] ChunkData;
@@ -24,16 +28,17 @@ namespace VoxelWorld.Classes.World
             // Заполнение данных
             for (int x = 0; x < ChunkSizeX; x++)
             {
-                for (int y = 0; y < 4; y++)
+                for (int y = 0; y < ChunkSizeY; y++)
                 {
                     for (int z = 0; z < ChunkSizeZ; z++)
                     {
-                        // Заполняем значениями от 0 до 4 включительно по последней координате
-                        ChunkData[x, y, z] = 1;
+                        float noiseValue = Noise.GetNoiseValue(new Vector2(x, z)) * 6 + 3;
+                        int _y = (int)noiseValue;
+                        if (y <= _y) ChunkData[x, y, z] = 1;
                     }
                 }
             }
-            Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, ChunkData);
+            Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, ChunkData, Position);
         }
 
         static public int GetBlockAtPosition(Vector3 Pos, int[,,] ChunkData)
@@ -54,12 +59,12 @@ namespace VoxelWorld.Classes.World
             return ChunkData[x, y, z];
         }
 
-        public void ready()
+        public void Ready()
         {
             GenerateChunk();
         }
 
-        public void renderProcess()
+        public void RenderProcess()
         {
             Renderer.renderProcess();
         }

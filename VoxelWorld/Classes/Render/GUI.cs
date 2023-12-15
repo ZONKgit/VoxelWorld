@@ -10,7 +10,7 @@ namespace VoxelWorld.Classes.Render
     {
         public float[] vertices = {};
 
-        public void renderProcess()
+        public void RenderProcess()
         {
             GL.LoadIdentity();
             float[] modelviewMatrix = new float[16];
