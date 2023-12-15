@@ -11,7 +11,6 @@ namespace VoxelWorld.Classes.World
         Chunk[,] Chunks;
 
         Camera camera = new Camera(); // Создание камеры
-        Chunk chunk = new Chunk();
         
 
         public void loadChunks()
@@ -40,6 +39,8 @@ namespace VoxelWorld.Classes.World
         }
 
 
+
+
         public void RenderChunks()
         {
             for (int x = 0; x < 2; x++)
@@ -53,29 +54,67 @@ namespace VoxelWorld.Classes.World
             }
         }
 
+        public static Vector3 GlobalToLocalCoords(Vector3 globalPosition)
+        {
+            Vector2 chunkCoords = GlobalToChunkCoords(globalPosition);
+
+            int localX = (int)(globalPosition.X - chunkCoords.X * Chunk.ChunkSizeX);
+            int localY = (int)globalPosition.Y;
+            int localZ = (int)(globalPosition.Z - chunkCoords.Y * Chunk.ChunkSizeZ);
+
+            // Обработка отрицательных координат внутри чанка
+            if (localX < 0)
+                localX += Chunk.ChunkSizeX;
+
+            if (localZ < 0)
+                localZ += Chunk.ChunkSizeZ;
+
+            return new Vector3(localX-1, localY, localZ-1);
+        }
+
+
+        public bool IsChunkValid(Vector2 chunkCoords)
+        {
+            return chunkCoords.X >= 0 && chunkCoords.X < Chunks.GetLength(0) &&
+                   chunkCoords.Y >= 0 && chunkCoords.Y < Chunks.GetLength(1);
+        }
+
+        public static Vector2 GlobalToChunkCoords(Vector3 globalPosition)
+        {
+            int chunkX = (int)Math.Floor(globalPosition.X / Chunk.ChunkSizeX);
+            int chunkZ = (int)Math.Floor(globalPosition.Z / Chunk.ChunkSizeZ);
+
+            return new Vector2(chunkX+1, chunkZ+1);
+        }
+
         public void Ready()
         {
-            chunk.Ready();
             camera.Ready();
-            
-            
             loadChunks();
         }
-
         public void RenderProcess()
         {
-           
             camera.RenderProcess();
-            chunk.RenderProcess();
-           
             RenderChunks();
         }
-
         public void PhysicsProcess()
         {
             camera.PhysicsProcess();
-        }
 
+            Vector3 globalCoords = camera.position;
+            Vector2 chunkCoords = GlobalToChunkCoords(globalCoords);
+
+            //Console.WriteLine($"Pos {globalCoords} ChunkPos {chunkCoords}");
+            //Console.WriteLine($"ChunkPos {chunkCoords} ChunkBlocks {GlobalToLocalCoords(globalCoords)}");
+
+            //Console.WriteLine(Chunks[(int)chunkCoords.X, (int)chunkCoords.Y].Position);
+
+            if (Input.IsKeyJustPressed(Input.KeyF))
+            {
+                Vector3 localCoords = GlobalToLocalCoords(globalCoords);
+                Chunks[(int)chunkCoords.X, (int)chunkCoords.Y].SetBlock(localCoords);
+            }
+        }
         public void OnResizeWindow(EventArgs e)
         {
             camera.OnResizeWindow(e);
