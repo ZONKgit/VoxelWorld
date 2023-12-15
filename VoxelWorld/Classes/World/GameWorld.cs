@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenTK;
+using System.Collections.Generic;
 using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Render;
 using VoxelWorld.Classes.Render.GUIClasses;
@@ -11,7 +12,7 @@ namespace VoxelWorld.Classes.World
         Chunk[,] Chunks;
 
         Camera camera = new Camera(); // Создание камеры
-        
+
 
         public void loadChunks()
         {
@@ -37,10 +38,6 @@ namespace VoxelWorld.Classes.World
                 }
             }
         }
-
-
-
-
         public void RenderChunks()
         {
             for (int x = 0; x < 2; x++)
@@ -53,7 +50,6 @@ namespace VoxelWorld.Classes.World
                 }
             }
         }
-
         public static Vector3 GlobalToLocalCoords(Vector3 globalPosition)
         {
             Vector2 chunkCoords = GlobalToChunkCoords(globalPosition);
@@ -69,22 +65,26 @@ namespace VoxelWorld.Classes.World
             if (localZ < 0)
                 localZ += Chunk.ChunkSizeZ;
 
-            return new Vector3(localX-1, localY, localZ-1);
+            return new Vector3(localX - 1, localY, localZ - 1);
         }
-
-
         public bool IsChunkValid(Vector2 chunkCoords)
         {
             return chunkCoords.X >= 0 && chunkCoords.X < Chunks.GetLength(0) &&
                    chunkCoords.Y >= 0 && chunkCoords.Y < Chunks.GetLength(1);
         }
-
         public static Vector2 GlobalToChunkCoords(Vector3 globalPosition)
         {
             int chunkX = (int)Math.Floor(globalPosition.X / Chunk.ChunkSizeX);
             int chunkZ = (int)Math.Floor(globalPosition.Z / Chunk.ChunkSizeZ);
 
-            return new Vector2(chunkX+1, chunkZ+1);
+            return new Vector2(chunkX + 1, chunkZ + 1);
+        }
+        public void SetBlock(Vector3 Pos)
+        {
+            Console.WriteLine(Pos);
+            Vector2 chunkCoords = GlobalToChunkCoords(Pos);
+            Vector3 localCoords = GlobalToLocalCoords(Pos);
+            Chunks[(int)chunkCoords.X, (int)chunkCoords.Y].SetBlock(localCoords);
         }
 
         public void Ready()
@@ -101,20 +101,8 @@ namespace VoxelWorld.Classes.World
         {
             camera.PhysicsProcess();
 
-            Vector3 globalCoords = camera.position;
-            Vector2 chunkCoords = GlobalToChunkCoords(globalCoords);
-
-            //Console.WriteLine($"Pos {globalCoords} ChunkPos {chunkCoords}");
-            //Console.WriteLine($"ChunkPos {chunkCoords} ChunkBlocks {GlobalToLocalCoords(globalCoords)}");
-
-            //Console.WriteLine(Chunks[(int)chunkCoords.X, (int)chunkCoords.Y].Position);
-
-            if (Input.IsKeyJustPressed(Input.KeyF))
-            {
-                Vector3 localCoords = GlobalToLocalCoords(globalCoords);
-                Chunks[(int)chunkCoords.X, (int)chunkCoords.Y].SetBlock(localCoords);
-            }
         }
+
         public void OnResizeWindow(EventArgs e)
         {
             camera.OnResizeWindow(e);

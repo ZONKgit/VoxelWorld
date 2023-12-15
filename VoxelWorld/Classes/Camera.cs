@@ -10,15 +10,18 @@ namespace VoxelWorld.Classes
 {
     public class Camera
     {
-        ColorRect crosshair = new ColorRect(new Color4(0f,0f,0f,1f), 0.0006f);
+        //Элементы UI
+        ColorRect crosshair = new ColorRect(new Color4(0f, 0f, 0f, 1f), 0.0006f);
         Text2D text = new Text2D(new Vector2(-19, 9), "Camera position", 0.01f);
-
+        
         public Camera()
         {
             Input.OnMouseMove += HandleMouseMove;
         }
 
         public float moveSpeed = 0.1f;
+
+        public Vector3 front;
 
         public Vector3 rotation = new Vector3(0, 0, 0);
         public Vector3 position = new Vector3(0, 0, 0);
@@ -35,6 +38,7 @@ namespace VoxelWorld.Classes
             GL.LoadMatrix(ref perspective);
             GL.MatrixMode(MatrixMode.Modelview);
 
+
             text.Ready();
         }
 
@@ -44,10 +48,9 @@ namespace VoxelWorld.Classes
             GL.Clear(ClearBufferMask.ColorBufferBit);
             GL.Clear(ClearBufferMask.DepthBufferBit); // Очищение буффера глубины
 
-            // Рендер GUI
+            // Рендер GUI Объектов
             crosshair.RenderProcess();
             text.RenderProcess();
-
 
             // Применение преобразовний
             GL.LoadIdentity();
@@ -91,13 +94,22 @@ namespace VoxelWorld.Classes
 
 
 
-
+            // Вывод позиции
             text.Text = new Vector3(
                 (float)Math.Round(position.X),
                 (float)Math.Round(position.Y),
                 (float)Math.Round(position.Z)
             ).ToString();
 
+
+
+            // Нахождение Front
+            float yaw = MathHelper.DegreesToRadians(rotation.Y);
+            float pitch = MathHelper.DegreesToRadians(rotation.X);
+
+            float frontX = (float)(Math.Cos(yaw) * Math.Cos(pitch));
+            float frontY = (float)Math.Sin(pitch);
+            float frontZ = (float)(Math.Sin(yaw) * Math.Cos(pitch));
         }
         private void HandleMouseMove(Vector2 mouseRelative)
         {
@@ -108,7 +120,6 @@ namespace VoxelWorld.Classes
 
             rotation.Y += mouseRelative.X * Input.mouseSensitivity;
         }
-
         public void OnResizeWindow(EventArgs e)
         {
             float aspectRatio = (float)Window.WindowWidth / Window.WindowHeight;
