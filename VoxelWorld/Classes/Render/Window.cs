@@ -30,6 +30,9 @@ namespace VoxelWorld.Classes.Render
             // Backface Culling
             GL.Enable(EnableCap.CullFace);  // Включить отсечение граней
             GL.CullFace(CullFaceMode.Back); // Указать, что нужно отсекать задние грани
+            // Alpha канал
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
             world.Ready();
         }
