@@ -10,8 +10,8 @@ namespace VoxelWorld.Classes
 {
     public class Camera
     {
-        ColorRect crosshair = new ColorRect(0.0006f);
-        Text2D text = new Text2D(new Vector2(-10, 9));
+        ColorRect crosshair = new ColorRect(new Color4(0f,0f,0f,1f), 0.0006f);
+        Text2D text = new Text2D(new Vector2(-19, 9), "Camera position", 0.01f);
 
         public Camera()
         {
@@ -88,6 +88,15 @@ namespace VoxelWorld.Classes
             if (Input.IsKeyPressed(Input.KeyCrouch)){
                 position.Y -= moveSpeed;
             }
+
+
+
+
+            text.Text = new Vector3(
+                (float)Math.Round(position.X),
+                (float)Math.Round(position.Y),
+                (float)Math.Round(position.Z)
+            ).ToString();
 
         }
         private void HandleMouseMove(Vector2 mouseRelative)

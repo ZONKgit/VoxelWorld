@@ -12,21 +12,25 @@ namespace VoxelWorld.Classes.Render.GUIClasses
         TextureLoader texLoader = new TextureLoader();
         int texture;
 
+        public string Text = "Null 2D text";
+        float Scale = 0.001f;
         Vector2 Position = new Vector2(-1f, -1.0f);
 
-        public Text2D(Vector2 Pos)
+        public Text2D(Vector2 Pos, string Text = "Null 2D text", float Scale = 0.001f)
         {
             Position = Pos;
+            this.Text = Text;
+            this.Scale = Scale;
         }
 
         public void Ready()
         {
-            texture = texLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Fonts/Verdana.png");
+            texture = texLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Fonts/Default.png");
         }
 
         public void RenderProcess()
         {
-            drawText(Position, new Vector4(1f, 0f, 0f, 1f));
+            drawText(Position, new Vector4(1f, 0f, 0f, 1f), Text);
         }
 
 
@@ -47,7 +51,7 @@ namespace VoxelWorld.Classes.Render.GUIClasses
             float[] modelviewMatrix = new float[16];
             GL.GetFloat(GetPName.ModelviewMatrix, modelviewMatrix);
 
-            float scale = 0.01f;
+            float scale = Scale;
 
             // Vertices
             float[] rectCoord = {

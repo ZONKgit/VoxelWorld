@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenTK.Graphics;
 
 namespace VoxelWorld.Classes.Render.GUIClasses
 {
@@ -10,8 +7,10 @@ namespace VoxelWorld.Classes.Render.GUIClasses
     {
         float size = 0.001f;
 
-        public ColorRect(float size = 0.001f)
+        public ColorRect(Color4 Color, float size = 0.001f)
         {
+            this.Color = Color;
+
             this.size = size;
             vertices = new float[]
             {

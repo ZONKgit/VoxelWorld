@@ -9,6 +9,7 @@ namespace VoxelWorld.Classes.Render
     public class GUI
     {
         public float[] vertices = {};
+        public Color4 Color = new Color4(0f, 0f, 0f, 1f);
 
         public void RenderProcess()
         {
@@ -31,6 +32,8 @@ namespace VoxelWorld.Classes.Render
                 verticesWithOffset[i + 1] += offsetY;
                 verticesWithOffset[i + 2] += offsetZ;
             }
+
+            GL.Color4(Color);
 
             GL.VertexPointer(3, VertexPointerType.Float, 0, verticesWithOffset);
             GL.EnableClientState(ArrayCap.VertexArray);
