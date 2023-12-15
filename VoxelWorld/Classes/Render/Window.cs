@@ -4,11 +4,13 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Render.GUIClasses;
+using VoxelWorld.Classes.World;
 
 namespace VoxelWorld.Classes.Render
 {
     public class Window : GameWindow
     {
+        public int DebugDraw = 0;
         public static int WindowWidth = 1920 / 2;
         public static int WindowHeight = 1080 / 2;
 
@@ -37,16 +39,17 @@ namespace VoxelWorld.Classes.Render
         //        1f,1f,0f,
         //    });
         ColorRect crosshair = new ColorRect(0.0003f);
-        ChunkRenderer chunk;
+        Chunk chunk = new Chunk();
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+
+            GL.LineWidth(2.0f);
 
             camera.ready();
+            chunk.ready();
             //mesh.ready();
-            chunk = new ChunkRenderer();
         }
 
 
@@ -56,6 +59,23 @@ namespace VoxelWorld.Classes.Render
             base.OnUpdateFrame(e);
 
             camera.physicsProcess();
+
+            // Смена режима отрисовки
+            if (Input.IsKeyJustPressed(Input.KeyDebugWireframe))
+            {
+                if (DebugDraw == 0)
+                {
+                    GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+                    DebugDraw = 1;
+                }
+                else
+                {
+                    GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+                    DebugDraw = 0;
+                }
+ 
+            }
+
             Input.Update();
         }
 

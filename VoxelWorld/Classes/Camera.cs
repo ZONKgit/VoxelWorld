@@ -15,7 +15,7 @@ namespace VoxelWorld.Classes
             Input.OnMouseMove += HandleMouseMove;
         }
 
-        public float moveSpeed = 0.01f;
+        public float moveSpeed = 0.1f;
 
         public Vector3 rotation = new Vector3(0, 0, 0);
         public Vector3 position = new Vector3(0, 0, 0);
@@ -44,7 +44,7 @@ namespace VoxelWorld.Classes
             GL.Rotate(rotation.X, 1f, 0f, 0f);
             GL.Rotate(rotation.Y, 0f, 1f, 0f);
             GL.Rotate(rotation.Z, 0f, 0f, 1f);
-            GL.Translate(position);
+            GL.Translate(-position);
           
         }
 
@@ -54,24 +54,32 @@ namespace VoxelWorld.Classes
             float YAngle = -rotation.Y / 180f * (float)Math.PI;
             if (Input.IsKeyPressed(Input.KeyMovmentForward))
             {
-                position.X += (float)Math.Sin(YAngle) * moveSpeed;
-                position.Z += (float)Math.Cos(YAngle) * moveSpeed;
+                position.X -= (float)Math.Sin(YAngle) * moveSpeed;
+                position.Z -= (float)Math.Cos(YAngle) * moveSpeed;
             }
             if (Input.IsKeyPressed(Input.KeyMovmentRight))
-            {
-                position.X += (float)Math.Sin(YAngle - (float)Math.PI * 0.5) * moveSpeed;
-                position.Z += (float)Math.Cos(YAngle - (float)Math.PI * 0.5) * moveSpeed;
-            }
-            if (Input.IsKeyPressed(Input.KeyMovmentLeft))
             {
                 position.X += (float)Math.Sin(YAngle + (float)Math.PI * 0.5) * moveSpeed;
                 position.Z += (float)Math.Cos(YAngle + (float)Math.PI * 0.5) * moveSpeed;
             }
+            if (Input.IsKeyPressed(Input.KeyMovmentLeft))
+            {
+                position.X += (float)Math.Sin(YAngle - (float)Math.PI * 0.5) * moveSpeed;
+                position.Z += (float)Math.Cos(YAngle - (float)Math.PI * 0.5) * moveSpeed;
+            }
             if (Input.IsKeyPressed(Input.KeyMovmentBackward)) 
             {
-                position.X -= (float)Math.Sin(YAngle) * moveSpeed;
-                position.Z -= (float)Math.Cos(YAngle) * moveSpeed;
+                position.X += (float)Math.Sin(YAngle) * moveSpeed;
+                position.Z += (float)Math.Cos(YAngle) * moveSpeed;
             }
+            // Прыжок и красться
+            if (Input.IsKeyPressed(Input.KeyJump)){
+                position.Y += moveSpeed;
+            }
+            if (Input.IsKeyPressed(Input.KeyCrouch)){
+                position.Y -= moveSpeed;
+            }
+
         }
         private void HandleMouseMove(Vector2 mouseRelative)
         {

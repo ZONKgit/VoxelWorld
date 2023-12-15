@@ -137,6 +137,7 @@
     <Compile Include="Classes\Render\GUIClasses\ColorRect.cs" />
     <Compile Include="Classes\Render\Mesh.cs" />
     <Compile Include="Classes\Render\Window.cs" />
+    <Compile Include="Classes\World\Chunk.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -6,10 +6,15 @@ namespace VoxelWorld.Classes.Engine
 {
     class Input
     {
+        // Player Control
         public static readonly Key KeyMovmentForward = Key.W;
         public static readonly Key KeyMovmentBackward = Key.S;
         public static readonly Key KeyMovmentLeft = Key.A;
         public static readonly Key KeyMovmentRight = Key.D;
+        public static readonly Key KeyJump = Key.Space;
+        public static readonly Key KeyCrouch = Key.LShift;
+        //Misc Control
+        public static readonly Key KeyDebugWireframe = Key.F8;
 
         public static readonly Key KeyA = Key.A;
         public static readonly Key KeyB = Key.B;

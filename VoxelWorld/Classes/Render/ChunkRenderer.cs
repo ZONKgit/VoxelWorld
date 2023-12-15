@@ -2,51 +2,20 @@
 using System.Collections.Generic;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using VoxelWorld.Classes.World;
 
 namespace VoxelWorld.Classes.Render
 {
     class ChunkRenderer
     {
-        // Размеры чанка
-        private const int ChunkSizeX = 16;
-        private const int ChunkSizeY = 256;
-        private const int ChunkSizeZ = 16;
-
-        // Данные чанка
-        private int[,,] ChunkData;
-
         Mesh mesh;
+        Random random = new Random(); // Нужен для генерации блоков разных цветов
 
-        public ChunkRenderer()
+        List<float> vertices = new List<float>();
+        List<float> colors = new List<float>();
+
+        public void GenerateChunkMesh(int ChunkSizeX, int ChunkSizeY, int ChunkSizeZ, int[,,] ChunkData)
         {
-            GenerateChunk();
-        }
-
-        public void GenerateChunk()
-        {
-            // Инициализация массива ChunkData
-            ChunkData = new int[ChunkSizeX, ChunkSizeY, ChunkSizeZ];
-
-            // Заполнение данных
-            for (int x = 0; x < ChunkSizeX; x++)
-            {
-                for (int y = 0; y < 4; y++)
-                {
-                    for (int z = 0; z < ChunkSizeZ; z++)
-                    {
-                        // Заполняем значениями от 0 до 4 включительно по последней координате
-                        ChunkData[x, y, z] = 1;
-                    }
-                }
-            }
-            GenerateChunkMesh();
-        }
-
-        private void GenerateChunkMesh()
-        {
-            List<float> vertices = new List<float>();
-            List<float> colors = new List<float>();
-
             for (int x = 0; x < ChunkSizeX; x++)
             {
                 for (int y = 0; y < ChunkSizeY; y++)
@@ -55,14 +24,21 @@ namespace VoxelWorld.Classes.Render
                     {
                         if (ChunkData[x, y, z] == 1)
                         {
-                            vertices.Add(x + 0f); vertices.Add(y + 0f); vertices.Add(z + 0f);
-                            colors.Add(x); colors.Add(y); colors.Add(z);
+                            float randomR = (float)random.NextDouble();
+                            float randomB = (float)random.NextDouble();
 
-                            vertices.Add(x + 0f); vertices.Add(y + 1f); vertices.Add(z + 0f);
-                            colors.Add(x);colors.Add(y); colors.Add(z);
-
-                            vertices.Add(x + 1f); vertices.Add(y + 1f); vertices.Add(z + 0f);
-                            colors.Add(x); colors.Add(y); colors.Add(z);
+                            //Front side
+                            if (Chunk.GetBlockAtPosition(new Vector3(x, y, z-1), ChunkData) == 0) GenerateFrontSide(new Vector3(x, y, z), randomR, randomB);
+                            //Back side
+                            if (Chunk.GetBlockAtPosition(new Vector3(x, y , z+1), ChunkData) == 0) GenerateBackSide(new Vector3(x, y, z), randomR, randomB);
+                            //Right side
+                            if (Chunk.GetBlockAtPosition(new Vector3(x-1, y, z), ChunkData) == 0) GenerateRightSide(new Vector3(x, y, z), randomR, randomB);
+                            //Left side
+                            if (Chunk.GetBlockAtPosition(new Vector3(x+1, y, z), ChunkData) == 0) GenerateLeftSide(new Vector3(x, y, z), randomR, randomB);
+                            //Top side
+                            if (Chunk.GetBlockAtPosition(new Vector3(x, y+1, z), ChunkData) == 0) GenerateTopSide(new Vector3(x, y, z), randomR, randomB);
+                            //Bottom side
+                            if (Chunk.GetBlockAtPosition(new Vector3(x, y-1, z), ChunkData) == 0) GenerateBottomSide(new Vector3(x, y, z), randomR, randomB);
                         }
                     }
                 }
@@ -70,6 +46,67 @@ namespace VoxelWorld.Classes.Render
 
             mesh = new Mesh(vertices.ToArray(), colors.ToArray());
             mesh.ready();
+        }
+
+        private void GenerateFrontSide(Vector3 Pos, float colorR, float colorB)
+        {
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+        }
+        private void GenerateBackSide(Vector3 Pos, float colorR, float colorB)
+        {
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+        }
+        private void GenerateRightSide(Vector3 Pos, float colorR, float colorB)
+        {
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+        }
+        private void GenerateLeftSide(Vector3 Pos, float colorR, float colorB)
+        {
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+        }
+        private void GenerateTopSide(Vector3 Pos, float colorR, float colorB)
+        {
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 1f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+        }
+        private void GenerateBottomSide(Vector3 Pos, float colorR, float colorB)
+        {
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+
+            vertices.Add(Pos.X + 1f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 1f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
+            vertices.Add(Pos.X + 0f); vertices.Add(Pos.Y + 0f); vertices.Add(Pos.Z + 0f); colors.Add(colorR); colors.Add(1); colors.Add(colorB);
         }
 
         public void renderProcess()
