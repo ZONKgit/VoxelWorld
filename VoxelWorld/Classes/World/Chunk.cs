@@ -15,7 +15,7 @@ namespace VoxelWorld.Classes.World
         public const int ChunkSizeY = 256;
         public const int ChunkSizeZ = 16;
 
-        public Vector2 Position = new Vector2(0, 0); //Позиция чанка по X и Z (Y всегда 0)
+        public Vector2 Position = new Vector2(0, 0); //Позиция чанка по X и Z (Y всегда 0) Кратно размеру чанка
 
         // Данные чанка
         public int[,,] ChunkData;

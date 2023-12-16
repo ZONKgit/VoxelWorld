@@ -48,7 +48,7 @@ namespace VoxelWorld.Classes.Render
             world.PhysicsProcess();
 
             // Смена режима отрисовки
-            if (Input.IsKeyJustPressed(Input.KeyDebugWireframe))
+            if (Input.IsJustKeyPressed(Input.KeyDebugWireframe))
             {
                 if (DebugDraw == 0)
                 {

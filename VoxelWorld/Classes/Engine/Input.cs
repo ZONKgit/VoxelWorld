@@ -77,7 +77,7 @@ namespace VoxelWorld.Classes.Engine
             return currentKeyboardState.IsKeyDown(key);
         }
 
-        public static bool IsKeyJustPressed(Key key)
+        public static bool IsJustKeyPressed(Key key)
         {
             // Проверка, была ли клавиша нажата только что (в текущем кадре)
             return currentKeyboardState.IsKeyDown(key) && !previousKeyboardState.IsKeyDown(key);

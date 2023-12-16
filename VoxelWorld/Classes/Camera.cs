@@ -13,16 +13,15 @@ namespace VoxelWorld.Classes
         //Элементы UI
         ColorRect crosshair = new ColorRect(new Color4(0f, 0f, 0f, 1f), 0.0006f);
         Text2D text = new Text2D(new Vector2(-19, 9), "Camera position", 0.01f);
+        Text2D textRotation = new Text2D(new Vector2(-38, 16), "Camera rotation", 0.005f);
         
         public Camera()
         {
             Input.OnMouseMove += HandleMouseMove;
         }
 
-        public Vector3 front;
-    
         public Vector3 LocalRotation = new Vector3(0, 0, 0);
-        public Vector3 LocalPosition = new Vector3(0, 0, 0);
+        public Vector3 LocalPosition = new Vector3(0, 1, 0);
 
         public Vector3 rotation = new Vector3(0, 0, 0);
         public Vector3 position = new Vector3(0, 0, 0);
@@ -41,6 +40,7 @@ namespace VoxelWorld.Classes
 
 
             text.Ready();
+            textRotation.Ready();
         }
 
         public void RenderProcess()
@@ -52,6 +52,7 @@ namespace VoxelWorld.Classes
             // Рендер GUI Объектов
             crosshair.RenderProcess();
             text.RenderProcess();
+            textRotation.RenderProcess();
 
             // Применение преобразовний
             GL.LoadIdentity();
@@ -69,16 +70,8 @@ namespace VoxelWorld.Classes
                 (float)Math.Round(position.Y),
                 (float)Math.Round(position.Z)
             ).ToString();
-
-            // Нахождение Front
-            float yaw = MathHelper.DegreesToRadians(rotation.Y);
-            float pitch = MathHelper.DegreesToRadians(rotation.X);
-
-            float frontX = (float)(Math.Cos(yaw) * Math.Cos(pitch));
-            float frontY = (float)Math.Sin(pitch);
-            float frontZ = (float)(Math.Sin(yaw) * Math.Cos(pitch));
-
-            front = new Vector3(frontX, frontY, frontZ);
+            // Вывод поворота
+            textRotation.Text = rotation.ToString();
         }
         private void HandleMouseMove(Vector2 mouseRelative)
         {
