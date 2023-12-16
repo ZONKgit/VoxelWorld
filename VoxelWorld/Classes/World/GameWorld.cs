@@ -9,9 +9,9 @@ namespace VoxelWorld.Classes.World
 {
     class GameWorld
     {
-        Chunk[,] Chunks;
+        public Chunk[,] Chunks;
 
-        Player player = new Player(); // Создание игрока
+        Player player; // Создание игрока
 
 
         public void loadChunks()
@@ -86,9 +86,17 @@ namespace VoxelWorld.Classes.World
             Vector3 localCoords = GlobalToLocalCoords(Pos);
             Chunks[(int)chunkCoords.X, (int)chunkCoords.Y].SetBlock(localCoords);
         }
+        public int GetBlockAtPosition(Vector3 globalPosition)
+        {
+            Vector2 chunkCoords = GlobalToChunkCoords(globalPosition);
+            Vector3 localCoords = GlobalToLocalCoords(globalPosition);
+            if (IsChunkValid(chunkCoords)) return Chunk.GetBlockAtPosition(localCoords, Chunks[(int)chunkCoords.X, (int)chunkCoords.Y].ChunkData);
+            else return 0;
+        }
 
         public void Ready()
         {
+            player = new Player(this);
             player.Ready();
             loadChunks();
         }

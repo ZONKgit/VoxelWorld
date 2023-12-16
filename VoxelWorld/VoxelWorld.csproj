@@ -134,6 +134,7 @@
     <Compile Include="Classes\Engine\Input.cs" />
     <Compile Include="Classes\Engine\PerlinNoise.cs" />
     <Compile Include="Classes\Engine\TextureLoader.cs" />
+    <Compile Include="Classes\Physics\HitBox.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Render\ChunkRenderer.cs" />
     <Compile Include="Classes\Render\Line3D.cs" />
