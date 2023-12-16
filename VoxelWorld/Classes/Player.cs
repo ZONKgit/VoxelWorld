@@ -13,9 +13,9 @@ namespace VoxelWorld.Classes
     {
         GameWorld world;
         Camera camera = new Camera();
-        HitBox hitbox = new HitBox(new Vector3(1f,2f,1f));
+        HitBox hitbox = new HitBox(new Vector3(0.5f,1.8f,0.5f));
 
-        public Vector3 Position = new Vector3(0, 12, 0);    
+        public Vector3 Position = new Vector3(1, 12, 0);    
         public Vector3 Rotation = new Vector3(0, 0, 0);
         public Vector3 Velocity = new Vector3(0, 0, 0);
 
@@ -146,10 +146,43 @@ namespace VoxelWorld.Classes
 
         private void MoveAndCollide()
         {
-               Position += Velocity;
+            if (check((int)(Position.X + Velocity.X+(hitbox.HitBoxSize.X/2)), (int)Position.Y, (int)Position.Z)) Velocity.X = 0;
+            if (check((int)Position.X, (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)Position.Z)) Velocity.Y = 0;
+            if (check((int)Position.X, (int)Position.Y, (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) Velocity.Z = 0;
+
+            if (check((int)(Position.X + Velocity.X - (hitbox.HitBoxSize.X / 2)), (int)Position.Y, (int)Position.Z)) Velocity.X = 0;
+            if (check((int)Position.X, (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)Position.Z)) Velocity.Y = 0;
+            if (check((int)Position.X, (int)Position.Y, (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) Velocity.Z = 0;
+
+            Position += Velocity;
+
+            //int x = (int)Position.X;
+            //int y = (int)Position.Y;
+            //int z = (int)Position.Z;
+
+            //float w = hitbox.HitBoxSize.X;
+            //float h = hitbox.HitBoxSize.Y;
+            //float d = hitbox.HitBoxSize.Z;
+
+            //float size = 1;
+
+            //for (int X = (int)((x - w) / size); X < (x + w) / size; X++)
+            //    for (int Y = (int)((y - h) / size); Y < (y + h) / size; Y++)
+            //        for (int Z = (int)((z - d) / size); Z < (z + d) / size; Z++)
+            //            if (check(X, Y, Z))
+            //            {
+            //                if (Velocity.X > 0) x = (int)(X * size - w);
+            //                if (Velocity.X < 0) x = (int)(X * size + size + w);
+            //                if (Velocity.Y > 0) y = (int)(Y * size - h);
+            //                if (Velocity.Y < 0) { y = (int)(Y * size + size + h); hitbox.IsOnFloor = true; Velocity.Y = 0; }
+            //                if (Velocity.Z > 0) z = (int)(Z * size - d);
+            //                if (Velocity.Z < 0) z = (int)(Z * size + size + d);
+            //            }
+            //Position += Velocity;
         }
-
-
-
+        bool check(int X, int Y, int Z)
+        {
+            return world.CheckBlock(new Vector3(X, Y, Z));
+        }
     }
 }

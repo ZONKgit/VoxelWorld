@@ -21,7 +21,7 @@ namespace VoxelWorld.Classes
         }
 
         public Vector3 LocalRotation = new Vector3(0, 0, 0);
-        public Vector3 LocalPosition = new Vector3(0, 1, 0);
+        public Vector3 LocalPosition = new Vector3(0, 0.65f, 0);
 
         public Vector3 rotation = new Vector3(0, 0, 0);
         public Vector3 position = new Vector3(0, 0, 0);

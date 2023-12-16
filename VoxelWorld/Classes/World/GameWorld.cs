@@ -50,9 +50,15 @@ namespace VoxelWorld.Classes.World
                 }
             }
         } // Отрисовка чанков
-        public Vector3 GlobalToLocalCoords(Vector3 globalPosition)
+        public Vector3 GlobalToLocalCoords(Vector3 globalPosition) //Глобальные координаты в координаты внутри чанка
         {
             Vector3 localCoords = new Vector3(globalPosition.X%16, globalPosition.Y%16, globalPosition.Z%16);
+            if (localCoords.X < 0) localCoords.X = Chunk.ChunkSizeX + localCoords.X; // Если отрицательное значние X
+            if (localCoords.Z < 0) localCoords.Z = Chunk.ChunkSizeZ + localCoords.Z; // Если отрицательное значние Y
+
+            if (globalPosition.Y > Chunk.ChunkSizeY) localCoords.Y = Chunk.ChunkSizeY;// Если высота выше размера чанка
+            if (globalPosition.Y < 0) localCoords.Y = 0;// Если высота ниже размера чанка
+
             return EngineMathHelper.FloorVector3(localCoords);
         }  // Кновертирует мировые координаты в координаты внутри чанка
         public bool IsChunkValid(Vector2 chunkCoords)
@@ -60,7 +66,7 @@ namespace VoxelWorld.Classes.World
             return chunkCoords.X >= 0 && chunkCoords.X < Chunks.GetLength(0) &&
                    chunkCoords.Y >= 0 && chunkCoords.Y < Chunks.GetLength(1);
         } // Проверяет существует ли чанк в позиции...
-        public static Vector2 GlobalToChunkCoords(Vector3 globalPosition)
+        public Vector2 GlobalToChunkCoords(Vector3 globalPosition)
         {
             int chunkX = (int)globalPosition.X / Chunk.ChunkSizeX;
             int chunkZ = (int)globalPosition.Z / Chunk.ChunkSizeZ;
@@ -78,13 +84,17 @@ namespace VoxelWorld.Classes.World
             Vector2 chunkCoords = GlobalToChunkCoords(globalPosition);
             Vector3 localCoords = GlobalToLocalCoords(globalPosition);
             Chunk chunk = Chunks[(int)chunkCoords.X, (int)chunkCoords.Y];
-            if (IsChunkValid(chunkCoords)) return chunk.ChunkData[(int)localCoords.X, (int)localCoords.Y, (int)localCoords.Z];
+            if (IsChunkValid(chunkCoords)) return chunk.ChunkData[Math.Abs((int)localCoords.X), (int)localCoords.Y, Math.Abs((int)localCoords.Z)];
             else return 0;
         }// Возвращает блок в позиции...
-        public bool CheckBlock(Vector3 Pos)
+        public bool CheckBlock(Vector3 GlobalPos)
         {
-            if (GetBlockAtPosition(Pos) == 0) return false;
-            else return true;
+            if (IsChunkValid(GlobalToChunkCoords(GlobalPos)))
+            {
+                if (GetBlockAtPosition(GlobalPos) == 0) return false;
+                else return true;
+            }
+            return false;
         } // Проверяет есть ли блок в позиции...
 
         public void Ready()
