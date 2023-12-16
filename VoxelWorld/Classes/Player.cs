@@ -9,11 +9,13 @@ using VoxelWorld.Classes.Render;
 
 namespace VoxelWorld.Classes
 {
-    class Player
+    public class Player
     {
         GameWorld world;
-        Camera camera = new Camera();
-        HitBox hitbox = new HitBox(new Vector3(0.5f,1.8f,0.5f));
+        Camera camera;
+        public HitBox hitbox = new HitBox(new Vector3(0.5f,1.8f,0.5f));
+
+        const float MaxFallVelocity = -2f;
 
         public Vector3 Position = new Vector3(1, 12, 0);    
         public Vector3 Rotation = new Vector3(0, 0, 0);
@@ -29,6 +31,7 @@ namespace VoxelWorld.Classes
 
         public void Ready()
         {
+            camera = new Camera(this);
             camera.Ready();
         }
 
@@ -72,25 +75,15 @@ namespace VoxelWorld.Classes
 
 
             // Рисование hitbox-а
-            BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);
-
-            // Рисование блоков с которыми есть коллизия
-            //if (world.GetBlockAtPosition(Position + new Vector3(1, 0, 0) + new Vector3(0, hitbox.HitBoxSize.Y / 4, 0)) == 1)
-            //{
-            //    BoxEdges.DrawBoxEdges(new Vector3(0.5f, 0.5f, 0.5f), FloorVector3(Position) + new Vector3(0.5f, 0, 0.5f) + new Vector3(1, 0, 0) + new Vector3(0, hitbox.HitBoxSize.Y / 4, 0), new Color4(1.0f, 0.0f, 0.0f, 1.0f), 2.0f);
-            //}
-            //if (world.GetBlockAtPosition(Position + new Vector3(1, 0, 0) - new Vector3(0, hitbox.HitBoxSize.Y / 4, 0)) == 1)
-            //{
-            //    BoxEdges.DrawBoxEdges(new Vector3(0.5f, 0.5f, 0.5f), FloorVector3(Position) + new Vector3(0.5f, 0, 0.5f) + new Vector3(1, 0, 0) - new Vector3(0, hitbox.HitBoxSize.Y / 4, 0), new Color4(1.0f, 0.0f, 0.0f, 1.0f), 2.0f);
-
-            //}
-            
+            BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
 
        
 
         public void PhysicsProcess()
         {
+            Velocity.Y -= 0.005f;
+
             camera.position = Position+camera.LocalPosition;
             camera.rotation = Rotation+camera.LocalRotation;
             camera.PhysicsProcess();
@@ -120,9 +113,9 @@ namespace VoxelWorld.Classes
 
 
             // Прыжок и красться
-            if (Input.IsKeyPressed(Input.KeyJump))
+            if (Input.IsJustKeyPressed(Input.KeyJump))
             {
-                Velocity.Y += moveSpeed;
+                Velocity.Y += 0.2f;
             }
             if (Input.IsKeyPressed(Input.KeyCrouch))
             {
@@ -130,7 +123,8 @@ namespace VoxelWorld.Classes
             }
 
             MoveAndCollide();
-            Velocity = new Vector3(0, 0, 0);
+            Velocity.X = 0; Velocity.Z = 0;
+            if (Velocity.Y <= MaxFallVelocity) Velocity.Y = MaxFallVelocity;
         }
 
         private void HandleMouseMove(Vector2 mouseRelative)
@@ -146,6 +140,7 @@ namespace VoxelWorld.Classes
 
         private void MoveAndCollide()
         {
+            // Обработка столкновенний
             if (check((int)(Position.X + Velocity.X+(hitbox.HitBoxSize.X/2)), (int)Position.Y, (int)Position.Z)) Velocity.X = 0;
             if (check((int)Position.X, (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)Position.Z)) Velocity.Y = 0;
             if (check((int)Position.X, (int)Position.Y, (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) Velocity.Z = 0;
@@ -155,30 +150,6 @@ namespace VoxelWorld.Classes
             if (check((int)Position.X, (int)Position.Y, (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) Velocity.Z = 0;
 
             Position += Velocity;
-
-            //int x = (int)Position.X;
-            //int y = (int)Position.Y;
-            //int z = (int)Position.Z;
-
-            //float w = hitbox.HitBoxSize.X;
-            //float h = hitbox.HitBoxSize.Y;
-            //float d = hitbox.HitBoxSize.Z;
-
-            //float size = 1;
-
-            //for (int X = (int)((x - w) / size); X < (x + w) / size; X++)
-            //    for (int Y = (int)((y - h) / size); Y < (y + h) / size; Y++)
-            //        for (int Z = (int)((z - d) / size); Z < (z + d) / size; Z++)
-            //            if (check(X, Y, Z))
-            //            {
-            //                if (Velocity.X > 0) x = (int)(X * size - w);
-            //                if (Velocity.X < 0) x = (int)(X * size + size + w);
-            //                if (Velocity.Y > 0) y = (int)(Y * size - h);
-            //                if (Velocity.Y < 0) { y = (int)(Y * size + size + h); hitbox.IsOnFloor = true; Velocity.Y = 0; }
-            //                if (Velocity.Z > 0) z = (int)(Z * size - d);
-            //                if (Velocity.Z < 0) z = (int)(Z * size + size + d);
-            //            }
-            //Position += Velocity;
         }
         bool check(int X, int Y, int Z)
         {

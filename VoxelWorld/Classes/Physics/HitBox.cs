@@ -3,7 +3,7 @@ using OpenTK;
 
 namespace VoxelWorld.Classes.Physics
 {
-    class HitBox
+    public class HitBox
     {
         public Vector3 HitBoxSize;
         public bool IsOnFloor = false;

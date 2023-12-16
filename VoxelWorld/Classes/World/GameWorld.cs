@@ -7,7 +7,7 @@ using VoxelWorld.Classes.Render.GUIClasses;
 
 namespace VoxelWorld.Classes.World
 {
-    class GameWorld
+    public class GameWorld
     {
         public Chunk[,] Chunks;
 
@@ -56,7 +56,7 @@ namespace VoxelWorld.Classes.World
             if (localCoords.X < 0) localCoords.X = Chunk.ChunkSizeX + localCoords.X; // Если отрицательное значние X
             if (localCoords.Z < 0) localCoords.Z = Chunk.ChunkSizeZ + localCoords.Z; // Если отрицательное значние Y
 
-            if (globalPosition.Y > Chunk.ChunkSizeY) localCoords.Y = Chunk.ChunkSizeY;// Если высота выше размера чанка
+            if (globalPosition.Y > Chunk.ChunkSizeY) localCoords.Y = Chunk.ChunkSizeY-1;// Если высота выше размера чанка
             if (globalPosition.Y < 0) localCoords.Y = 0;// Если высота ниже размера чанка
 
             return EngineMathHelper.FloorVector3(localCoords);

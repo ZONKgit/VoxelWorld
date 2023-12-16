@@ -10,13 +10,17 @@ namespace VoxelWorld.Classes
 {
     public class Camera
     {
+        Player player;
+
         //Элементы UI
         ColorRect crosshair = new ColorRect(new Color4(0f, 0f, 0f, 1f), 0.0006f);
         Text2D text = new Text2D(new Vector2(-19, 9), "Camera position", 0.01f);
         Text2D textRotation = new Text2D(new Vector2(-38, 16), "Camera rotation", 0.005f);
+        Text2D textIsOnFloor = new Text2D(new Vector2(-38, 15), "Camera rotation", 0.005f);
         
-        public Camera()
+        public Camera(Player player)
         {
+            this.player = player;
             Input.OnMouseMove += HandleMouseMove;
         }
 
@@ -41,6 +45,7 @@ namespace VoxelWorld.Classes
 
             text.Ready();
             textRotation.Ready();
+            textIsOnFloor.Ready();
         }
 
         public void RenderProcess()
@@ -53,6 +58,7 @@ namespace VoxelWorld.Classes
             crosshair.RenderProcess();
             text.RenderProcess();
             textRotation.RenderProcess();
+            textIsOnFloor.RenderProcess();
 
             // Применение преобразовний
             GL.LoadIdentity();
@@ -72,6 +78,7 @@ namespace VoxelWorld.Classes
             ).ToString();
             // Вывод поворота
             textRotation.Text = rotation.ToString();
+            textIsOnFloor.Text = player.hitbox.IsOnFloor.ToString();
         }
         private void HandleMouseMove(Vector2 mouseRelative)
         {
