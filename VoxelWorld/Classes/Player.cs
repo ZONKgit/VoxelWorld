@@ -41,42 +41,42 @@ namespace VoxelWorld.Classes
 
             
             // Рейкаст
-            //float angleX = -camera.rotation.Y;
-            //float angleY = -camera.rotation.X;
-            //float angleZ = camera.rotation.Z;
+            float angleX = -camera.rotation.Y;
+            float angleY = -camera.rotation.X;
+            float angleZ = camera.rotation.Z;
 
-            //float x = camera.position.X;
-            //float y = camera.position.Y;
-            //float z = camera.position.Z;
+            float x = camera.position.X;
+            float y = camera.position.Y;
+            float z = camera.position.Z;
 
-            //int X, Y, Z, oldX = 0, oldY = 0, oldZ = 0;
-            //int dist = 0;
-            //while (dist < 120) // радиус действия
-            //{
-            //    dist++;
+            int X, Y, Z, oldX = 0, oldY = 0, oldZ = 0;
+            int dist = 0;
+            while (dist < 120) // радиус действия
+            {
+                dist++;
 
-            //    x += -(float)Math.Sin(angleX / 180 * Math.PI); X = (int)(x / 1f); // Деление на размер блока
-            //    y += (float)Math.Tan(angleY / 180 * Math.PI); Y = (int)(y / 1f);
-            //    z += -(float)Math.Cos(angleX / 180 * Math.PI); Z = (int)(z / 1f);
+                x += -(float)Math.Sin(angleX / 180 * Math.PI); X = (int)(x / 1f); // Деление на размер блока
+                y += (float)Math.Tan(angleY / 180 * Math.PI); Y = (int)(y / 1f);
+                z += -(float)Math.Cos(angleX / 180 * Math.PI); Z = (int)(z / 1f);
 
                 
 
-            //    if (world.CheckBlock(new Vector3(X + 0.5f, Y + 0.5f, Z + 0.5f)))
-            //    {
-            //        BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
-            //        if (Input.IsJustKeyPressed(Input.KeyF))
-            //        {
-            //            world.SetBlock(new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f));
-            //        }
-            //    }
-            //    //BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, FloorVector3(RayPos), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
-            //    oldX = X; oldY = Y; oldZ = Z;
-            //}
+                if (world.CheckBlock(new Vector3(X + 0.5f, Y + 0.5f, Z + 0.5f)))
+                {
+                    BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
+                    if (Input.IsJustKeyPressed(Input.KeyF))
+                    {
+                        world.SetBlock(new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f));
+                    }
+                }
+                //BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, FloorVector3(RayPos), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
+                oldX = X; oldY = Y; oldZ = Z;
+            }
 
 
 
             // Рисование hitbox-а
-            BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
+            //BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
 
        
@@ -153,7 +153,7 @@ namespace VoxelWorld.Classes
                     Velocity.X = 0;
                 }
             }
-            if (Velocity.Y < 0) // +Y
+            if (Velocity.Y > 0) // +Y
             {
                 if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
                 {

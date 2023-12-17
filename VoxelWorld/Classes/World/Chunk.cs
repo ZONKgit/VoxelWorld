@@ -71,8 +71,11 @@ namespace VoxelWorld.Classes.World
 
         public void SetBlock(Vector3 Pos)
         {
-            ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = 1;
-            Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, ChunkData, Position);
+            if (ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] != 1)
+            {
+                ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = 1;
+                Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, ChunkData, Position);
+            }
         }
 
         public void RemoveBlock(Vector3 Pos)

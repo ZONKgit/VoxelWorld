@@ -44,8 +44,16 @@ namespace VoxelWorld.Classes.Render
                 }
             }
 
-            mesh = new Mesh(vertices.ToArray(), colors.ToArray());
-            mesh.ready();
+            if (mesh != null)
+            {
+                mesh.UpdateMesh(vertices.ToArray(), colors.ToArray());
+            }
+            else
+            {
+                mesh = new Mesh(vertices.ToArray(), colors.ToArray());
+                mesh.Ready();
+            }
+
         }
 
         private void GenerateFrontSide(Vector3 Pos, float colorR, float colorB)
@@ -113,7 +121,7 @@ namespace VoxelWorld.Classes.Render
         {
             if (mesh != null)
             {
-                mesh.renderProcess();
+                mesh.RenderProcess();
             } 
         }
 

@@ -1,4 +1,6 @@
 ﻿// Mesh.cs
+
+using System;
 using OpenTK.Graphics.OpenGL;
 
 namespace VoxelWorld.Classes.Render
@@ -37,8 +39,28 @@ namespace VoxelWorld.Classes.Render
             this.vertices = vertices;
             this.colors = colors;
         }
+    
+        public void UpdateMesh(float[] newVertices, float[] newColors)
+        {
+            vertices = newVertices;
+            colors = newColors;
+            // VBO
+            vertexVBO = GL.GenBuffer(); // Запись VBO в переменную
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO); // Активация VBO
+            // Занасенее данных в буффер
+            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
 
-        public void ready()
+            //ColorVBO Тоже самое что и с VBO
+            colorVBO = GL.GenBuffer(); // Запись VBO в переменную
+            GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO); // Активация VBO
+            // Занасенее данных в буффер
+            GL.BufferData(BufferTarget.ArrayBuffer, colors.Length * sizeof(float), colors, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
+        }
+
+        
+        public void Ready()
         {
             // VBO
             vertexVBO = GL.GenBuffer(); // Запись VBO в переменную
@@ -55,7 +77,7 @@ namespace VoxelWorld.Classes.Render
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
         }
 
-        public void renderProcess()
+        public void RenderProcess()
         {
             // Подключение VBO
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO);
