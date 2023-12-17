@@ -83,8 +83,10 @@ namespace VoxelWorld.Classes
 
         public void PhysicsProcess()
         {
-            Velocity.Y -= 0.005f;
-
+            if (!hitbox.IsOnFloor)
+            {
+                Velocity.Y -= 0.005f;
+            }
             camera.position = Position+camera.LocalPosition;
             camera.rotation = Rotation+camera.LocalRotation;
             camera.PhysicsProcess();
@@ -114,9 +116,13 @@ namespace VoxelWorld.Classes
 
 
             // Прыжок и красться
-            if (Input.IsJustKeyPressed(Input.KeyJump))
+            if (Input.IsKeyPressed(Input.KeyJump))
             {
-                Velocity.Y += 0.2f;
+                if (hitbox.IsOnFloor)
+                {
+                    hitbox.IsOnFloor = false;
+                    Velocity.Y += 0.2f;
+                }
             }
             if (Input.IsKeyPressed(Input.KeyCrouch))
             {
@@ -201,11 +207,13 @@ namespace VoxelWorld.Classes
                 if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
                 {
                     Velocity.Y = 0;
+                    hitbox.IsOnFloor = true;
                 }
 
                 if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
                 {
                     Velocity.Y = 0;
+                    hitbox.IsOnFloor = true;
                 }
             }
                
