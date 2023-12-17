@@ -39,6 +39,7 @@ namespace VoxelWorld.Classes
         {
             camera.RenderProcess();
 
+            
             // Рейкаст
             //float angleX = -camera.rotation.Y;
             //float angleY = -camera.rotation.X;
@@ -141,13 +142,92 @@ namespace VoxelWorld.Classes
         private void MoveAndCollide()
         {
             // Обработка столкновенний
-            if (check((int)(Position.X + Velocity.X+(hitbox.HitBoxSize.X/2)), (int)Position.Y, (int)Position.Z)) Velocity.X = 0;
-            if (check((int)Position.X, (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)Position.Z)) Velocity.Y = 0;
-            if (check((int)Position.X, (int)Position.Y, (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) Velocity.Z = 0;
+            if (Velocity.X < 0) //-X
+            {
+                if (check((int)(Position.X + Velocity.X - (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.X = 0;
+                }
+                if (check((int)(Position.X + Velocity.X - (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.X = 0;
+                }
+            }
+            if (Velocity.Y < 0) // +Y
+            {
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.Y = 0;
+                }
 
-            if (check((int)(Position.X + Velocity.X - (hitbox.HitBoxSize.X / 2)), (int)Position.Y, (int)Position.Z)) Velocity.X = 0;
-            if (check((int)Position.X, (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)Position.Z)) Velocity.Y = 0;
-            if (check((int)Position.X, (int)Position.Y, (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) Velocity.Z = 0;
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.Y = 0;
+                }
+            }
+            if (Velocity.Z > 0) //+Z
+            {
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+            }
+
+            if (Velocity.X > 0) //+X
+            {
+                if (check((int)(Position.X + Velocity.X + (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.X = 0;
+                }
+                if (check((int)(Position.X + Velocity.X + (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.X = 0;
+                }
+            }
+            if (Velocity.Y < 0) // -Y
+            {
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.Y = 0;
+                }
+
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.Y = 0;
+                }
+            }
+               
+            if (Velocity.Z < 0) //-Z
+            {
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+            }
 
             Position += Velocity;
         }

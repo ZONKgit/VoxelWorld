@@ -1,4 +1,3 @@
-D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csprojAssemblyReference.cache
 D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.CoreCompileInputs.cache
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\VoxelWorld.exe.config
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\VoxelWorld.exe
@@ -115,3 +114,5 @@ D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\System.Buffers.xml
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\System.Numerics.Vectors.xml
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.pdb
+D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.AssemblyReference.cache
+D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.SuggestedBindingRedirects.cache
