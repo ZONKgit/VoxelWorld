@@ -16,7 +16,7 @@ namespace VoxelWorld.Classes.World
     public int renderDistance = 8;
     private List<Chunk> Chunks = new List<Chunk>();
 
-    private Vector2 oldPlayerChunkPos = new Vector2(0, 0);
+    private Vector2 oldPlayerChunkPos = new Vector2(999, 999);
     public List<Chunk> WaitChunks = new List<Chunk>(); // Чанки которые генерируються в другом потоке
     public Queue<Chunk> ReadyChunks = new Queue<Chunk>(); // Чанки которые уже сгенерировались в другом потоке
     
@@ -28,17 +28,6 @@ namespace VoxelWorld.Classes.World
     
     public void Ready()
     {
-        // Инициализируем массив
-
-        // Заполняем массив
-        for (int x = 0; x < renderDistance; x++)
-        {
-            for (int z = 0; z < renderDistance; z++)
-            {
-                // Создаем новый чанк и добавляем его в лист
-                LoadChunk(x*Chunk.ChunkSizeX,z*Chunk.ChunkSizeZ);
-            }
-        }
     }
     
     // Отрисовка чанков
@@ -62,6 +51,7 @@ namespace VoxelWorld.Classes.World
     
     public void PhysicsProcess()
     {
+        // Загруза чанков
         if (GlobalToChunkCoords(player.Position) != oldPlayerChunkPos)
         {
             Vector2 currentPlayerChunk = GlobalToChunkCoords(player.Position);
@@ -79,6 +69,20 @@ namespace VoxelWorld.Classes.World
             }
             oldPlayerChunkPos = GlobalToChunkCoords(player.Position);
         }
+        // Выгрузка чанков
+        foreach (var chunk in Chunks)
+        {
+            // Получаем позицию чанка
+            Vector2 chunkPosition = chunk.Position;
+
+            // Проверяем, выходит ли чанк за пределы радиуса
+            if (Math.Abs(chunkPosition.X - GlobalToChunkCoords(player.Position).X) > renderDistance || 
+                Math.Abs(chunkPosition.Y - GlobalToChunkCoords(player.Position).Y) > renderDistance)
+            {
+                // Выводим информацию о чанке в консоль
+            }
+        }
+
     }
 
     public void LoadChunk(int x,int z)

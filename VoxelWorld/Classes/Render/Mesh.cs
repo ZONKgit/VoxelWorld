@@ -30,6 +30,8 @@ namespace VoxelWorld.Classes.Render
                 1f,1f,0f,
             };
 
+        int verticesSize;
+        int colorsSize;
 
         int vertexVBO;
         int colorVBO;
@@ -38,43 +40,60 @@ namespace VoxelWorld.Classes.Render
         {
             this.vertices = vertices;
             this.colors = colors;
+            
+            verticesSize = vertices.Length;
+            colorsSize = colors.Length;
         }
     
         public void UpdateMesh(float[] newVertices, float[] newColors)
         {
             vertices = newVertices;
             colors = newColors;
+
+            verticesSize = vertices.Length;
+            colorsSize = colors.Length;
+            
             // VBO
             vertexVBO = GL.GenBuffer(); // Запись VBO в переменную
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO); // Активация VBO
             // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, verticesSize * sizeof(float), vertices, BufferUsageHint.StaticDraw);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
 
             //ColorVBO Тоже самое что и с VBO
             colorVBO = GL.GenBuffer(); // Запись VBO в переменную
             GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO); // Активация VBO
             // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, colors.Length * sizeof(float), colors, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, colorsSize * sizeof(float), colors, BufferUsageHint.StaticDraw);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
+            
+            vertices = null;
+            colors = null;
         }
 
         
         public void Ready()
         {
+            verticesSize = vertices.Length;
+            colorsSize = colors.Length;
+            
             // VBO
             vertexVBO = GL.GenBuffer(); // Запись VBO в переменную
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO); // Активация VBO
                                                                 // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, verticesSize * sizeof(float), vertices, BufferUsageHint.StaticDraw);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
 
             //ColorVBO Тоже самое что и с VBO
             colorVBO = GL.GenBuffer(); // Запись VBO в переменную
             GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO); // Активация VBO
                                                                // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, colors.Length * sizeof(float), colors, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, colorsSize * sizeof(float), colors, BufferUsageHint.StaticDraw);
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
+            
+            
+            vertices = null;
+            colors = null;
         }
 
         public void RenderProcess()
@@ -93,7 +112,7 @@ namespace VoxelWorld.Classes.Render
 
             GL.EnableClientState(ArrayCap.VertexArray);// Разрешение испрользования массива вершин
             GL.EnableClientState(ArrayCap.ColorArray);
-                GL.DrawArrays(BeginMode.Triangles, 0, vertices.Length);
+                GL.DrawArrays(BeginMode.Triangles, 0, verticesSize);
             GL.DisableClientState(ArrayCap.VertexArray);// Выключение отображеия по массиву вершин
             GL.DisableClientState(ArrayCap.ColorArray);
         }
