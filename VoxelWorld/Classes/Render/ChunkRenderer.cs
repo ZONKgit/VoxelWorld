@@ -6,15 +6,23 @@ using VoxelWorld.Classes.World;
 
 namespace VoxelWorld.Classes.Render
 {
-    class ChunkRenderer
+    public class ChunkRenderer
     {
+        public const float blockSize = 1;
+        
         Mesh mesh;
         Random random = new Random(); // Нужен для генерации блоков разных цветов
+        public Chunk chunk;
 
         List<float> vertices = new List<float>();
         List<float> colors = new List<float>();
 
-        public void GenerateChunkMesh(int ChunkSizeX, int ChunkSizeY, int ChunkSizeZ, int[,,] ChunkData, Vector2 ChunkPos)
+        public ChunkRenderer(Chunk chunk)
+        {
+            this.chunk = chunk;
+        }
+        
+        public void GenerateChunkMesh(int ChunkSizeX, int ChunkSizeY, int ChunkSizeZ, Vector2 ChunkPos)
         {
             for (int x = 0; x < ChunkSizeX; x++)
             {
@@ -22,23 +30,23 @@ namespace VoxelWorld.Classes.Render
                 {
                     for (int z = 0; z < ChunkSizeZ; z++)
                     {
-                        if (ChunkData[x, y, z] == 1)
+                        if (chunk.ChunkData[x, y, z] == 1)
                         {
                             float randomR = (float)random.NextDouble();
                             float randomB = (float)random.NextDouble();
 
                             //Front side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x, y, z-1), ChunkData) == 0) GenerateFrontSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y, z-1)) == 0) GenerateFrontSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Back side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x, y , z+1), ChunkData) == 0) GenerateBackSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y , z+1)) == 0) GenerateBackSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Right side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x-1, y, z), ChunkData) == 0) GenerateRightSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
+                            if (chunk.GetBlockAtPosition(new Vector3(x-1, y, z)) == 0) GenerateRightSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Left side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x+1, y, z), ChunkData) == 0) GenerateLeftSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
+                            if (chunk.GetBlockAtPosition(new Vector3(x+1, y, z)) == 0) GenerateLeftSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Top side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x, y+1, z), ChunkData) == 0) GenerateTopSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y+1, z)) == 0) GenerateTopSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                             //Bottom side
-                            if (Chunk.GetBlockAtPosition(new Vector3(x, y-1, z), ChunkData) == 0) GenerateBottomSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y-1, z)) == 0) GenerateBottomSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), randomR, randomB);
                         }
                     }
                 }
@@ -53,7 +61,8 @@ namespace VoxelWorld.Classes.Render
                 mesh = new Mesh(vertices.ToArray(), colors.ToArray());
                 mesh.Ready();
             }
-
+            vertices = null;
+            colors = null;
         }
 
         private void GenerateFrontSide(Vector3 Pos, float colorR, float colorB)
@@ -125,5 +134,13 @@ namespace VoxelWorld.Classes.Render
             } 
         }
 
+        public void Dispose()
+        {
+            mesh.Dispose();
+            random = null;
+            vertices = null;
+            colors = null;
+        }
+        
     }
 }

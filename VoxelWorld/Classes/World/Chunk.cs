@@ -8,18 +8,25 @@ namespace VoxelWorld.Classes.World
     public class Chunk
     {
         Perlin2D Noise = new Perlin2D();
-        ChunkRenderer Renderer = new ChunkRenderer();
+        public ChunkRenderer Renderer;
+        ChunkManager Manager;
 
         // Размеры чанка
         public const int ChunkSizeX = 16;
         public const int ChunkSizeY = 256;
         public const int ChunkSizeZ = 16;
 
-        public Vector2 Position = new Vector2(0, 0); //Позиция чанка по X и Z (Y всегда 0) Кратно размеру чанка
+        public Vector2 Position { get; set; } //Позиция чанка по X и Z (Y всегда 0) Кратно размеру чанка
 
         // Данные чанка
         public int[,,] ChunkData;
 
+        public Chunk(Vector2 Pos, ChunkManager Manager)
+        {
+            Position = Pos;
+            this.Manager = Manager;
+        }
+        
         public void GenerateChunk()
         {
             // Инициализация массива ChunkData
@@ -38,10 +45,12 @@ namespace VoxelWorld.Classes.World
                     }
                 }
             }
-            Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, ChunkData, Position);
+
+            Manager.WaitChunks.Remove(this);
+            Manager.ReadyChunks.Enqueue(this);
         }
 
-        static public int GetBlockAtPosition(Vector3 Pos, int[,,] ChunkData)
+        public int GetBlockAtPosition(Vector3 Pos)
         {
             // Приведем координаты к целочисленному формату
             int x = (int)Pos.X;
@@ -61,7 +70,9 @@ namespace VoxelWorld.Classes.World
 
         public void Ready()
         {
+            Renderer = new ChunkRenderer(this);
             GenerateChunk();
+            Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, Position);
         }
 
         public void RenderProcess()
@@ -69,19 +80,33 @@ namespace VoxelWorld.Classes.World
             Renderer.renderProcess();
         }
 
+        public void UpdateMesh()
+        {
+            Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, Position);
+        }
+        
         public void SetBlock(Vector3 Pos)
         {
             if (ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] != 1)
             {
                 ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = 1;
-                Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, ChunkData, Position);
+                UpdateMesh();
             }
         }
 
         public void RemoveBlock(Vector3 Pos)
         {
             ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = 0;
-            Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, ChunkData, Position);
+            UpdateMesh();
         }
+
+        public void Dispose()// Очищение данных чанка
+        {
+            Noise = null;
+            Renderer.Dispose();
+            Renderer = null;
+            ChunkData = null;
+        }
+        
     }
 }

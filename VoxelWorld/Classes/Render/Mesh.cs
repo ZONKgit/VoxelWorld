@@ -97,5 +97,13 @@ namespace VoxelWorld.Classes.Render
             GL.DisableClientState(ArrayCap.VertexArray);// Выключение отображеия по массиву вершин
             GL.DisableClientState(ArrayCap.ColorArray);
         }
+
+        public void Dispose()
+        {
+            vertices = null;
+            colors = null;
+            GL.DeleteBuffer(vertexVBO);
+            GL.DeleteBuffer(colorVBO);
+        }
     }
 }

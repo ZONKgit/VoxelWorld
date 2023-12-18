@@ -61,12 +61,12 @@ namespace VoxelWorld.Classes
 
                 
 
-                if (world.CheckBlock(new Vector3(X + 0.5f, Y + 0.5f, Z + 0.5f)))
+                if (world.chunkManager.CheckBlock(new Vector3(X + 0.5f, Y + 0.5f, Z + 0.5f)))
                 {
                     BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
                     if (Input.IsJustKeyPressed(Input.KeyF))
                     {
-                        world.SetBlock(new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f));
+                        world.chunkManager.SetBlock(new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f));
                     }
                 }
                 //BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, FloorVector3(RayPos), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
@@ -85,7 +85,7 @@ namespace VoxelWorld.Classes
         {
             if (!hitbox.IsOnFloor)
             {
-                Velocity.Y -= 0.005f;
+                //Velocity.Y -= 0.005f;
             }
             camera.position = Position+camera.LocalPosition;
             camera.rotation = Rotation+camera.LocalRotation;
@@ -118,11 +118,12 @@ namespace VoxelWorld.Classes
             // Прыжок и красться
             if (Input.IsKeyPressed(Input.KeyJump))
             {
-                if (hitbox.IsOnFloor)
-                {
-                    hitbox.IsOnFloor = false;
-                    Velocity.Y += 0.2f;
-                }
+                //if (hitbox.IsOnFloor)
+                //{
+                //    hitbox.IsOnFloor = false;
+                //    Velocity.Y += 0.2f;
+                //}
+                Velocity.Y += 0.2f;
             }
             if (Input.IsKeyPressed(Input.KeyCrouch))
             {
@@ -131,6 +132,7 @@ namespace VoxelWorld.Classes
 
             MoveAndCollide();
             Velocity.X = 0; Velocity.Z = 0;
+            Velocity.Y = 0;
             if (Velocity.Y <= MaxFallVelocity) Velocity.Y = MaxFallVelocity;
         }
 
@@ -241,7 +243,7 @@ namespace VoxelWorld.Classes
         }
         bool check(int X, int Y, int Z)
         {
-            return world.CheckBlock(new Vector3(X, Y, Z));
+            return world.chunkManager.CheckBlock(new Vector3(X, Y, Z));
         }
     }
 }
