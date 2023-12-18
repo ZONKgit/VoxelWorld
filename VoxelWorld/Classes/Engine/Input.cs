@@ -13,6 +13,7 @@ namespace VoxelWorld.Classes.Engine
         public static readonly Key KeyMovmentRight = Key.D;
         public static readonly Key KeyJump = Key.Space;
         public static readonly Key KeyCrouch = Key.LShift;
+        public static readonly Key KeyRun = Key.LControl;
         //Misc Control
         public static readonly Key KeyDebugWireframe = Key.F8;
 

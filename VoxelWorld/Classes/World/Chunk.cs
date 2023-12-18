@@ -46,6 +46,7 @@ namespace VoxelWorld.Classes.World
                 }
             }
 
+            
             Manager.WaitChunks.Remove(this);
             Manager.ReadyChunks.Enqueue(this);
         }
@@ -77,7 +78,7 @@ namespace VoxelWorld.Classes.World
 
         public void RenderProcess()
         {
-            Renderer.renderProcess();
+            if (Renderer != null){Renderer.renderProcess();}
         }
 
         public void UpdateMesh()
