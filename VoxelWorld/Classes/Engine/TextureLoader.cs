@@ -4,9 +4,9 @@ using OpenTK.Graphics.OpenGL;
 
 namespace VoxelWorld.Classes.Engine
 {
-    class TextureLoader
+    static class TextureLoader
     {
-        public int LoadTexture(string file)
+        static public int LoadTexture(string file)
         {
             System.Console.WriteLine("Load texture: {0}", file);
             Bitmap bitmap = new Bitmap(file);

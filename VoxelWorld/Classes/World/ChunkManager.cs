@@ -66,7 +66,6 @@ namespace VoxelWorld.Classes.World
                         // Если нет чанка с такой позицией
                         if (!Chunks.Any(chunk => chunk.Position == new Vector2(x * Chunk.ChunkSizeX, z * Chunk.ChunkSizeZ)))
                         {
-                            Console.WriteLine(currentPlayerChunk);
                             LoadChunk(x*Chunk.ChunkSizeX, z*Chunk.ChunkSizeZ);
                         }
                     }

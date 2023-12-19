@@ -9,8 +9,7 @@ namespace VoxelWorld.Classes.Render.GUIClasses
     class Text2D
     {
         // Загрузка текстуры
-        TextureLoader texLoader = new TextureLoader();
-        int texture;
+        int texture = TextureLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Fonts/Default.png");
 
         public string Text = "Null 2D text";
         float Scale = 0.001f;
@@ -25,7 +24,7 @@ namespace VoxelWorld.Classes.Render.GUIClasses
 
         public void Ready()
         {
-            texture = texLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Fonts/Default.png");
+           
         }
 
         public void RenderProcess()

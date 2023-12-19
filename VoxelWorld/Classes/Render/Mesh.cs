@@ -1,128 +1,82 @@
 ﻿// Mesh.cs
-
 using System;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using System.Runtime.InteropServices;
+using VoxelWorld.Classes.Engine;
 
 namespace VoxelWorld.Classes.Render
 {
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct Vertex
+    {
+        public float X, Y, Z;        // Координаты вершины
+        public float R, G, B, A;     // Цвет (красный, зеленый, синий, альфа)
+        public float U, V;           // Координаты текстуры (UV)
+    }
+
     class Mesh
     {
+        Vertex[] vertices;
+        private int verticesLength;
 
-        float[] vertices =
-            {
-                0,0,1,
-                1,0,1,
-                1,1,1,
+        int vbo;
+        int vao;
 
-                1,0,0,
-                0,1,0,
-                1,1,0,
-            };
-
-        float[] colors =
-            {
-                1f,0f,0f,
-                0f,1f,0f,
-                0f,0f,1f,
-
-                0f,1f,1f,
-                1f,0f,1f,
-                1f,1f,0f,
-            };
-
-        int verticesSize;
-        int colorsSize;
-
-        int vertexVBO;
-        int colorVBO;
-
-        public Mesh(float[] vertices, float[] colors)
+        public Mesh(Vertex[] vertices)
         {
             this.vertices = vertices;
-            this.colors = colors;
-            
-            verticesSize = vertices.Length;
-            colorsSize = colors.Length;
         }
-    
-        public void UpdateMesh(float[] newVertices, float[] newColors)
+
+        public void UpdateMesh(Vertex[] newVertices)
         {
             vertices = newVertices;
-            colors = newColors;
 
-            verticesSize = vertices.Length;
-            colorsSize = colors.Length;
-            
             // VBO
-            vertexVBO = GL.GenBuffer(); // Запись VBO в переменную
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO); // Активация VBO
-            // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, verticesSize * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
+            vbo = GL.GenBuffer(); 
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
+            GL.BufferData(BufferTarget.ArrayBuffer, BlittableValueType.StrideOf(vertices) * vertices.Length, vertices, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
-            //ColorVBO Тоже самое что и с VBO
-            colorVBO = GL.GenBuffer(); // Запись VBO в переменную
-            GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO); // Активация VBO
-            // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, colorsSize * sizeof(float), colors, BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
+            verticesLength = vertices.Length;
             
             vertices = null;
-            colors = null;
         }
 
-        
         public void Ready()
         {
-            verticesSize = vertices.Length;
-            colorsSize = colors.Length;
-            
-            // VBO
-            vertexVBO = GL.GenBuffer(); // Запись VBO в переменную
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO); // Активация VBO
-                                                                // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, verticesSize * sizeof(float), vertices, BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
-
-            //ColorVBO Тоже самое что и с VBO
-            colorVBO = GL.GenBuffer(); // Запись VBO в переменную
-            GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO); // Активация VBO
-                                                               // Занасенее данных в буффер
-            GL.BufferData(BufferTarget.ArrayBuffer, colorsSize * sizeof(float), colors, BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0); // Отключение активного буффера
-            
-            
-            vertices = null;
-            colors = null;
+            UpdateMesh(vertices);
         }
 
         public void RenderProcess()
         {
-            // Подключение VBO
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexVBO);
-            GL.VertexPointer(3, VertexPointerType.Float, 0, 0);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
+            
+            GL.Enable(EnableCap.Texture2D);
+            GL.BindTexture(TextureTarget.Texture2D, Game.BlocksTexture);
+            GL.PushMatrix();
+            
+            
+            GL.VertexPointer(3, VertexPointerType.Float, BlittableValueType.StrideOf(vertices), IntPtr.Zero);
+            GL.ColorPointer(4, ColorPointerType.Float, BlittableValueType.StrideOf(vertices), (IntPtr)(3 * sizeof(float))); // Смещение 3*sizeof(float)
+            GL.TexCoordPointer(2, TexCoordPointerType.Float, BlittableValueType.StrideOf(vertices), (IntPtr)(7 * sizeof(float))); // Смещение 7*sizeof(float)
 
-            // Подключение colorVBO
-            GL.BindBuffer(BufferTarget.ArrayBuffer, colorVBO);
-            GL.ColorPointer(3, ColorPointerType.Float, 0, 0);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            GL.EnableClientState(ArrayCap.VertexArray);
+            //GL.EnableClientState(ArrayCap.ColorArray);
+            GL.EnableClientState(ArrayCap.TextureCoordArray);
 
+            GL.DrawArrays(BeginMode.Triangles, 0, verticesLength);
 
-            GL.EnableClientState(ArrayCap.VertexArray);// Разрешение испрользования массива вершин
-            GL.EnableClientState(ArrayCap.ColorArray);
-                GL.DrawArrays(BeginMode.Triangles, 0, verticesSize);
-            GL.DisableClientState(ArrayCap.VertexArray);// Выключение отображеия по массиву вершин
-            GL.DisableClientState(ArrayCap.ColorArray);
+            GL.DisableClientState(ArrayCap.VertexArray);
+            //GL.DisableClientState(ArrayCap.ColorArray);
+            GL.DisableClientState(ArrayCap.TextureCoordArray);
         }
 
         public void Dispose()
         {
             vertices = null;
-            colors = null;
-            GL.DeleteBuffer(vertexVBO);
-            GL.DeleteBuffer(colorVBO);
+            GL.DeleteBuffer(vbo);
         }
     }
 }

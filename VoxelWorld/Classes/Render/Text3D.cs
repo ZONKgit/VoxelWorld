@@ -6,13 +6,11 @@ namespace VoxelWorld.Classes.Render
 {
     class Text3D
     {
-        TextureLoader texLoader = new TextureLoader();
-
         int texture;
 
         public void Ready()
         {
-            texture = texLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Fonts/Default.png");
+            texture = TextureLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Fonts/Default.png");
         }
 
         public void RenderProcess()
