@@ -135,11 +135,12 @@
     <Compile Include="Classes\Engine\EngineMathHelper.cs" />
     <Compile Include="Classes\Engine\PerlinNoise.cs" />
     <Compile Include="Classes\Engine\TextureLoader.cs" />
-    <Compile Include="Classes\Engine\VoxelWorld.cs" />
+    <Compile Include="Classes\Engine\Game.cs" />
     <Compile Include="Classes\Physics\HitBox.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Render\BoxEdges.cs" />
     <Compile Include="Classes\Render\ChunkRenderer.cs" />
+    <Compile Include="Classes\Render\GUIManager.cs" />
     <Compile Include="Classes\Render\Line3D.cs" />
     <Compile Include="Classes\Render\Text3D.cs" />
     <Compile Include="Classes\Render\GUI.cs" />

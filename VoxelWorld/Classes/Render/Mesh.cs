@@ -41,6 +41,7 @@ namespace VoxelWorld.Classes.Render
             verticesLength = vertices.Length;
             
             vertices = null;
+            
         }
 
         public void Ready()
@@ -50,27 +51,28 @@ namespace VoxelWorld.Classes.Render
 
         public void RenderProcess()
         {
+            
+            
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
             
             GL.Enable(EnableCap.Texture2D);
             GL.BindTexture(TextureTarget.Texture2D, Game.BlocksTexture);
-            GL.PushMatrix();
-            
             
             GL.VertexPointer(3, VertexPointerType.Float, BlittableValueType.StrideOf(vertices), IntPtr.Zero);
             GL.ColorPointer(4, ColorPointerType.Float, BlittableValueType.StrideOf(vertices), (IntPtr)(3 * sizeof(float))); // Смещение 3*sizeof(float)
             GL.TexCoordPointer(2, TexCoordPointerType.Float, BlittableValueType.StrideOf(vertices), (IntPtr)(7 * sizeof(float))); // Смещение 7*sizeof(float)
 
             GL.EnableClientState(ArrayCap.VertexArray);
-            //GL.EnableClientState(ArrayCap.ColorArray);
+            GL.EnableClientState(ArrayCap.ColorArray);
             GL.EnableClientState(ArrayCap.TextureCoordArray);
 
             GL.DrawArrays(BeginMode.Triangles, 0, verticesLength);
 
             GL.DisableClientState(ArrayCap.VertexArray);
-            //GL.DisableClientState(ArrayCap.ColorArray);
+            GL.DisableClientState(ArrayCap.ColorArray);
             GL.DisableClientState(ArrayCap.TextureCoordArray);
+            
         }
 
         public void Dispose()

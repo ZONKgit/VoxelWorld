@@ -7,6 +7,10 @@ namespace VoxelWorld.Classes.Engine
     {
         Dictionary<string, int[]> Blocks = new Dictionary<string, int[]>();
         public static int BlocksTexture = TextureLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Textures/terrain.png");
+        public static int FontTexture = TextureLoader.LoadTexture("D:/Desktop/C#/VoxelWorld/Res/Fonts/default.png");
+        
+        public static Player player;
+        public static Camera camera;
         
         private static Game instance;
 

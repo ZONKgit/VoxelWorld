@@ -81,8 +81,8 @@ namespace VoxelWorld.Classes.World
                 Vector2 chunkPosition = Chunks[i].Position;
             
                 // Проверяем, выходит ли чанк за пределы радиуса
-                if (Math.Abs(chunkPosition.X - player.Position.X) > renderDistance*Chunk.ChunkSizeX ||
-                    Math.Abs(chunkPosition.Y - player.Position.Z) > renderDistance*Chunk.ChunkSizeZ)
+                if (Math.Abs(chunkPosition.X - player.Position.X) > renderDistance*Chunk.ChunkSizeX*2 ||
+                    Math.Abs(chunkPosition.Y - player.Position.Z) > renderDistance*Chunk.ChunkSizeZ*2)
                 {
                     Chunks.RemoveAt(i);
                     i--; // Уменьшаем i, чтобы не пропустить следующий элемент после удаления

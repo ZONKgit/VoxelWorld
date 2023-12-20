@@ -11,12 +11,6 @@ namespace VoxelWorld.Classes
     public class Camera
     {
         Player player;
-
-        //Элементы UI
-        ColorRect crosshair = new ColorRect(new Color4(0f, 0f, 0f, 1f), 0.0006f);
-        Text2D text = new Text2D(new Vector2(-19, 9), "Camera position", 0.01f);
-        Text2D textRotation = new Text2D(new Vector2(-38, 16), "Camera rotation", 0.005f);
-        Text2D textIsOnFloor = new Text2D(new Vector2(-38, 15), "Camera rotation", 0.005f);
         
         public Camera(Player player)
         {
@@ -32,6 +26,8 @@ namespace VoxelWorld.Classes
 
         public void Ready()
         {
+            Game.camera = this;
+            
             GL.Enable(EnableCap.DepthTest); // Включение буффера глубины
 
             GL.LoadIdentity();
@@ -41,11 +37,6 @@ namespace VoxelWorld.Classes
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(ref perspective);
             GL.MatrixMode(MatrixMode.Modelview);
-
-
-            text.Ready();
-            textRotation.Ready();
-            textIsOnFloor.Ready();
         }
 
         public void RenderProcess()
@@ -53,13 +44,8 @@ namespace VoxelWorld.Classes
             GL.ClearColor(new Color4(0.7f, 0.7f, 1f, 1.0f)); // Очищение экрана цветом...
             GL.Clear(ClearBufferMask.ColorBufferBit);
             GL.Clear(ClearBufferMask.DepthBufferBit); // Очищение буффера глубины
-
-            // Рендер GUI Объектов
-            crosshair.RenderProcess();
-            text.RenderProcess();
-            textRotation.RenderProcess();
-            textIsOnFloor.RenderProcess();
-
+            
+            
             // Применение преобразовний
             GL.LoadIdentity();
             GL.Rotate(rotation.X, 1f, 0f, 0f);
@@ -70,15 +56,7 @@ namespace VoxelWorld.Classes
 
         public void PhysicsProcess()
         {
-            // Вывод позиции
-            text.Text = new Vector3(
-                (float)Math.Round(position.X),
-                (float)Math.Round(position.Y),
-                (float)Math.Round(position.Z)
-            ).ToString();
-            // Вывод поворота
-            textRotation.Text = rotation.ToString();
-            textIsOnFloor.Text = player.hitbox.IsOnFloor.ToString();
+
         }
         private void HandleMouseMove(Vector2 mouseRelative)
         {

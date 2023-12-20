@@ -40,8 +40,6 @@ namespace VoxelWorld.Classes.Render
         }
 
 
-
-
         
         public void GenerateChunkMesh(int ChunkSizeX, int ChunkSizeY, int ChunkSizeZ, Vector2 ChunkPos)
         {
@@ -53,23 +51,23 @@ namespace VoxelWorld.Classes.Render
                     {
                         if (chunk.ChunkData[x, y, z] == 1)
                         {
-                            float colorR = 0;
-                            float colorG = 0;
-                            float colorB = 0;
-                            float colorA = 0;
+                            float colorR = 1f;
+                            float colorG = 1f;
+                            float colorB = 1f;
+                            float colorA = 1f;
 
                             //Front side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y, z-1)) == 0) GenerateFrontSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(3));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y, z-1)) == 0) GenerateFrontSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(1));
                             //Back side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y , z+1)) == 0) GenerateBackSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(3));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y , z+1)) == 0) GenerateBackSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.1f, colorG-0.1f, colorB-0.1f, colorA, IDToUVCoords(1));
                             //Right side
-                            if (chunk.GetBlockAtPosition(new Vector3(x-1, y, z)) == 0) GenerateRightSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(3));
+                            if (chunk.GetBlockAtPosition(new Vector3(x-1, y, z)) == 0) GenerateRightSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.1f, colorG-0.1f, colorB-0.1f, colorA, IDToUVCoords(1));
                             //Left side
-                            if (chunk.GetBlockAtPosition(new Vector3(x+1, y, z)) == 0) GenerateLeftSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(3));
+                            if (chunk.GetBlockAtPosition(new Vector3(x+1, y, z)) == 0) GenerateLeftSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(1));
                             //Top side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y+1, z)) == 0) GenerateTopSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(0));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y+1, z)) == 0) GenerateTopSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(1));
                             //Bottom side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y-1, z)) == 0) GenerateBottomSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(2));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y-1, z)) == 0) GenerateBottomSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.1f, colorG-0.1f, colorB-0.1f, colorA, IDToUVCoords(1));
                         }
                     }
                 }
@@ -173,6 +171,7 @@ private void GenerateLeftSide(Vector3 Pos, float colorR, float colorG, float col
             {
                 mesh.RenderProcess();
             } 
+            
         }
 
         public void Dispose()

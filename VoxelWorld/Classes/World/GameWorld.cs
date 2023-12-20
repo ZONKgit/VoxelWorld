@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Render;
@@ -11,6 +12,7 @@ namespace VoxelWorld.Classes.World
     {
         Player player; // Создание игрока
         public ChunkManager chunkManager;
+        private GUIManager guiManager = new GUIManager();
 
         public void Ready()
         {
@@ -18,16 +20,19 @@ namespace VoxelWorld.Classes.World
             player.Ready();
             chunkManager = new ChunkManager(player);
             chunkManager.Ready();
+            guiManager.Ready();
         }
         public void RenderProcess()
         {
             player.RenderProcess();
             chunkManager.RenderProcess();
+            guiManager.RenderProcess();
         }
         public void PhysicsProcess()
         {
             player.PhysicsProcess();
             chunkManager.PhysicsProcess();
+            //guiManager.RenderProcess();
         }
 
         public void OnResizeWindow(EventArgs e)

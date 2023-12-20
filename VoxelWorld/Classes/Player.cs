@@ -22,7 +22,7 @@ namespace VoxelWorld.Classes
         public Vector3 Velocity = new Vector3(0, 0, 0);
 
         public float moveSpeed = 0.1f;
-
+    
         public Player(GameWorld world)
         {
             this.world = world;
@@ -31,6 +31,7 @@ namespace VoxelWorld.Classes
 
         public void Ready()
         {
+            Game.player = this;
             camera = new Camera(this);
             camera.Ready();
         }
@@ -76,7 +77,7 @@ namespace VoxelWorld.Classes
 
 
             // Рисование hitbox-а
-            BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
+            //BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
 
        
