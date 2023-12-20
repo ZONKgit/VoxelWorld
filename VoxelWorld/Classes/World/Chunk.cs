@@ -39,7 +39,7 @@ namespace VoxelWorld.Classes.World
                 {
                     for (int z = 0; z < ChunkSizeZ; z++)
                     {
-                        float noiseValue = Noise.GetNoiseValue(new Vector2(x, z)) * 6 + 3;
+                        float noiseValue = Noise.GetNoiseValue(new Vector2(x+Position.X, z+Position.Y)) * 6 + 3;
                         int _y = (int)noiseValue;
                         if (y <= _y) ChunkData[x, y, z] = 1;
                     }

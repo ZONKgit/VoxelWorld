@@ -59,15 +59,15 @@ namespace VoxelWorld.Classes.Render
                             //Front side
                             if (chunk.GetBlockAtPosition(new Vector3(x, y, z-1)) == 0) GenerateFrontSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(1));
                             //Back side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y , z+1)) == 0) GenerateBackSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.1f, colorG-0.1f, colorB-0.1f, colorA, IDToUVCoords(1));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y , z+1)) == 0) GenerateBackSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.5f, colorG-0.5f, colorB-0.1f, colorA, IDToUVCoords(1));
                             //Right side
-                            if (chunk.GetBlockAtPosition(new Vector3(x-1, y, z)) == 0) GenerateRightSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.1f, colorG-0.1f, colorB-0.1f, colorA, IDToUVCoords(1));
+                            if (chunk.GetBlockAtPosition(new Vector3(x-1, y, z)) == 0) GenerateRightSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.5f, colorG-0.5f, colorB-0.1f, colorA, IDToUVCoords(1));
                             //Left side
                             if (chunk.GetBlockAtPosition(new Vector3(x+1, y, z)) == 0) GenerateLeftSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(1));
                             //Top side
                             if (chunk.GetBlockAtPosition(new Vector3(x, y+1, z)) == 0) GenerateTopSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(1));
                             //Bottom side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y-1, z)) == 0) GenerateBottomSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.1f, colorG-0.1f, colorB-0.1f, colorA, IDToUVCoords(1));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y-1, z)) == 0) GenerateBottomSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.5f, colorG-0.5f, colorB-0.1f, colorA, IDToUVCoords(1));
                         }
                     }
                 }

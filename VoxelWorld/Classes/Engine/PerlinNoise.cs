@@ -1,18 +1,14 @@
 ﻿using System;
 using OpenTK;
+using SimplexNoise;
 
 namespace VoxelWorld.Classes.Engine
 {
     class Perlin2D
     {
         public float GetNoiseValue(Vector2 Pos)
-        {
-            // Инициализация генератора случайных чисел
-            Random random = new Random();
-
-            // Генерация случайного числа от 0 до 1
-            double randomNumber = random.NextDouble();
-            return (float)randomNumber;
+        {   
+            return SimplexNoise.Noise.CalcPixel2D((int)Pos.X, (int)Pos.Y, 0.02f)/255;
         }
     }
 }
