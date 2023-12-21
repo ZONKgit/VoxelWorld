@@ -7,9 +7,9 @@ namespace VoxelWorld.Classes.Engine
     {
         public static Vector3 FloorVector3(Vector3 vector)
         {
-            float x = (float)Math.Floor(vector.X);
-            float y = (float)Math.Floor(vector.Y);
-            float z = (float)Math.Floor(vector.Z);
+            float x = (int)vector.X;
+            float y = (int)vector.Y;
+            float z = (int)vector.Z;
 
             return new Vector3(x, y, z);
         }

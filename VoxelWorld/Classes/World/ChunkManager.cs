@@ -13,13 +13,14 @@ namespace VoxelWorld.Classes.World
     public class ChunkManager
     {
         public Player player;
-        public int renderDistance = 4;
+        public int renderDistance = 8;
         private List<Chunk> Chunks = new List<Chunk>();
 
         private Vector2 oldPlayerChunkPos = new Vector2(999, 999);
         public List<Chunk> WaitChunks = new List<Chunk>(); // Чанки которые генерируються в другом потоке
         public Queue<Chunk> ReadyChunks = new Queue<Chunk>(); // Чанки которые уже сгенерировались в другом потоке
-
+        private object chunksLock = new object();
+        
         public ChunkManager(Player player)
         {
             this.player = player;
@@ -28,6 +29,7 @@ namespace VoxelWorld.Classes.World
 
         public void Ready()
         {
+           
         }
 
         // Отрисовка чанков
@@ -56,7 +58,7 @@ namespace VoxelWorld.Classes.World
             if (GlobalToChunkCoords(player.Position) != oldPlayerChunkPos)
             {
                 Vector2 currentPlayerChunk = GlobalToChunkCoords(player.Position);
-
+            
                 for (int x = (int)currentPlayerChunk.X - renderDistance; x < currentPlayerChunk.X + renderDistance; x++)
                 {
                     for (int z = (int)currentPlayerChunk.Y - renderDistance;
@@ -64,13 +66,13 @@ namespace VoxelWorld.Classes.World
                          z++)
                     {
                         // Если нет чанка с такой позицией
-                        if (!Chunks.Any(chunk => chunk.Position == new Vector2(x * Chunk.ChunkSizeX, z * Chunk.ChunkSizeZ)))
+                        if (!Chunks.Any(chunk => chunk.Position == new Vector2(x, z)))
                         {
-                            LoadChunk(x*Chunk.ChunkSizeX, z*Chunk.ChunkSizeZ);
+                            LoadChunk(x, z);
                         }
                     }
                 }
-
+            
                 oldPlayerChunkPos = GlobalToChunkCoords(player.Position);
             }
             
@@ -81,8 +83,8 @@ namespace VoxelWorld.Classes.World
                 Vector2 chunkPosition = Chunks[i].Position;
             
                 // Проверяем, выходит ли чанк за пределы радиуса
-                if (Math.Abs(chunkPosition.X - player.Position.X) > renderDistance*Chunk.ChunkSizeX*2 ||
-                    Math.Abs(chunkPosition.Y - player.Position.Z) > renderDistance*Chunk.ChunkSizeZ*2)
+                if (Math.Abs(chunkPosition.X - GlobalToChunkCoords(player.Position).X) > renderDistance+1 ||
+                    Math.Abs(chunkPosition.Y - GlobalToChunkCoords(player.Position).Y) > renderDistance+1)
                 {
                     Chunks.RemoveAt(i);
                     i--; // Уменьшаем i, чтобы не пропустить следующий элемент после удаления
@@ -94,26 +96,26 @@ namespace VoxelWorld.Classes.World
 
         public void LoadChunk(int x, int z)
         {
-            // Создаем новый чанк и добавляем его в лист
             Chunk newChunk = new Chunk(new Vector2(x, z), this);
-            WaitChunks.Add(newChunk);
-            Task.Run(() => newChunk.GenerateChunk());
-            //Chunks.Add(newChunk);
-            //newChunk.Ready();
+
+            lock (chunksLock)
+            {
+                // Проверяем, нет ли уже чанка с такой позицией
+                if (!Chunks.Any(chunk => chunk.Position == new Vector2(x * Chunk.ChunkSizeX, z * Chunk.ChunkSizeZ)))
+                {
+                    WaitChunks.Add(newChunk);
+                    Task.Run(() => newChunk.GenerateChunk());
+                }
+            }
         }
 
         // Конвертирует мировые координаты в координаты внутри чанка
         public Vector3 GlobalToLocalCoords(Vector3 globalPosition)
         {
-            Vector3 localCoords = new Vector3(globalPosition.X % 16, globalPosition.Y % 16, globalPosition.Z % 16);
-            if (localCoords.X < 0) localCoords.X = Chunk.ChunkSizeX + localCoords.X; // Если отрицательное значние X
-            if (localCoords.Z < 0) localCoords.Z = Chunk.ChunkSizeZ + localCoords.Z; // Если отрицательное значние Y
+            Vector2 chunkCoords = GlobalToChunkCoords(globalPosition);
+            
 
-            if (globalPosition.Y > Chunk.ChunkSizeY)
-                localCoords.Y = Chunk.ChunkSizeY - 1; // Если высота выше размера чанка
-            if (globalPosition.Y < 0) localCoords.Y = 0; // Если высота ниже размера чанка
-
-            return EngineMathHelper.FloorVector3(localCoords);
+            return new Vector3(globalPosition.X - chunkCoords.X * Chunk.ChunkSizeX, globalPosition.Y, globalPosition.Z - chunkCoords.Y * Chunk.ChunkSizeZ);
         }
         
 
@@ -125,6 +127,7 @@ namespace VoxelWorld.Classes.World
 
             return new Vector2(chunkX, chunkZ);
         }
+
 
         // Устанавливает блок в позиции...
         public void SetBlock(Vector3 Pos)
@@ -149,13 +152,18 @@ namespace VoxelWorld.Classes.World
             {
                 if (chunk.Position == chunkCoords) return chunk;
             }
-
+            
             return Chunks[0];
         }
         // Есть ли чанк в позиции...
         public bool HasChunk(Vector2 chunkCoords)
         {
-            return (Chunks.Any(chunk => chunk.Position == new Vector2(chunkCoords.X, chunkCoords.Y)));
+            foreach (var chunk in Chunks)
+            {
+                if (chunk.Position == chunkCoords) return true;
+            }
+            
+            return false;
         }
 
         // Возвращает блок в позиции...
@@ -163,24 +171,42 @@ namespace VoxelWorld.Classes.World
         {
             Vector2 chunkCoords = GlobalToChunkCoords(globalPosition);
             Vector3 localCoords = GlobalToLocalCoords(globalPosition);
+            
+            
+            if (HasChunk(chunkCoords))
+            {
+                foreach (var chunk in Chunks)
+                {
+                    if (chunk.Position == chunkCoords)
+                    {
+                        //Console.WriteLine(chunk.ChunkData[(int)localCoords.X, (int)localCoords.Y, (int)localCoords.Z]);
+                        break;
+                    }
+                }
+                return GetChunk(chunkCoords).GetBlockAtPosition(localCoords);
+            }
 
-            return GetChunk(chunkCoords).GetBlockAtPosition(localCoords);
+            return 0;
         }
 
+        //FIXME
         // Проверяет есть ли блок в позиции...
         public bool CheckBlock(Vector3 GlobalPos)
         {
-            Vector3 localCoords = GlobalToLocalCoords(GlobalPos);
             Vector2 chunkCoords = GlobalToChunkCoords(GlobalPos);
             if (HasChunk(chunkCoords))
             {
+                Vector3 localCoords = GlobalToLocalCoords(GlobalPos);
+                
+                
+                
                 if (GetChunk(chunkCoords).GetBlockAtPosition(localCoords) != 0)
                 {
-                    return true;
+                    return true;// Блок есть
                 }
-                return false;
+                return false;// Блока нету
             }
-            return false;
+            return false; // Чанка нету
         }
     }
 }

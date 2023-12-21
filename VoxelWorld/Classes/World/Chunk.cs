@@ -16,7 +16,7 @@ namespace VoxelWorld.Classes.World
         public const int ChunkSizeY = 256;
         public const int ChunkSizeZ = 16;
 
-        public Vector2 Position { get; set; } //Позиция чанка по X и Z (Y всегда 0) Кратно размеру чанка
+        public Vector2 Position { get; set; } //Позиция чанка по X и Z (Y всегда 0)
 
         // Данные чанка
         public int[,,] ChunkData;
@@ -27,7 +27,7 @@ namespace VoxelWorld.Classes.World
             this.Manager = Manager;
         }
         
-        public void GenerateChunk()
+        public void GenerateChunk() // Эта функция выполняеться в отдельном потоке
         {
             // Инициализация массива ChunkData
             ChunkData = new int[ChunkSizeX, ChunkSizeY, ChunkSizeZ];
@@ -39,7 +39,7 @@ namespace VoxelWorld.Classes.World
                 {
                     for (int z = 0; z < ChunkSizeZ; z++)
                     {
-                        float noiseValue = Noise.GetNoiseValue(new Vector2(x+Position.X, z+Position.Y)) * 6 + 3;
+                        float noiseValue = Noise.GetNoiseValue(new Vector2(Position.X*ChunkSizeX+x, Position.Y*ChunkSizeZ+z)) * 6 + 3;
                         int _y = (int)noiseValue;
                         if (y <= _y) ChunkData[x, y, z] = 1;
                     }

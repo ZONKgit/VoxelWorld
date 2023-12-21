@@ -11,7 +11,7 @@ namespace VoxelWorld.Classes
 {
     public class Player
     {
-        GameWorld world;
+        public GameWorld world;
         Camera camera;
         public HitBox hitbox = new HitBox(new Vector3(0.5f,1.8f,0.5f));
 
@@ -62,14 +62,14 @@ namespace VoxelWorld.Classes
 
                 
 
-                if (world.chunkManager.CheckBlock(new Vector3(X + 0.5f, Y + 0.5f, Z + 0.5f)))
-                {
-                    BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
-                    if (Input.IsJustKeyPressed(Input.KeyF))
-                    {
-                        world.chunkManager.SetBlock(new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f));
-                    }
-                }
+                // if (world.chunkManager.CheckBlock(new Vector3(X + 0.5f, Y + 0.5f, Z + 0.5f)))
+                // {
+                //     BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
+                //     if (Input.IsJustKeyPressed(Input.KeyF))
+                //     {
+                //         world.chunkManager.SetBlock(new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f));
+                //     }
+                // }
                 //BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, FloorVector3(RayPos), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
                 oldX = X; oldY = Y; oldZ = Z;
             }
@@ -77,7 +77,7 @@ namespace VoxelWorld.Classes
 
 
             // Рисование hitbox-а
-            //BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
+            BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
 
        
@@ -249,7 +249,7 @@ namespace VoxelWorld.Classes
         }
         bool check(int X, int Y, int Z)
         {
-            return world.chunkManager.CheckBlock(new Vector3(X, Y, Z));
+            return world.chunkManager.CheckBlock(new Vector3(X,Y,Z));
         }
     }
 }

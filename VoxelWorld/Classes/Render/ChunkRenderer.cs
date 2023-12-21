@@ -57,17 +57,17 @@ namespace VoxelWorld.Classes.Render
                             float colorA = 1f;
 
                             //Front side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y, z-1)) == 0) GenerateFrontSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(4));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y, z-1)) == 0) GenerateFrontSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(4));
                             //Back side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y , z+1)) == 0) GenerateBackSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.5f, colorG-0.5f, colorB-0.1f, colorA, IDToUVCoords(4));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y , z+1)) == 0) GenerateBackSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(4));
                             //Right side
-                            if (chunk.GetBlockAtPosition(new Vector3(x-1, y, z)) == 0) GenerateRightSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.5f, colorG-0.5f, colorB-0.1f, colorA, IDToUVCoords(4));
+                            if (chunk.GetBlockAtPosition(new Vector3(x-1, y, z)) == 0) GenerateRightSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(4));
                             //Left side
-                            if (chunk.GetBlockAtPosition(new Vector3(x+1, y, z)) == 0) GenerateLeftSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(4));
+                            if (chunk.GetBlockAtPosition(new Vector3(x+1, y, z)) == 0) GenerateLeftSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(4));
                             //Top side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y+1, z)) == 0) GenerateTopSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR, colorG, colorB, colorA, IDToUVCoords(1));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y+1, z)) == 0) GenerateTopSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(1));
                             //Bottom side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y-1, z)) == 0) GenerateBottomSide(new Vector3(ChunkPos.X + x, y, ChunkPos.Y + z), colorR-0.5f, colorG-0.5f, colorB-0.1f, colorA, IDToUVCoords(2));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y-1, z)) == 0) GenerateBottomSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB-0.1f, colorA, IDToUVCoords(2));
                         }
                     }
                 }
@@ -85,52 +85,52 @@ namespace VoxelWorld.Classes.Render
             vertices = null;
         }
 
-private void GenerateFrontSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
-{
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+    private void GenerateFrontSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
+    {
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
 
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-}
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+    }
 
-private void GenerateBackSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
-{
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+    private void GenerateBackSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
+    {
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
 
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
 
-    
-}
+        
+    }
 
-private void GenerateRightSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
-{
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+    private void GenerateRightSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
+    {
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
 
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-    vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
 
-}
+    }
 
-private void GenerateLeftSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
-{
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+    private void GenerateLeftSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
+    {
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
 
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-    vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-}
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+    }
 
 
 

@@ -27,8 +27,8 @@ namespace VoxelWorld.Classes.Render
             // Ширина линий
             GL.LineWidth(2.0f);
             // Backface Culling
-            //GL.Enable(EnableCap.CullFace);  // Включить отсечение граней
-            //GL.CullFace(CullFaceMode.Back); // Указать, что нужно отсекать задние грани
+            GL.Enable(EnableCap.CullFace);  // Включить отсечение граней
+            GL.CullFace(CullFaceMode.Back); // Указать, что нужно отсекать задние грани
             // Alpha канал
             GL.Enable(EnableCap.Blend);// Смешивание цветов
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha); // Настройка смешивания

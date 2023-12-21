@@ -13,7 +13,8 @@ namespace VoxelWorld.Classes.World
         Player player; // Создание игрока
         public ChunkManager chunkManager;
         private GUIManager guiManager = new GUIManager();
-
+        
+        
         public void Ready()
         {
             player = new Player(this);
