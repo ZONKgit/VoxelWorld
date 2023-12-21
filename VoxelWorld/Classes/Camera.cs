@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -52,8 +53,45 @@ namespace VoxelWorld.Classes
             GL.Rotate(rotation.Y, 0f, 1f, 0f);
             GL.Rotate(rotation.Z, 0f, 0f, 1f);
             GL.Translate(-position);
+            
+            
+            //DebugCroshair
+            //DebugDrawCrosshair();
         }
 
+        void DebugDrawCrosshair()
+        {
+            float angleX = -rotation.Y;
+            float angleY = -rotation.X;
+            float angleZ = rotation.Z;
+            
+            float x1 = position.X;
+            float y1 = position.Y;
+            float z1 = position.Z;
+
+            float dist = 0.1f;
+   
+            float x2 = x1 + -(float)Math.Sin(angleX / 180 * Math.PI) * dist;
+            float y2 = y1 + (float)Math.Tan(angleY / 180 * Math.PI) * dist;
+            float z2 = z1 + -(float)Math.Cos(angleX / 180 * Math.PI) * dist;
+            
+            
+            GL.LineWidth(2); // Толщина линий
+            GL.Begin(PrimitiveType.Lines);
+            
+            GL.Color4(Color.Red);
+            GL.Vertex3(0 + x2, -0 + y2, 0 + z2);
+            GL.Vertex3(0.01 + x2, -0 + y2, 0 + z2);
+            GL.Color4(Color.Green);
+            GL.Vertex3(0 + x2, 0 + y2, 0 + z2);
+            GL.Vertex3(0 + x2, 0.01 + y2, 0 + z2);
+            GL.Color4(Color.Blue);
+            GL.Vertex3(0 + x2, 0 + y2, 0 + z2);
+            GL.Vertex3(0 + x2, 0 + y2, 0.01 + z2);
+           
+
+            GL.End();
+        }
         public void PhysicsProcess()
         {
 

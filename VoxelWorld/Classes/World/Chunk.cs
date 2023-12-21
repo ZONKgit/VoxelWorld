@@ -88,6 +88,7 @@ namespace VoxelWorld.Classes.World
         
         public void SetBlock(Vector3 Pos)
         {
+            Console.WriteLine(Pos);
             if (ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] != 1)
             {
                 ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = 1;

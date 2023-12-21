@@ -36,6 +36,7 @@ namespace VoxelWorld.Classes
             camera.Ready();
         }
 
+        
         public void RenderProcess()
         {
             camera.RenderProcess();
@@ -46,48 +47,30 @@ namespace VoxelWorld.Classes
             float angleY = -camera.rotation.X;
             float angleZ = camera.rotation.Z;
 
-            float x = camera.position.X;
-            float y = camera.position.Y;
-            float z = camera.position.Z;
+            float x1 = camera.position.X;
+            float y1 = camera.position.Y;
+            float z1 = camera.position.Z;
 
-            int X, Y, Z, oldX = 0, oldY = 0, oldZ = 0;
-            int dist = 0;
-            while (dist < 120) // радиус действия
-            {
-                dist++;
-
-                x += -(float)Math.Sin(angleX / 180 * Math.PI); X = (int)(x / 1f); // Деление на размер блока
-                y += (float)Math.Tan(angleY / 180 * Math.PI); Y = (int)(y / 1f);
-                z += -(float)Math.Cos(angleX / 180 * Math.PI); Z = (int)(z / 1f);
-
-                
-
-                // if (world.chunkManager.CheckBlock(new Vector3(X + 0.5f, Y + 0.5f, Z + 0.5f)))
-                // {
-                //     BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
-                //     if (Input.IsJustKeyPressed(Input.KeyF))
-                //     {
-                //         world.chunkManager.SetBlock(new Vector3(oldX + 0.5f, oldY + 0.5f, oldZ + 0.5f));
-                //     }
-                // }
-                //BoxEdges.DrawBoxEdges(new Vector3(1f, 1f, 1f) / 2, FloorVector3(RayPos), new Color4(0.0f, 0.0f, 1.0f, 1.0f), 2.0f);
-                oldX = X; oldY = Y; oldZ = Z;
-            }
-
-
-
+            int dist = 5;
+   
+            float x2 = x1 + -(float)Math.Sin(angleX / 180 * Math.PI) * dist;
+            float y2 = y1 + (float)Math.Tan(angleY / 180 * Math.PI) * dist;
+            float z2 = z1 + -(float)Math.Cos(angleX / 180 * Math.PI) * dist;
+            
+            //BoxEdges.DrawBoxEdges(new Vector3(1f/2,1f/2,1f/2), new Vector3(x2,y2,z2), new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f);  
+            
             // Рисование hitbox-а
-            BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
+            //BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
 
        
 
         public void PhysicsProcess()
         {
-            if (!hitbox.IsOnFloor)
-            {
-                //Velocity.Y -= 0.005f;
-            }
+            // if (!hitbox.IsOnFloor)
+            // {
+            //     Velocity.Y -= 0.05f;
+            // }
             camera.position = Position+camera.LocalPosition;
             camera.rotation = Rotation+camera.LocalRotation;
             camera.PhysicsProcess();
@@ -123,11 +106,11 @@ namespace VoxelWorld.Classes
             // Прыжок и красться
             if (Input.IsKeyPressed(Input.KeyJump))
             {
-                //if (hitbox.IsOnFloor)
-                //{
-                //    hitbox.IsOnFloor = false;
-                //    Velocity.Y += 0.2f;
-                //}
+                // if (hitbox.IsOnFloor)
+                // {
+                //     hitbox.IsOnFloor = false;
+                //     Velocity.Y += 0.2f;
+                // }
                 Velocity.Y += 0.2f;
             }
             if (Input.IsKeyPressed(Input.KeyCrouch))

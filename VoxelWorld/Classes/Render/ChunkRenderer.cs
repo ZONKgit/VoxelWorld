@@ -14,7 +14,7 @@ namespace VoxelWorld.Classes.Render
         Mesh mesh;
         public Chunk chunk;
 
-        List<Vertex> vertices = new List<Vertex>();
+        List<Vertex> vertices;
 
         public ChunkRenderer(Chunk chunk)
         {
@@ -43,6 +43,7 @@ namespace VoxelWorld.Classes.Render
         
         public void GenerateChunkMesh(int ChunkSizeX, int ChunkSizeY, int ChunkSizeZ, Vector2 ChunkPos)
         {
+            vertices = new List<Vertex>();
             for (int x = 0; x < ChunkSizeX; x++)
             {
                 for (int y = 0; y < ChunkSizeY; y++)

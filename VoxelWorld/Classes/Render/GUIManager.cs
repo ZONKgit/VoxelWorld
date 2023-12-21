@@ -28,6 +28,7 @@ namespace VoxelWorld.Classes.Render
             GL.LoadIdentity();
             GL.Ortho(-1,1,-1,1,0,1);
             GL.Disable(EnableCap.DepthTest);
+            
             // Рендер тут
 
             
@@ -51,10 +52,10 @@ namespace VoxelWorld.Classes.Render
             // Вывод Блока в позиции игрока
             textBlockInPlayerPos.Text = Game.player.world.chunkManager.GetBlockAtPosition(Game.camera.position).ToString();
             
-            
             GL.Enable(EnableCap.DepthTest);
         }
 
+        
         public void PhysicsProcess()
         {
             

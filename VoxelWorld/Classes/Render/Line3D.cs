@@ -23,12 +23,16 @@ namespace VoxelWorld.Classes.Render
 
         public void RenderProcess()
         {
-            GL.VertexPointer(3, VertexPointerType.Float, 0, Vertices);
-            GL.EnableClientState(ArrayCap.VertexArray);// Разрешение испрользования массива вершин
-                GL.Color4(Color);
-                GL.DrawArrays(BeginMode.LineStrip, 0, Vertices.Length);
-            GL.DisableClientState(ArrayCap.VertexArray);// Выключение отображеия по массиву вершин
+            GL.Color4(Color);
+            GL.Begin(BeginMode.Lines);
 
+            for (int i = 2; i < Vertices.Length; i+=3)
+            {
+                Console.WriteLine("x: {0}, \ny{1}, \nz{2}", Vertices[i], Vertices[i-1], Vertices[i-2]);
+                GL.Vertex3(Vertices[i], Vertices[i-1], Vertices[i-2]);
+            }
+            
+            GL.End();
         }
 
         public void PhysicsProcess()
