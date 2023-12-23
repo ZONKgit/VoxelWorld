@@ -1,0 +1,9 @@
+D:\Desktop\C#\VoxelWorld\VoxelWorldServer\VoxelWorldServer\bin\Debug\VoxelWorldServer.exe
+D:\Desktop\C#\VoxelWorld\VoxelWorldServer\VoxelWorldServer\bin\Debug\VoxelWorldServer.pdb
+D:\Desktop\C#\VoxelWorld\VoxelWorldServer\VoxelWorldServer\obj\Debug\VoxelWorldServer.csproj.AssemblyReference.cache
+D:\Desktop\C#\VoxelWorld\VoxelWorldServer\VoxelWorldServer\obj\Debug\VoxelWorldServer.csproj.CoreCompileInputs.cache
+D:\Desktop\C#\VoxelWorld\VoxelWorldServer\VoxelWorldServer\obj\Debug\VoxelWorldServer.exe
+D:\Desktop\C#\VoxelWorld\VoxelWorldServer\VoxelWorldServer\obj\Debug\VoxelWorldServer.pdb
+D:\Desktop\C#\VoxelWorld\VoxelWorldServer\VoxelWorldServer\bin\Debug\Newtonsoft.Json.dll
+D:\Desktop\C#\VoxelWorld\VoxelWorldServer\VoxelWorldServer\bin\Debug\Newtonsoft.Json.xml
+D:\Desktop\C#\VoxelWorld\VoxelWorldServer\VoxelWorldServer\obj\Debug\VoxelWorldServer.csproj.CopyComplete

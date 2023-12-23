@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using VoxelWorld.Classes.World;
 
 namespace VoxelWorld.Classes.Engine
 {
@@ -11,6 +12,7 @@ namespace VoxelWorld.Classes.Engine
         
         public static Player player;
         public static Camera camera;
+        public static GameWorld gameWorld;
         
         private static Game instance;
 

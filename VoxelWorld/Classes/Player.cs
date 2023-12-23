@@ -229,6 +229,7 @@ namespace VoxelWorld.Classes
             }
 
             Position += Velocity;
+            NetWork.SendMessage(Position.ToString());
         }
         bool check(int X, int Y, int Z)
         {

@@ -13,7 +13,7 @@ namespace VoxelWorld.Classes.World
     public class ChunkManager
     {
         public Player player;
-        public int renderDistance = 2;
+        public int renderDistance = 8;
         private List<Chunk> Chunks = new List<Chunk>();
 
         private Vector2 oldPlayerChunkPos = new Vector2(999, 999);
@@ -31,7 +31,7 @@ namespace VoxelWorld.Classes.World
 
         public void Ready()
         {
-           
+            Game.gameWorld.FogEnd = renderDistance * (Chunk.ChunkSizeZ / 2);
         }
 
         // Отрисовка чанков
@@ -136,6 +136,8 @@ namespace VoxelWorld.Classes.World
         {
             int chunkX = (int)(globalPosition.X / Chunk.ChunkSizeX);
             int chunkZ = (int)(globalPosition.Z / Chunk.ChunkSizeZ);
+            if (globalPosition.X < 0) chunkX--;
+            if (globalPosition.Z < 0) chunkZ--; 
 
             return new Vector2(chunkX, chunkZ);
         }

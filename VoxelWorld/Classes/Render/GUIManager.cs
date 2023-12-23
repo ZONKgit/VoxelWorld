@@ -13,14 +13,12 @@ namespace VoxelWorld.Classes.Render
         Text2D text = new Text2D(new Vector2(-49f, 25.5f), "Camera position", 0.03f);
         Text2D textRotation = new Text2D(new Vector2(-49f , 24.3f), "Camera rotation", 0.03f);
         Text2D textIsOnFloor = new Text2D(new Vector2(-49f, 23.1f), "IsOnFloor", 0.03f);
-        Text2D textBlockInPlayerPos = new Text2D(new Vector2(-49f, 21.9f), "Block in player position", 0.03f);
 
         public void Ready()
         {
             text.Ready();
             textRotation.Ready();
             textIsOnFloor.Ready();
-            textBlockInPlayerPos.Ready();
         }
         
         public void RenderProcess()
@@ -37,20 +35,17 @@ namespace VoxelWorld.Classes.Render
             textRotation.RenderProcess();
             textIsOnFloor.RenderProcess();
             crosshair.RenderProcess();
-            textBlockInPlayerPos.RenderProcess();
             
             // Вывод позиции
             text.Text = "Pos: "+new Vector3(
                 (int)Game.camera.position.X,
                 (int)Game.camera.position.Y,
                 (int)Game.camera.position.Z
-            ).ToString();
+            ).ToString()+"Chunk: "+Game.player.world.chunkManager.GlobalToChunkCoords(Game.camera.position).ToString();
             // Вывод поворота
             textRotation.Text = "Rot: "+Game.camera.rotation.ToString();
             // Вывод OnFloor
             textIsOnFloor.Text = "On floor: "+Game.player.hitbox.IsOnFloor.ToString();
-            // Вывод Блока в позиции игрока
-            textBlockInPlayerPos.Text = Game.player.world.chunkManager.GetBlockAtPosition(Game.camera.position).ToString();
             
             GL.Enable(EnableCap.DepthTest);
         }

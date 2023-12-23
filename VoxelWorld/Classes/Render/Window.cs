@@ -3,7 +3,6 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using VoxelWorld.Classes.Engine;
-using VoxelWorld.Classes.Render.GUIClasses;
 using VoxelWorld.Classes.World;
 
 namespace VoxelWorld.Classes.Render
@@ -80,6 +79,7 @@ namespace VoxelWorld.Classes.Render
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+            NetWork.CloseConnection();
         }
 
         protected override void OnResize(EventArgs e)

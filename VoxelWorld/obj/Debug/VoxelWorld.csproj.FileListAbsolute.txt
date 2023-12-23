@@ -117,3 +117,5 @@ D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.pdb
 D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.AssemblyReference.cache
 D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.SuggestedBindingRedirects.cache
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\SimplexNoise.dll
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\Newtonsoft.Json.dll
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\Newtonsoft.Json.xml
