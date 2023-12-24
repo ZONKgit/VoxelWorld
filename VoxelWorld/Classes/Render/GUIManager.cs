@@ -28,8 +28,6 @@ namespace VoxelWorld.Classes.Render
             GL.Disable(EnableCap.DepthTest);
             
             // Рендер тут
-
-            
             
             text.RenderProcess();
             textRotation.RenderProcess();

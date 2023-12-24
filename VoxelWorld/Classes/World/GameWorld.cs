@@ -15,6 +15,7 @@ namespace VoxelWorld.Classes.World
         Player player; // Создание игрока
         public ChunkManager chunkManager;
         private GUIManager guiManager = new GUIManager();
+        private Clouds clouds = new Clouds();
         
         
         public void Ready()
@@ -24,12 +25,12 @@ namespace VoxelWorld.Classes.World
             player.Ready();
             chunkManager = new ChunkManager(player);
             chunkManager.Ready();
+            clouds.Ready();
             guiManager.Ready();
             
             
-            
-            
-            GL.Enable(EnableCap.Fog);
+            // Настройки тумана
+            //GL.Enable(EnableCap.Fog);
             GL.Fog(FogParameter.FogMode, (int)FogMode.Linear);
             GL.Fog(FogParameter.FogStart, 5.0f);
             GL.Fog(FogParameter.FogEnd, FogEnd);
@@ -40,15 +41,19 @@ namespace VoxelWorld.Classes.World
         public void RenderProcess()
         {
             player.RenderProcess();
+            
+            clouds.RenderProcess();
             chunkManager.RenderProcess();
-            GL.Fog(FogParameter.FogDensity, 0.5f);
+            
+            
             guiManager.RenderProcess();
+            
         }
         public void PhysicsProcess()
         {
             player.PhysicsProcess();
             chunkManager.PhysicsProcess();
-            //guiManager.RenderProcess();
+            clouds.PhysicsProcess();
         }
 
         public void OnResizeWindow(EventArgs e)

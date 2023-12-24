@@ -2,6 +2,7 @@
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Physics;
 using VoxelWorld.Classes.World;
@@ -43,22 +44,61 @@ namespace VoxelWorld.Classes
 
             
             // Рейкаст
-            float angleX = -camera.rotation.Y;
-            float angleY = -camera.rotation.X;
-            float angleZ = camera.rotation.Z;
+            // float angleX = -camera.rotation.Y;
+            // float angleY = -camera.rotation.X;
+            // float angleZ = camera.rotation.Z;
+            //
+            // float startX = camera.position.X;
+            // float startY = camera.position.Y;
+            // float startZ = camera.position.Z;
+            //
+            // float x = startX;
+            // float y = startY;
+            // float z = startZ;
+            //
+            // int X = 0, Y = 0, Z = 0;
+            // int OldX = 0, OldY = 0, OldZ = 0;
+            // int dist = 0;
+            // int max_dist = 5;
+            //
+            // bool MouseRight = false;
+            //
+            // while (Vector3.Distance(new Vector3(x, y, z), new Vector3(startX, startY, startZ)) < max_dist * 3)
+            // {
+            //     dist++;
+            //
+            //     // Используйте углы в радианах, так как Math.Sin и Math.Cos ожидают углы в радианах
+            //     x += -(float)Math.Sin(angleX / 180 * Math.PI); 
+            //     y += (float)Math.Tan(angleY / 180 * Math.PI); 
+            //     z += -(float)Math.Cos(angleX / 180 * Math.PI); 
+            //
+            //     X = (int)x / 1;
+            //     Y = (int)y / 1;
+            //     Z = (int)z / 1;
+            //
+            //     if (check(X, Y, Z))
+            //     {
+            //         BoxEdges.DrawBoxEdges(new Vector3(1f / 2, 1f / 2, 1f / 2), new Vector3(OldX + 0.5f, OldY + 0.5f, OldZ - 0.5f), new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f);
+            //     }
+            //
+            //     if (!MouseRight)
+            //     {
+            //         if (Input.IsMouseButtonJustPressed(Input.KeyPlaceBlock))
+            //         {
+            //             MouseRight = true;
+            //             Console.WriteLine("SetBlock");
+            //             world.chunkManager.SetBlock(new Vector3(OldX, OldY, OldZ));
+            //         }
+            //     }
+            //
+            //     OldX = X;
+            //     OldY = Y;
+            //     OldZ = Z;
+            // }
 
-            float x1 = camera.position.X;
-            float y1 = camera.position.Y;
-            float z1 = camera.position.Z;
 
-            int dist = 5;
-   
-            float x2 = x1 + -(float)Math.Sin(angleX / 180 * Math.PI) * dist;
-            float y2 = y1 + (float)Math.Tan(angleY / 180 * Math.PI) * dist;
-            float z2 = z1 + -(float)Math.Cos(angleX / 180 * Math.PI) * dist;
-            
-            //BoxEdges.DrawBoxEdges(new Vector3(1f/2,1f/2,1f/2), new Vector3(x2,y2,z2), new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f);  
-            
+
+
             // Рисование hitbox-а
             //BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }

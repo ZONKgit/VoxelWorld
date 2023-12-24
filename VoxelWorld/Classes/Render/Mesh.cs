@@ -72,7 +72,6 @@ namespace VoxelWorld.Classes.Render
             GL.DisableClientState(ArrayCap.VertexArray);
             GL.DisableClientState(ArrayCap.ColorArray);
             GL.DisableClientState(ArrayCap.TextureCoordArray);
-            
         }
 
         public void Dispose()

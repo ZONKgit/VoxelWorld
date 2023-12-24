@@ -14,6 +14,8 @@ namespace VoxelWorld.Classes.Engine
         public static readonly Key KeyJump = Key.Space;
         public static readonly Key KeyCrouch = Key.LShift;
         public static readonly Key KeyRun = Key.LControl;
+        public static readonly MouseButton KeyPlaceBlock = MouseButton.Right;
+        public static readonly MouseButton KeyRemoveBlock = MouseButton.Left;
         //Misc Control
         public static readonly Key KeyDebugWireframe = Key.F8;
 
@@ -83,5 +85,26 @@ namespace VoxelWorld.Classes.Engine
             // Проверка, была ли клавиша нажата только что (в текущем кадре)
             return currentKeyboardState.IsKeyDown(key) && !previousKeyboardState.IsKeyDown(key);
         }
+        public static bool IsKeyJustReleased(Key key)
+        {
+            // Проверка, была ли клавиша отпущена только что (в текущем кадре)
+            return !currentKeyboardState.IsKeyDown(key) && previousKeyboardState.IsKeyDown(key);
+        }
+
+        public static bool IsMouseButtonPressed(MouseButton button)
+        {
+            return currentMouseState.IsButtonDown(button);
+        }
+
+        public static bool IsMouseButtonJustPressed(MouseButton button)
+        {
+            return currentMouseState.IsButtonDown(button) && !previousMouseState.IsButtonDown(button);
+        }
+
+        public static bool IsMouseButtonJustReleased(MouseButton button)
+        {
+            return !currentMouseState.IsButtonDown(button) && previousMouseState.IsButtonDown(button);
+        }
+
     }
 }

@@ -16,6 +16,7 @@ namespace VoxelWorld.Classes.Render
         public Window() : base(WindowWidth, WindowHeight, GraphicsMode.Default, "Voxel World")
         {
             VSync = VSyncMode.On;
+            //CursorVisible = false;
         }
 
         GameWorld world = new GameWorld();
@@ -36,6 +37,7 @@ namespace VoxelWorld.Classes.Render
             
 
             world.Ready();
+            //ToggleFullscreen(); //Фуллскрин
         }
 
 
@@ -92,6 +94,12 @@ namespace VoxelWorld.Classes.Render
             GL.Viewport(0, 0, Width, Height);
 
             world.OnResizeWindow(e);
+        }
+        
+        private void ToggleFullscreen()
+        {
+            WindowState = WindowState == WindowState.Fullscreen ? WindowState.Normal : WindowState.Fullscreen;
+            WindowBorder = WindowState == WindowState.Fullscreen ? WindowBorder.Hidden : WindowBorder.Resizable;
         }
 
         static void Main(string[] args)

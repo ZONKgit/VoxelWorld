@@ -13,7 +13,7 @@ namespace VoxelWorld.Classes.World
     public class ChunkManager
     {
         public Player player;
-        public int renderDistance = 8;
+        public int renderDistance = 2;
         private List<Chunk> Chunks = new List<Chunk>();
 
         private Vector2 oldPlayerChunkPos = new Vector2(999, 999);
