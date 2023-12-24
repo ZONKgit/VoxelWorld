@@ -55,7 +55,7 @@ namespace VoxelWorld.Classes
             GL.Translate(-position);
             
             
-            //DebugCroshair
+            // Отладочный прицел
             //DebugDrawCrosshair();
         }
 

@@ -14,7 +14,7 @@ namespace VoxelWorld.Classes.Render
         public Vector2 Offset = new Vector2(0,0); // Смещение UV по XZ
         public Vector2 VelocityOffset = new Vector2(0,0); // Смещение UV по XZ
         private Vector2 Velocity = new Vector2(0.0001f, 0.0001f); // Скорость смещения облаков
-        private int Height = 86; // Высота
+        private int Height = 25; // Высота
         
         public void Ready()
         {
