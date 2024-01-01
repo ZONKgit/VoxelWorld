@@ -43,59 +43,6 @@ namespace VoxelWorld.Classes
             camera.RenderProcess();
 
             
-            //DDA
-            // byte dist = 15;
-            //
-            // float angleX = -camera.rotation.Y;
-            // float angleY = -camera.rotation.X;
-            // float angleZ = camera.rotation.Z;
-            //
-            // float startX = (float)Math.Round(camera.position.X);
-            // float startY = (float)Math.Round(camera.position.Y);
-            // float startZ = (float)Math.Round(camera.position.Z);
-            //
-            // float endX = startX;
-            // float endY = startY;
-            // float endZ = startZ;
-            //
-            // Vector3 VectorRay = new Vector3(
-            //     -(float)Math.Sin(angleX / 180 * Math.PI),
-            //     (float)Math.Tan(angleY / 180 * Math.PI),
-            //     -(float)Math.Cos(angleX / 180 * Math.PI)
-            // ).Normalized()*dist;
-            //
-            // endX += VectorRay.X; 
-            // endY += VectorRay.Y; 
-            // endZ += VectorRay.Z;
-            //
-            // int L = 0; // количество шагов растеризации
-            // if (new Vector3(startX, startY, startZ).Length > new Vector3(endX, endY, endZ).Length) {
-            //     L = (int)new Vector3(startX, startY, startZ).Length;
-            // }else {
-            //     L = (int)new Vector3(endX, endY, endZ).Length;
-            // }
-            //
-            // // (4) Вычисляем приращения
-            // float dX = (endX - startX) / L;
-            // float dY = (endY - startY) / L;
-            // float dZ = (endZ - startZ) / L;
-            //
-            // float x = startX;
-            // float y = startY;
-            // float z = startZ;
-            //
-            // L++;
-            // while (L-- > 0)
-            // {
-            //     x += dX;
-            //     y += dY;
-            //     z += dZ;
-            //     if (check((int)(x + 0.5f), (int)(y + 0.5f), (int)(z + 0.5f)))
-            //     {
-            //         BoxEdges.DrawBoxEdges(new Vector3(1f / 2, 1f / 2, 1f / 2), new Vector3((int)x+0.5f, (int)y+0.5f, (int)z+0.5f), new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f); 
-            //     }
-            //     
-            // }
 
             
             float angleX = -camera.rotation.Y;
@@ -115,6 +62,7 @@ namespace VoxelWorld.Classes
             Y = (int)(y / 2.0f);
             z += (float)-Math.Cos(angleX / 180 * Math.PI);
             Z = (int)(z / 2.0f);
+            // Установка блока
             if (Input.IsMouseButtonJustPressed(Input.KeyPlaceBlock))
               { 
                   float dist=0;
@@ -131,7 +79,7 @@ namespace VoxelWorld.Classes
                 
                      if (check(X,Y,Z))
                      {
-                         world.chunkManager.SetBlock(new Vector3(oldX,oldY,oldZ));
+                         world.chunkManager.SetBlock(new Vector3(oldX,oldY,oldZ), Blocks.stone);
                          break;
                      }
                 
@@ -139,7 +87,7 @@ namespace VoxelWorld.Classes
                      oldY = Y;
                      oldZ = Z;
                  }
-            }
+            }// Ломание блока
             else if (Input.IsMouseButtonJustPressed(Input.KeyRemoveBlock))
               {
                   float dist=0;
@@ -161,7 +109,7 @@ namespace VoxelWorld.Classes
                       }
                   }
               }
-            else
+            else// Отображение блкоа на который наведен курсор
               {
                   float dist=0;
                   while (dist < RayLenght) // радиус действия
@@ -182,71 +130,8 @@ namespace VoxelWorld.Classes
                   }
               }
               
-              
             
-
-            //Рейкаст
-            // float angleX = -camera.rotation.Y;
-            // float angleY = -camera.rotation.X;
-            // float angleZ = camera.rotation.Z;
-            //
-            // float startX = camera.position.X;
-            // float startY = camera.position.Y;
-            // float startZ = camera.position.Z;
-            //
-            // float x = startX;
-            // float y = startY;
-            // float z = startZ;
-            //
-            // int X = 0, Y = 0, Z = 0;
-            // int OldX = 0, OldY = 0, OldZ = 0;
-            // int dist = 0;
-            // int max_dist = 5;
-            //
-            // bool MouseRight = false;
-            //
-            // while (Vector3.Distance(new Vector3(x, y, z), new Vector3(startX, startY, startZ)) < max_dist * 3)
-            // {
-            //     dist++;
-            //     
-            //     // x += -(float)Math.Sin(angleX / 180 * Math.PI); 
-            //     // y += (float)Math.Tan(angleY / 180 * Math.PI); 
-            //     // z += -(float)Math.Cos(angleX / 180 * Math.PI);
-            //
-            //     Vector3 dir = new Vector3(
-            //         -(float)Math.Sin(angleX / 180 * Math.PI),
-            //         (float)Math.Tan(angleY / 180 * Math.PI),
-            //         -(float)Math.Cos(angleX / 180 * Math.PI)
-            //         );
-            //     dir.Normalize();
-            //     
-            //     x += dir.X*dist;
-            //     y += dir.Y*dist;
-            //     z += dir.Z*dist;
-            //     
-            //     
-            //     X = (int)x / 1;
-            //     Y = (int)y / 1;
-            //     Z = (int)z / 1;
-            //
-            //
-            //     BoxEdges.DrawBoxEdges(new Vector3(1f / 2, 1f / 2, 1f / 2), new Vector3(X + 0.5f, Y + 0.5f, Z - 0.5f), new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f);
-            //     
-            //
-            //     if (!MouseRight)
-            //     {
-            //         if (Input.IsMouseButtonJustPressed(Input.KeyPlaceBlock))
-            //         {
-            //             MouseRight = true;
-            //             Console.WriteLine("SetBlock");
-            //             world.chunkManager.SetBlock(new Vector3(X, Y, Z));
-            //         }
-            //     }
-            //
-            //     OldX = X;
-            //     OldY = Y;
-            //     OldZ = Z;
-            // }
+            
 
 
 
@@ -342,11 +227,11 @@ namespace VoxelWorld.Classes
             // Обработка столкновенний
             // if (Velocity.X < 0) //-X
             // {
-            //     if (check((int)(Position.X + Velocity.X - (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
+            //     if (check((int)(Position.X + Velocity.X+0.5f - (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
             //     {
             //         Velocity.X = 0;
             //     }
-            //     if (check((int)(Position.X + Velocity.X - (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
+            //     if (check((int)(Position.X + Velocity.X +0.5f- (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
             //     {
             //         Velocity.X = 0;
             //     }
@@ -411,19 +296,19 @@ namespace VoxelWorld.Classes
             //    
             // if (Velocity.Z < 0) //-Z
             // {
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) //+Z
+            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
             //     {
             //         Velocity.Z = 0;
             //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) //+Z
+            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
             //     {
             //         Velocity.Z = 0;
             //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) //+Z
+            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
             //     {
             //         Velocity.Z = 0;
             //     }
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z - (hitbox.HitBoxSize.Z / 2)))) //+Z
+            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
             //     {
             //         Velocity.Z = 0;
             //     }

@@ -144,7 +144,7 @@ namespace VoxelWorld.Classes.World
 
 
         // Устанавливает блок в позиции...
-        public void SetBlock(Vector3 Pos)
+        public void SetBlock(Vector3 Pos, Block block)
         {
             Vector2 chunkCoords = GlobalToChunkCoords(Pos);
             Vector3 localCoords = GlobalToLocalCoords(Pos);
@@ -153,7 +153,7 @@ namespace VoxelWorld.Classes.World
             if (HasChunk(chunkCoords))
             {
                 Chunk chunk = GetChunk(chunkCoords);
-                chunk.SetBlock(localCoords);
+                chunk.SetBlock(localCoords, block);
             }
             else
             {
@@ -191,7 +191,7 @@ namespace VoxelWorld.Classes.World
         }
 
         // Возвращает блок в позиции...
-        public int GetBlockAtPosition(Vector3 globalPosition)
+        public Block GetBlockAtPosition(Vector3 globalPosition)
         {
             Vector2 chunkCoords = GlobalToChunkCoords(globalPosition);
             Vector3 localCoords = GlobalToLocalCoords(globalPosition);
@@ -209,7 +209,7 @@ namespace VoxelWorld.Classes.World
                 return GetChunk(chunkCoords).GetBlockAtPosition(localCoords);
             }
 
-            return 0;
+            return Blocks.air;
         }
 
         //FIXME
@@ -220,10 +220,7 @@ namespace VoxelWorld.Classes.World
             if (HasChunk(chunkCoords))
             {
                 Vector3 localCoords = GlobalToLocalCoords(GlobalPos);
-                
-                
-                
-                if (GetChunk(chunkCoords).GetBlockAtPosition(localCoords) != 0)
+                if (GetChunk(chunkCoords).GetBlockAtPosition(localCoords).IsSolid)
                 {
                     return true;// Блок есть
                 }

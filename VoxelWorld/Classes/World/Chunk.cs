@@ -19,7 +19,7 @@ namespace VoxelWorld.Classes.World
         public Vector2 Position { get; set; } //Позиция чанка по X и Z (Y всегда 0)
 
         // Данные чанка
-        public int[,,] ChunkData;
+        public Block[,,] ChunkData;
 
         public Chunk(Vector2 Pos, ChunkManager Manager)
         {
@@ -30,7 +30,7 @@ namespace VoxelWorld.Classes.World
         public void GenerateChunk() // Эта функция выполняеться в отдельном потоке
         {
             // Инициализация массива ChunkData
-            ChunkData = new int[ChunkSizeX, ChunkSizeY, ChunkSizeZ];
+            ChunkData = new Block[ChunkSizeX, ChunkSizeY, ChunkSizeZ];
 
             // Заполнение данных
             for (int x = 0; x < ChunkSizeX; x++)
@@ -41,17 +41,17 @@ namespace VoxelWorld.Classes.World
                     {
                         float noiseValue = Noise.GetNoiseValue(new Vector2(Position.X*ChunkSizeX+x, Position.Y*ChunkSizeZ+z)) * 6 + 3;
                         int _y = (int)noiseValue;
-                        if (y <= _y) ChunkData[x, y, z] = 1;
+                        if (y <= _y) ChunkData[x, y, z] = Blocks.grass; else ChunkData[x, y, z] = Blocks.air;
+
                     }
                 }
             }
 
-            
             Manager.WaitChunks.Remove(this);
             Manager.ReadyChunks.Enqueue(this);
         }
 
-        public int GetBlockAtPosition(Vector3 Pos)
+        public Block GetBlockAtPosition(Vector3 Pos)
         {
             // Приведем координаты к целочисленному формату
             int x = (int)Pos.X;
@@ -62,7 +62,7 @@ namespace VoxelWorld.Classes.World
             if (x < 0 || x > ChunkSizeX-1 || y < 0 || y > ChunkSizeY-1 || z < 0 || z > ChunkSizeZ-1)
             {
                 // Координаты находятся за пределами чанка, вернем 0
-                return 0;
+                return Blocks.air;
             }
 
             // Вернем значение из массива ChunkData
@@ -86,23 +86,20 @@ namespace VoxelWorld.Classes.World
             Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, Position);
         }
         
-        public void SetBlock(Vector3 Pos)
+        public void SetBlock(Vector3 Pos, Block block)
         {
             Console.WriteLine(Pos);
-            if (ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] != 1)
+            if (ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z].Id != block.Id)
             {
-                ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = 1;
+                ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = block;
                 UpdateMesh();
             }
         }
 
         public void RemoveBlock(Vector3 Pos)
         {
-            if (ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] != 0)
-            {
-                ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = 0;
-                UpdateMesh();
-            }
+            ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = Blocks.air;
+            UpdateMesh();
         }
 
         public void Dispose()// Очищение данных чанка
