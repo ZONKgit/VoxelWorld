@@ -30,13 +30,13 @@ namespace VoxelWorld.Classes.World
             
             
             // Настройки тумана
-            GL.Enable(EnableCap.Fog);
-            GL.Fog(FogParameter.FogMode, (int)FogMode.Linear);
-            GL.Fog(FogParameter.FogStart, 10);
-            GL.Fog(FogParameter.FogEnd, FogEnd);
-            GL.Fog(FogParameter.FogColor, new float[] { 0.7f, 0.7f, 1.0f, 1.0f });
-            GL.Fog(FogParameter.FogDensity, 0.1f);
-            GL.Hint(HintTarget.FogHint, HintMode.Nicest);
+            // GL.Enable(EnableCap.Fog);
+            // GL.Fog(FogParameter.FogMode, (int)FogMode.Linear);
+            // GL.Fog(FogParameter.FogStart, 10);
+            // GL.Fog(FogParameter.FogEnd, FogEnd);
+            // GL.Fog(FogParameter.FogColor, new float[] { 0.7f, 0.7f, 1.0f, 1.0f });
+            // GL.Fog(FogParameter.FogDensity, 0.1f);
+            // GL.Hint(HintTarget.FogHint, HintMode.Nicest);
         }
         public void RenderProcess()
         {

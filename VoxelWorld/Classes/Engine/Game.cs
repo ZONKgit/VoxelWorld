@@ -10,6 +10,7 @@ namespace VoxelWorld.Classes.Engine
         public static int BlocksTexture = TextureLoader.LoadTexture("Res/textures/terrain.png");
         public static int FontTexture = TextureLoader.LoadTexture("Res/fonts/default.png");
         public static int CloudsTexture = TextureLoader.LoadTexture("Res/textures/environment/clouds.png");
+        public static int GUITexture = TextureLoader.LoadTexture("Res/textures/gui/gui.png");
         
         public static Player player;
         public static Camera camera;

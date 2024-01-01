@@ -211,8 +211,7 @@ namespace VoxelWorld.Classes.World
 
             return Blocks.air;
         }
-
-        //FIXME
+        
         // Проверяет есть ли блок в позиции...
         public bool CheckBlock(Vector3 GlobalPos)
         {
