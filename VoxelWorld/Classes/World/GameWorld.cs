@@ -48,12 +48,12 @@ namespace VoxelWorld.Classes.World
             
             guiManager.RenderProcess();
             
-        }
-        public void PhysicsProcess()
+        }   
+        public void PhysicsProcess(float delta)
         {
-            player.PhysicsProcess();
-            chunkManager.PhysicsProcess();
-            clouds.PhysicsProcess();
+            player.PhysicsProcess(delta);
+            chunkManager.PhysicsProcess(delta);
+            clouds.PhysicsProcess(delta);
         }
 
         public void OnResizeWindow(EventArgs e)

@@ -56,7 +56,7 @@ namespace VoxelWorld.Classes
             
             
             // Отладочный прицел
-            //DebugDrawCrosshair();
+            DebugDrawCrosshair();
         }
 
         void DebugDrawCrosshair()
@@ -71,10 +71,9 @@ namespace VoxelWorld.Classes
 
             float dist = 0.1f;
    
-            float x2 = x1 + -(float)Math.Sin(angleX / 180 * Math.PI) * dist;
+            float x2 = x1 + (float)-Math.Sin(angleX / 180 * Math.PI) * dist;
             float y2 = y1 + (float)Math.Tan(angleY / 180 * Math.PI) * dist;
-            float z2 = z1 + -(float)Math.Cos(angleX / 180 * Math.PI) * dist;
-            
+            float z2 = z1 + (float)-Math.Cos(angleX / 180 * Math.PI) * dist;
             
             GL.LineWidth(2); // Толщина линий
             GL.Begin(PrimitiveType.Lines);

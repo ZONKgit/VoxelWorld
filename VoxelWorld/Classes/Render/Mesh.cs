@@ -15,7 +15,7 @@ namespace VoxelWorld.Classes.Render
         public float U, V;           // Координаты текстуры (UV)
     }
 
-    class Mesh
+    public class Mesh
     {
         Vertex[] vertices;
         private int verticesLength;
@@ -51,8 +51,6 @@ namespace VoxelWorld.Classes.Render
 
         public void RenderProcess()
         {
-            
-            
             GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
 
             

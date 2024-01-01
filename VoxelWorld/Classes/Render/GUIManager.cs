@@ -13,12 +13,14 @@ namespace VoxelWorld.Classes.Render
         Text2D text = new Text2D(new Vector2(-49f, 25.5f), "Camera position", 0.03f);
         Text2D textRotation = new Text2D(new Vector2(-49f , 24.3f), "Camera rotation", 0.03f);
         Text2D textIsOnFloor = new Text2D(new Vector2(-49f, 23.1f), "IsOnFloor", 0.03f);
+        Text2D textBlockId = new Text2D(new Vector2(-49f, 21.8f), "textBlockId", 0.03f);
 
         public void Ready()
         {
             text.Ready();
             textRotation.Ready();
             textIsOnFloor.Ready();
+            textBlockId.Ready();
         }
         
         public void RenderProcess()
@@ -32,6 +34,7 @@ namespace VoxelWorld.Classes.Render
             text.RenderProcess();
             textRotation.RenderProcess();
             textIsOnFloor.RenderProcess();
+            textBlockId.RenderProcess();
             crosshair.RenderProcess();
             
             // Вывод позиции
@@ -43,7 +46,9 @@ namespace VoxelWorld.Classes.Render
             // Вывод поворота
             textRotation.Text = "Rot: "+Game.camera.rotation.ToString();
             // Вывод OnFloor
-            textIsOnFloor.Text = "On floor: "+Game.player.hitbox.IsOnFloor.ToString();
+            textIsOnFloor.Text = "On floor: " + Game.player.hitbox.IsOnFloor.ToString();
+            // Вывод блока в камере
+            textBlockId.Text = "Block id in camera position: " + Game.gameWorld.chunkManager.GetBlockAtPosition(Game.camera.position).ToString();
             
             GL.Enable(EnableCap.DepthTest);
         }

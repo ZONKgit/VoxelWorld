@@ -45,8 +45,9 @@ namespace VoxelWorld.Classes.Render
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-
-            world.PhysicsProcess();
+            float delta = (float)e.Time;
+            
+            world.PhysicsProcess(delta);
 
             // Смена режима отрисовки
             if (Input.IsJustKeyPressed(Input.KeyDebugWireframe))

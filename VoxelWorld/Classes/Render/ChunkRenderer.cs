@@ -88,49 +88,49 @@ namespace VoxelWorld.Classes.Render
 
     private void GenerateFrontSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
 
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
     }
 
     private void GenerateBackSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
 
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
 
         
     }
 
     private void GenerateRightSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
 
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
 
     }
 
     private void GenerateLeftSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
 
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
     }
 
 
@@ -138,13 +138,13 @@ namespace VoxelWorld.Classes.Render
 
     private void GenerateTopSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
 
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 1f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
     }
 
 
@@ -153,14 +153,14 @@ namespace VoxelWorld.Classes.Render
 
     private void GenerateBottomSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
         
 
-        vertices.Add(new Vertex() { X = Pos.X + 1f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 1f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0f, Y = Pos.Y + 0f, Z = Pos.Z + 0f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
        
     }
 

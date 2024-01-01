@@ -74,6 +74,13 @@ namespace VoxelWorld.Classes.Engine
             OnMouseMove?.Invoke(mouseRelative);
         }
 
+        
+        public static bool IsActionPressed(Key key)
+        {
+            // Проверка, нажата ли клавиша
+            return currentKeyboardState.IsKeyDown(key);
+        }
+        
         public static bool IsKeyPressed(Key key)
         {
             // Проверка, нажата ли клавиша

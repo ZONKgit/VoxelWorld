@@ -98,8 +98,11 @@ namespace VoxelWorld.Classes.World
 
         public void RemoveBlock(Vector3 Pos)
         {
-            ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = 0;
-            UpdateMesh();
+            if (ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] != 0)
+            {
+                ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = 0;
+                UpdateMesh();
+            }
         }
 
         public void Dispose()// Очищение данных чанка

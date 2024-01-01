@@ -114,8 +114,7 @@ D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\System.Buffers.xml
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\System.Numerics.Vectors.xml
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.pdb
-D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.AssemblyReference.cache
-D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.SuggestedBindingRedirects.cache
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\SimplexNoise.dll
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\Newtonsoft.Json.dll
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\Newtonsoft.Json.xml
+D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csprojAssemblyReference.cache

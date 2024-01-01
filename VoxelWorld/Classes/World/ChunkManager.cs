@@ -13,7 +13,7 @@ namespace VoxelWorld.Classes.World
     public class ChunkManager
     {
         public Player player;
-        public int renderDistance = 4;
+        public int renderDistance = 8;
         private List<Chunk> Chunks = new List<Chunk>();
 
         private Vector2 oldPlayerChunkPos = new Vector2(999, 999);
@@ -57,7 +57,7 @@ namespace VoxelWorld.Classes.World
         }
 
 
-        public void PhysicsProcess()
+        public void PhysicsProcess(float delta)
         {
             // Загруза чанков
             if (GlobalToChunkCoords(player.Position) != oldPlayerChunkPos)
@@ -160,26 +160,34 @@ namespace VoxelWorld.Classes.World
                 Console.WriteLine("Non chunk");
             }
         }
+        
+        // Уберает блок в позиции...
+        public void RemoveBlock(Vector3 Pos)
+        {
+            Vector2 chunkCoords = GlobalToChunkCoords(Pos);
+            Vector3 localCoords = GlobalToLocalCoords(Pos);
+
+            // Проверяем, существует ли чанк
+            if (HasChunk(chunkCoords))
+            {
+                Chunk chunk = GetChunk(chunkCoords);
+                chunk.RemoveBlock(localCoords);
+            }
+            else
+            {
+                Console.WriteLine("Non chunk");
+            }
+        }
 
         // Возвращает чанк по его позиции
         public Chunk GetChunk(Vector2 chunkCoords)
         {
-            foreach (var chunk in Chunks)
-            {
-                if (chunk.Position == chunkCoords) return chunk;
-            }
-            
-            return Chunks[0];
+            return Chunks.FirstOrDefault(chunk => chunk.Position == chunkCoords);
         }
         // Есть ли чанк в позиции...
         public bool HasChunk(Vector2 chunkCoords)
         {
-            foreach (var chunk in Chunks)
-            {
-                if (chunk.Position == chunkCoords) return true;
-            }
-            
-            return false;
+            return Chunks.Any(chunk => chunk.Position == chunkCoords);
         }
 
         // Возвращает блок в позиции...
@@ -195,7 +203,6 @@ namespace VoxelWorld.Classes.World
                 {
                     if (chunk.Position == chunkCoords)
                     {
-                        //Console.WriteLine(chunk.ChunkData[(int)localCoords.X, (int)localCoords.Y, (int)localCoords.Z]);
                         break;
                     }
                 }
