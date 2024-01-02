@@ -7,8 +7,8 @@ namespace VoxelWorld.Classes.Render.GUIClasses
 {
     public class TextureRect : GUI
     {
-        Vector2 size = new Vector2(1,1);
-        Vector4 UV;
+        public Vector2 size = new Vector2(1,1);
+        public Vector4 UV;
         public int Texture;
 
         public TextureRect(Vector2 position,Vector4 uv, Vector2 size)

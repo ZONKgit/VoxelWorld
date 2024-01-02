@@ -19,7 +19,7 @@ namespace VoxelWorld.Classes.Render
             //CursorVisible = false;
         }
 
-        GameWorld world = new GameWorld();
+        MainTree mainTree = new MainTree();
 
         protected override void OnLoad(EventArgs e)
         {
@@ -36,7 +36,7 @@ namespace VoxelWorld.Classes.Render
             GL.AlphaFunc(AlphaFunction.Greater, 0.0f);
             
 
-            world.Ready();
+            mainTree.Ready();
             //ToggleFullscreen(); //Фуллскрин
         }
 
@@ -47,7 +47,7 @@ namespace VoxelWorld.Classes.Render
             base.OnUpdateFrame(e);
             float delta = (float)e.Time;
             
-            world.PhysicsProcess(delta);
+            mainTree.PhysicsProcess(delta);
 
             // Смена режима отрисовки
             if (Input.IsJustKeyPressed(Input.KeyDebugWireframe))
@@ -74,7 +74,7 @@ namespace VoxelWorld.Classes.Render
 
            
 
-            world.RenderProcess();
+            mainTree.RenderProcess();
 
             SwapBuffers();
         }
@@ -91,10 +91,15 @@ namespace VoxelWorld.Classes.Render
 
             WindowWidth = Width;
             WindowHeight = Height;
+            
+            
+            Game.ScreenWidth = WindowWidth;
+            Game.ScreenHeight = WindowHeight;
+            Game.ScreenAspect = WindowWidth / WindowHeight;
 
             GL.Viewport(0, 0, Width, Height);
 
-            world.OnResizeWindow(e);
+            mainTree.OnResizeWindow(e);
         }
         
         private void ToggleFullscreen()
