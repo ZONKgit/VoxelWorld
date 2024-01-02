@@ -13,6 +13,7 @@ namespace VoxelWorld.Classes.Render
         ColorRect crosshair = new ColorRect(new Vector2(0, 0), new Color4(0f, 0f, 0f, 1f), 0.01f);
         TextureRect TextureInventoryBar = new TextureRect(new Vector2(0, -0.74f), new Vector4(0,0,0.7109375f,0.0859375f), new Vector2(0.7109375f*0.7f, 0.0859375f*0.7f));
         TextureRect TextureInventoryBarSelected = new TextureRect(new Vector2(0, -0.745f), new Vector4(0,0.09375f,0.09375f,0.0859375f+0.09375f), new Vector2(0.09375f*0.7f, 0.09375f*0.7f));
+        Text2D nullText = new Text2D(new Vector2(0f, 0), "", 0.03f);
         Text2D text = new Text2D(new Vector2(-49f, 25.5f), "Camera position", 0.03f);
         Text2D textRotation = new Text2D(new Vector2(-49f , 24.3f), "Camera rotation", 0.03f);
         Text2D textIsOnFloor = new Text2D(new Vector2(-49f, 23.1f), "IsOnFloor", 0.03f);
@@ -20,6 +21,7 @@ namespace VoxelWorld.Classes.Render
 
         public void Ready()
         {
+            nullText.Ready();
             text.Ready();
             textRotation.Ready();
             textIsOnFloor.Ready();
@@ -35,19 +37,24 @@ namespace VoxelWorld.Classes.Render
             GL.Disable(EnableCap.DepthTest);
             
             // Рендер тут
-            text.RenderProcess();
-            textRotation.RenderProcess();
-            textIsOnFloor.RenderProcess();
-            textBlockId.RenderProcess();
-            
-            crosshair.RenderProcess();
+            nullText.RenderProcess();
+            if (Game.isDrawDebug)
+            {
+                text.RenderProcess();
+                textRotation.RenderProcess();
+                textIsOnFloor.RenderProcess();
+                textBlockId.RenderProcess();
+            }
+            else
+            {
+                crosshair.RenderProcess();
+            }
             TextureInventoryBar.RenderProcess();
             TextureInventoryBarSelected.RenderProcess();
-            
-            
-            
 
-            
+
+
+
             // Вывод позиции
             text.Text = "Pos: "+new Vector3(
                 (int)Game.camera.position.X,

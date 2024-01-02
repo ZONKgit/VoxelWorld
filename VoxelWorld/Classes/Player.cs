@@ -23,6 +23,10 @@ namespace VoxelWorld.Classes
         public Vector3 Velocity = new Vector3(0, 0, 0);
 
         public float moveSpeed = 0.1f;
+        public Block[] Slots = new[] {Blocks.grass, Blocks.stone, Blocks.glass};
+        public byte selectedSlot = 0;
+
+        private TexturedCube handBlock = new TexturedCube(0);
     
         public Player(GameWorld world)
         {
@@ -35,6 +39,7 @@ namespace VoxelWorld.Classes
             Game.player = this;
             camera = new Camera(this);
             camera.Ready();
+            handBlock.texture = Game.BlocksTexture;
         }
 
         
@@ -42,13 +47,12 @@ namespace VoxelWorld.Classes
         {
             camera.RenderProcess();
 
-            
 
             
             float angleX = -camera.rotation.Y;
             float angleY = -camera.rotation.X;
             float angleZ = camera.rotation.Z;
-
+            
             float x = camera.position.X;
             float y = camera.position.Y;
             float z = camera.position.Z;
@@ -79,7 +83,7 @@ namespace VoxelWorld.Classes
                 
                      if (check(X,Y,Z))
                      {
-                         world.chunkManager.SetBlock(new Vector3(oldX,oldY,oldZ), Blocks.stone);
+                         world.chunkManager.SetBlock(new Vector3(oldX,oldY,oldZ), Slots[selectedSlot]);
                          break;
                      }
                 
@@ -125,25 +129,35 @@ namespace VoxelWorld.Classes
                       if (check(X,Y,Z))
                       {
                           BoxEdges.DrawBoxEdges(new Vector3(1f / 2, 1f / 2, 1f / 2), new Vector3(X,Y,Z), new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f);
+                          handBlock.Draw(new Vector3(X,Y+1f,Z), new Vector3(1f / 2, 1f / 2, 1f / 2));
                           break;
                       }
                   }
               }
-              
-            
-            
-
-
-
 
             // Рисование hitbox-а
-            BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
+            if (Game.isDrawDebugHitBox) BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
 
        
 
         public void PhysicsProcess(float delta)
         {
+            // Выбор блока
+            if (Input.IsJustKeyPressed(Input.Key1))
+            {
+                selectedSlot = 0;
+            }
+            else if (Input.IsJustKeyPressed(Input.Key2))
+            {
+                selectedSlot = 1;
+            }else if (Input.IsJustKeyPressed(Input.Key3))
+            {
+                selectedSlot = 2;
+            }
+
+            
+            
             // if (!hitbox.IsOnFloor)
             // {
                 //Velocity.Y -= 0.1f;

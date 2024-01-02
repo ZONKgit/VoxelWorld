@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using OpenTK.Input;
 using VoxelWorld.Classes.World;
 
 namespace VoxelWorld.Classes.Engine
@@ -15,6 +16,9 @@ namespace VoxelWorld.Classes.Engine
         public static Player player;
         public static Camera camera;
         public static GameWorld gameWorld;
+
+        public static bool isDrawDebug = false;
+        public static bool isDrawDebugHitBox = false;
         
         private static Game instance;
 
@@ -44,8 +48,9 @@ namespace VoxelWorld.Classes.Engine
             }
         }
 
-        // Другие члены класса
-
-        
+        public static void PhysicsProcess()
+        {
+            if (Input.IsJustKeyPressed(Input.KeyDebugDraw)) isDrawDebug = !isDrawDebug;
+        }
     }
 }

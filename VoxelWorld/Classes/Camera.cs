@@ -56,7 +56,7 @@ namespace VoxelWorld.Classes
             
             
             // Отладочный прицел
-            DebugDrawCrosshair();
+            if(Game.isDrawDebug) DebugDrawCrosshair();
         }
 
         void DebugDrawCrosshair()

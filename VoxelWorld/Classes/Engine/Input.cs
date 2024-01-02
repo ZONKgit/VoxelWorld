@@ -18,7 +18,8 @@ namespace VoxelWorld.Classes.Engine
         public static readonly MouseButton KeyRemoveBlock = MouseButton.Left;
         //Misc Control
         public static readonly Key KeyDebugWireframe = Key.F8;
-
+        public static readonly Key KeyDebugDraw = Key.F3;
+        // Буквы
         public static readonly Key KeyA = Key.A;
         public static readonly Key KeyB = Key.B;
         public static readonly Key KeyC = Key.C;
@@ -45,6 +46,17 @@ namespace VoxelWorld.Classes.Engine
         public static readonly Key KeyX = Key.X;
         public static readonly Key KeyY = Key.Y;
         public static readonly Key KeyZ = Key.Z;
+        // Цифры
+        public static readonly Key Key1 = Key.Number1;
+        public static readonly Key Key2 = Key.Number2;
+        public static readonly Key Key3 = Key.Number3;
+        public static readonly Key Key4 = Key.Number4;
+        public static readonly Key Key5 = Key.Number5;
+        public static readonly Key Key6 = Key.Number6;
+        public static readonly Key Key7 = Key.Number7;
+        public static readonly Key Key8 = Key.Number8;
+        public static readonly Key Key9 = Key.Number9;
+        public static readonly Key Key0 = Key.Number0;
 
         private static KeyboardState currentKeyboardState;
         private static KeyboardState previousKeyboardState;

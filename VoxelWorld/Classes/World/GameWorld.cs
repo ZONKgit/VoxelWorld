@@ -51,6 +51,7 @@ namespace VoxelWorld.Classes.World
         }   
         public void PhysicsProcess(float delta)
         {
+            Game.PhysicsProcess();
             player.PhysicsProcess(delta);
             chunkManager.PhysicsProcess(delta);
             clouds.PhysicsProcess(delta);
