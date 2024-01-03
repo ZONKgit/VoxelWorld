@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using VoxelWorld.Classes.World;
+using VoxelWorld.Classes.Engine;
 
 namespace VoxelWorld.Classes.Render
 {
@@ -21,23 +22,7 @@ namespace VoxelWorld.Classes.Render
             this.chunk = chunk;
         }
 
-        public Vector4 IDToUVCoords(int id)
-        {
-            int atlasSize = 256; // Размер атласа
-            int textureSize = 16; // Размер одной текстуры
-            int texturesPerRow = atlasSize / textureSize; // Количество текстур в одной строке атласа
-
-            int atlasX = id % texturesPerRow; // Координата X в атласе
-            int atlasY = id / texturesPerRow; // Координата Y в атласе
-
-            float uMin = (float)atlasX * (float)textureSize / (float)atlasSize;
-            float uMax = (float)atlasY * (float)textureSize / (float)atlasSize;
-            float vMin = (float)(atlasX+1) * (float)textureSize / (float)atlasSize;
-            float vMax = (float)(atlasY+1) * (float)textureSize / (float)atlasSize;
-
-
-            return new Vector4(uMin, uMax, vMin, vMax); // 0,0,0.0625f,0.0625f 
-        }
+ 
 
 
         
@@ -58,17 +43,17 @@ namespace VoxelWorld.Classes.Render
                             float colorA = 1f;
 
                             //Front side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y, z-1)).isTransparent) GenerateFrontSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[2]));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y, z-1)).isTransparent) GenerateFrontSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, TextureHelper.IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[2]));
                             //Back side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y , z+1)).isTransparent) GenerateBackSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[4]));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y , z+1)).isTransparent) GenerateBackSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, TextureHelper.IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[4]));
                             //Right side
-                            if (chunk.GetBlockAtPosition(new Vector3(x-1, y, z)).isTransparent) GenerateRightSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[3]));
+                            if (chunk.GetBlockAtPosition(new Vector3(x-1, y, z)).isTransparent) GenerateRightSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, TextureHelper.IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[3]));
                             //Left side
-                            if (chunk.GetBlockAtPosition(new Vector3(x+1, y, z)).isTransparent) GenerateLeftSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[1]));
+                            if (chunk.GetBlockAtPosition(new Vector3(x+1, y, z)).isTransparent) GenerateLeftSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, TextureHelper.IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[1]));
                             //Top side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y+1, z)).isTransparent) GenerateTopSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[0]));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y+1, z)).isTransparent) GenerateTopSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, TextureHelper.IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[0]));
                             //Bottom side
-                            if (chunk.GetBlockAtPosition(new Vector3(x, y-1, z)).isTransparent) GenerateBottomSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB-0.1f, colorA, IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[5]));
+                            if (chunk.GetBlockAtPosition(new Vector3(x, y-1, z)).isTransparent) GenerateBottomSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB-0.1f, colorA, TextureHelper.IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[5]));
                         }
                     }
                 }

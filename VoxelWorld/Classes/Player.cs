@@ -26,7 +26,7 @@ namespace VoxelWorld.Classes
         public Block[] Slots = new[] {Blocks.grass, Blocks.stone, Blocks.glass};
         public byte selectedSlot = 0;
 
-        private TexturedCube handBlock = new TexturedCube(0);
+        private TexturedCube handBlock = new TexturedCube();
     
         public Player(GameWorld world)
         {
@@ -82,12 +82,11 @@ namespace VoxelWorld.Classes
                   if (check(X,Y,Z))
                   {
                       BoxEdges.DrawBoxEdges(new Vector3(1f / 2, 1f / 2, 1f / 2), new Vector3(X,Y,Z), new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f);
-                      handBlock.Draw(new Vector3(X,Y+1f,Z), new Vector3(1f / 2, 1f / 2, 1f / 2));
                       break;
                   }
               }
               
-
+            handBlock.Draw(new Vector3(0,15f,0), new Vector3(1f / 2, 1f / 2, 1f / 2), 45, new Vector3(0,1,0), new []{1,4,4,4,4,2});
             // Рисование hitbox-а
             if (Game.isDrawDebugHitBox) BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
