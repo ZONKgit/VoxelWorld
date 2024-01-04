@@ -42,24 +42,24 @@ namespace VoxelWorld.Classes
             handBlock.texture = Game.BlocksTexture;
         }
 
-        
+
         public void RenderProcess()
         {
             camera.RenderProcess();
 
 
-            
+
             float angleX = -camera.rotation.Y;
             float angleY = -camera.rotation.X;
             float angleZ = camera.rotation.Z;
-            
+
             float x = camera.position.X;
             float y = camera.position.Y;
             float z = camera.position.Z;
 
-            int X,Y,Z,oldX=0,oldY=0,oldZ=0;
+            int X, Y, Z, oldX = 0, oldY = 0, oldZ = 0;
             float RayLenght = 0.5f;
-            
+
             x += (float)-Math.Sin(angleX / 180 * Math.PI);
             X = (int)(x / 2.0f);
             y += (float)Math.Tan(angleY / 180 * Math.PI);
@@ -68,25 +68,27 @@ namespace VoxelWorld.Classes
             Z = (int)(z / 2.0f);
             // Отображение блкоа на который наведен курсор
 
-              float dist=0;
-              while (dist < RayLenght) // радиус действия
-              {
-                  dist += 0.001f;
-                  x += (float)-Math.Sin(angleX / 180 * Math.PI)*0.01f;
-                  X = (int)Math.Round(x);
-                  y += (float)Math.Tan(angleY / 180 * Math.PI)*0.01f;
-                  Y = (int)Math.Round(y);
-                  z += (float)-Math.Cos(angleX / 180 * Math.PI)*0.01f;
-                  Z = (int)Math.Round(z);
-        
-                  if (check(X,Y,Z))
-                  {
-                      BoxEdges.DrawBoxEdges(new Vector3(1f / 2, 1f / 2, 1f / 2), new Vector3(X,Y,Z), new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f);
-                      break;
-                  }
-              }
-              
-            handBlock.Draw(new Vector3(0,15f,0), new Vector3(1f / 2, 1f / 2, 1f / 2), 45, new Vector3(0,1,0), new []{1,4,4,4,4,2});
+            float dist = 0;
+            while (dist < RayLenght) // радиус действия
+            {
+                dist += 0.001f;
+                x += (float)-Math.Sin(angleX / 180 * Math.PI) * 0.01f;
+                X = (int)Math.Round(x);
+                y += (float)Math.Tan(angleY / 180 * Math.PI) * 0.01f;
+                Y = (int)Math.Round(y);
+                z += (float)-Math.Cos(angleX / 180 * Math.PI) * 0.01f;
+                Z = (int)Math.Round(z);
+
+                if (check(X, Y, Z))
+                {
+                    BoxEdges.DrawBoxEdges(new Vector3(1f / 2, 1f / 2, 1f / 2), new Vector3(X, Y, Z),
+                        new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f);
+                    break;
+                }
+            }
+            
+            handBlock.Draw(new Vector3(0.5f,-0.5f,-0.5f), camera.position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.rotation.X, Rotation.Y, camera.rotation.Z), Slots[selectedSlot].TextureFaces);
+            
             // Рисование hitbox-а
             if (Game.isDrawDebugHitBox) BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
