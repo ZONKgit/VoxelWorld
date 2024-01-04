@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Camera.cs" />
+    <Compile Include="Classes\Engine\Animation.cs" />
     <Compile Include="Classes\Engine\Input.cs" />
     <Compile Include="Classes\Engine\EngineMathHelper.cs" />
     <Compile Include="Classes\Engine\NetWork.cs" />

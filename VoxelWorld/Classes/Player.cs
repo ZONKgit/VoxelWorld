@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -25,6 +26,7 @@ namespace VoxelWorld.Classes
         public float moveSpeed = 0.1f;
         public Block[] Slots = new[] {Blocks.grass, Blocks.stone, Blocks.glass};
         public byte selectedSlot = 0;
+        private Vector3 handPos = new Vector3(0.5f, -0.5f, -0.5f);
 
         private TexturedCube handBlock = new TexturedCube();
     
@@ -46,48 +48,10 @@ namespace VoxelWorld.Classes
         public void RenderProcess()
         {
             camera.RenderProcess();
-
-
-
-            float angleX = -camera.rotation.Y;
-            float angleY = -camera.rotation.X;
-            float angleZ = camera.rotation.Z;
-
-            float x = camera.position.X;
-            float y = camera.position.Y;
-            float z = camera.position.Z;
-
-            int X, Y, Z, oldX = 0, oldY = 0, oldZ = 0;
-            float RayLenght = 0.5f;
-
-            x += (float)-Math.Sin(angleX / 180 * Math.PI);
-            X = (int)(x / 2.0f);
-            y += (float)Math.Tan(angleY / 180 * Math.PI);
-            Y = (int)(y / 2.0f);
-            z += (float)-Math.Cos(angleX / 180 * Math.PI);
-            Z = (int)(z / 2.0f);
-            // Отображение блкоа на который наведен курсор
-
-            float dist = 0;
-            while (dist < RayLenght) // радиус действия
-            {
-                dist += 0.001f;
-                x += (float)-Math.Sin(angleX / 180 * Math.PI) * 0.01f;
-                X = (int)Math.Round(x);
-                y += (float)Math.Tan(angleY / 180 * Math.PI) * 0.01f;
-                Y = (int)Math.Round(y);
-                z += (float)-Math.Cos(angleX / 180 * Math.PI) * 0.01f;
-                Z = (int)Math.Round(z);
-
-                if (check(X, Y, Z))
-                {
-                    BoxEdges.DrawBoxEdges(new Vector3(1f / 2, 1f / 2, 1f / 2), new Vector3(X, Y, Z),
-                        new Color4(1.0f, 1.0f, 0.0f, 1.0f), 2.0f);
-                    break;
-                }
-            }
             
-            handBlock.Draw(new Vector3(0.5f,-0.5f,-0.5f), camera.position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.rotation.X, Rotation.Y, camera.rotation.Z), Slots[selectedSlot].TextureFaces);
+            DrawCursorBlock();
+            
+            handBlock.Draw(handPos, camera.position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.rotation.X, Rotation.Y, camera.rotation.Z), Slots[selectedSlot].TextureFaces);
             
             // Рисование hitbox-а
             if (Game.isDrawDebugHitBox) BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
@@ -97,84 +61,15 @@ namespace VoxelWorld.Classes
 
         public void PhysicsProcess(float delta)
         {
-            float angleX = -camera.rotation.Y;
-            float angleY = -camera.rotation.X;
-            float angleZ = camera.rotation.Z;
-            
-            float x = camera.position.X;
-            float y = camera.position.Y;
-            float z = camera.position.Z;
-
-            int X,Y,Z,oldX=0,oldY=0,oldZ=0;
-            float RayLenght = 0.5f;
-            
-            x += (float)-Math.Sin(angleX / 180 * Math.PI);
-            X = (int)(x / 2.0f);
-            y += (float)Math.Tan(angleY / 180 * Math.PI);
-            Y = (int)(y / 2.0f);
-            z += (float)-Math.Cos(angleX / 180 * Math.PI);
-            Z = (int)(z / 2.0f);
-            // Установка блока
-            if (Input.IsMouseButtonJustPressed(Input.KeyPlaceBlock))
-              { 
-                  float dist=0;
-                 while (dist < RayLenght) // радиус действия
-                 {
-                     dist+=0.001f;
-                
-                     x += (float)-Math.Sin(angleX / 180 * Math.PI)*0.01f;
-                     X = (int)Math.Round(x);
-                     y += (float)Math.Tan(angleY / 180 * Math.PI)*0.01f;
-                     Y = (int)Math.Round(y);
-                     z += (float)-Math.Cos(angleX / 180 * Math.PI)*0.01f;
-                     Z = (int)Math.Round(z);
-                
-                     if (check(X,Y,Z))
-                     {
-                         world.chunkManager.SetBlock(new Vector3(oldX,oldY,oldZ), Slots[selectedSlot]);
-                         break;
-                     }
-                
-                     oldX = X;
-                     oldY = Y;
-                     oldZ = Z;
-                 }
-            }// Ломание блока
-            else if (Input.IsMouseButtonJustPressed(Input.KeyRemoveBlock))
-              {
-                  float dist=0;
-                  while (dist < RayLenght) // радиус действия
-                  {
-                      dist+=0.001f;
-                
-                      x += (float)-Math.Sin(angleX / 180 * Math.PI)*0.01f;
-                      X = (int)Math.Round(x);
-                      y += (float)Math.Tan(angleY / 180 * Math.PI)*0.01f;
-                      Y = (int)Math.Round(y);
-                      z += (float)-Math.Cos(angleX / 180 * Math.PI)*0.01f;
-                      Z = (int)Math.Round(z);
-                
-                      if (check(X,Y,Z))
-                      {
-                          world.chunkManager.RemoveBlock(new Vector3(X,Y,Z));
-                          break;
-                      }
-                  }
-              }
+            // Установка и ломание блока
+            if (Input.IsMouseButtonJustPressed(Input.KeyPlaceBlock)) PlaceBlock();
+            else if (Input.IsMouseButtonJustPressed(Input.KeyRemoveBlock)) RemoveBlock();
             
             
             // Выбор блока
-            if (Input.IsJustKeyPressed(Input.Key1))
-            {
-                selectedSlot = 0;
-            }
-            else if (Input.IsJustKeyPressed(Input.Key2))
-            {
-                selectedSlot = 1;
-            }else if (Input.IsJustKeyPressed(Input.Key3))
-            {
-                selectedSlot = 2;
-            }
+            if (Input.IsJustKeyPressed(Input.Key1)) selectedSlot = 0;
+            else if (Input.IsJustKeyPressed(Input.Key2)) selectedSlot = 1;
+            else if (Input.IsJustKeyPressed(Input.Key3)) selectedSlot = 2;
 
             
             
@@ -239,6 +134,16 @@ namespace VoxelWorld.Classes
                 float CameraShakeHeight = 0.1f; // Высота покачивания
                 camera.position.Y += (float)Math.Sin((Position.X + Position.Z) * CameraShakeSpeed) * CameraShakeHeight;
             }
+
+            if (Velocity.X != 0 || Velocity.Z != 0)
+            {
+                handPos = Animation.SinusoidalMotion(new Vector3(0.5f, -0.5f, -0.5f), 0.08f, 0.05f, Game.time);
+            }
+            else if (Velocity.X == 0 && Velocity.Z == 0 && handPos != new Vector3(0.5f, -0.5f, -0.5f))
+            {
+                List<Vector3> handKeyFrames = new List<Vector3>{handPos, new Vector3(0.5f, -0.5f, -0.5f)};
+                handPos = Animation.KeyframeAnimation(handKeyFrames, Game.time*0.0001f);
+            }
             
             Velocity.X = 0; Velocity.Z = 0;
             Velocity.Y = 0;
@@ -256,6 +161,66 @@ namespace VoxelWorld.Classes
             camera.OnResizeWindow(e);
         }
 
+        private void DrawCursorBlock()
+        {
+            if (RayCast()[0] != RayCast()[1]) BoxEdges.DrawBoxEdges(new Vector3(0.51f, 0.51f, 0.51f), RayCast()[0],
+                new Color4(0.0f, 0.0f, 0.0f, 1.0f), 3.5f);
+        }
+        
+        private void PlaceBlock()
+        {
+            if (RayCast()[0] != RayCast()[1]) world.chunkManager.SetBlock(RayCast()[1], Slots[selectedSlot]);
+        }
+
+        private void RemoveBlock()
+        {
+            if (RayCast()[0] != RayCast()[1]) world.chunkManager.RemoveBlock(RayCast()[0]);
+        }
+
+        private Vector3[] RayCast()
+        {
+            float angleX = -camera.rotation.Y;
+            float angleY = -camera.rotation.X;
+            float angleZ = camera.rotation.Z;
+            
+            float x = camera.position.X;
+            float y = camera.position.Y;
+            float z = camera.position.Z;
+
+            int X,Y,Z,oldX=0,oldY=0,oldZ=0;
+            float RayLenght = 0.5f;
+            
+            x += (float)-Math.Sin(angleX / 180 * Math.PI);
+            X = (int)(x / 2.0f);
+            y += (float)Math.Tan(angleY / 180 * Math.PI);
+            Y = (int)(y / 2.0f);
+            z += (float)-Math.Cos(angleX / 180 * Math.PI);
+            Z = (int)(z / 2.0f);
+            
+            float dist=0;
+            while (dist < RayLenght) // радиус действия
+            {
+                dist+=0.001f;
+                
+                x += (float)-Math.Sin(angleX / 180 * Math.PI)*0.01f;
+                X = (int)Math.Round(x);
+                y += (float)Math.Tan(angleY / 180 * Math.PI)*0.01f;
+                Y = (int)Math.Round(y);
+                z += (float)-Math.Cos(angleX / 180 * Math.PI)*0.01f;
+                Z = (int)Math.Round(z);
+                
+                if (check(X,Y,Z))
+                {
+                    return new Vector3[] {new Vector3(X,Y,Z), new Vector3(oldX,oldY,oldZ)};
+                    break;
+                }
+                oldX = X;
+                oldY = Y;
+                oldZ = Z;
+            }
+            return new Vector3[] {new Vector3(0,0,0), new Vector3(0,0,0)};
+        }
+        
         private void MoveAndCollide()
         {
             // Обработка столкновенний

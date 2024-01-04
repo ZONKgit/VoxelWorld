@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using OpenTK.Input;
 using VoxelWorld.Classes.Render;
 using VoxelWorld.Classes.World;
+using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace VoxelWorld.Classes.Engine
 {
     public class Game
     {
-        Dictionary<string, int[]> Blocks = new Dictionary<string, int[]>();
         public static int BlocksTexture = TextureLoader.LoadTexture("Res/textures/terrain.png");
         public static int FontTexture = TextureLoader.LoadTexture("Res/fonts/default.png");
         public static int CloudsTexture = TextureLoader.LoadTexture("Res/textures/environment/clouds.png");
@@ -28,16 +30,11 @@ namespace VoxelWorld.Classes.Engine
         public static int ScreenHeight = 1080 / 2;
         public static float ScreenAspect = 1.777777777777778f;
 
+        public static int time = 0;
+        
         // Приватный конструктор, чтобы предотвратить создание экземпляров извне
         private Game()
         {
-            // Инициализация экземпляра
-            
-            // Добавляем блоки и их данные
-            
-            //                            Id  Texture ID (UV)
-            Blocks.Add("Grass", new int[] { 0, 0 });
-            Blocks.Add("Stone", new int[] { 1, 1 });
             
         }
 
@@ -56,6 +53,7 @@ namespace VoxelWorld.Classes.Engine
 
         public static void PhysicsProcess()
         {
+            time++;
             if (Input.IsJustKeyPressed(Input.KeyDebugDraw)) isDrawDebug = !isDrawDebug;
         }
     }
