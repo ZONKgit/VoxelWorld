@@ -2,12 +2,12 @@
 using OpenTK;
 using VoxelWorld.Classes.Render;
 using VoxelWorld.Classes.Engine;
+using SimplexNoise;
 
 namespace VoxelWorld.Classes.World
 {
     public class Chunk
     {
-        Perlin2D Noise = new Perlin2D();
         public ChunkRenderer Renderer;
         ChunkManager Manager;
 
@@ -15,6 +15,11 @@ namespace VoxelWorld.Classes.World
         public const int ChunkSizeX = 16;
         public const int ChunkSizeY = 256;
         public const int ChunkSizeZ = 16;
+
+        private const int HeightSeed = 32;
+        private const int MoutainSeed = 35;
+        private const int HumiditySeed = 34;
+        private const int TempiratureSeed = 33;
 
         public Vector2 Position { get; set; } //Позиция чанка по X и Z (Y всегда 0)
 
@@ -39,10 +44,22 @@ namespace VoxelWorld.Classes.World
                 {
                     for (int z = 0; z < ChunkSizeZ; z++)
                     {
-                        float noiseValue = Noise.GetNoiseValue(new Vector2(Position.X*ChunkSizeX+x, Position.Y*ChunkSizeZ+z)) * 6 + 3;
-                        int _y = (int)noiseValue;
-                        if (y <= _y) ChunkData[x, y, z] = Blocks.grass; else ChunkData[x, y, z] = Blocks.air;
-
+                        ChunkData[x, y, z] = Blocks.air; }
+                }
+            }
+            
+            for (int x = 0; x < ChunkSizeX; x++)
+            {
+                for (int y = 0; y < ChunkSizeY; y++)
+                {
+                    for (int z = 0; z < ChunkSizeZ; z++)
+                    {
+                        //float mountainNoiseValue = Noise.GetNoiseValue(new Vector2(Position.X*ChunkSizeX+x, Position.Y*ChunkSizeZ+z)) * 10;
+                        float heightNoiseValue = (Noise.CalcPixel2D((int)(Position.X * ChunkSizeX + x), (int)(Position.Y * ChunkSizeZ + z), 0.02f) / 255) * 16 + 3;
+                        if (y < 13) ChunkData[x, y, z] = Blocks.water;
+                        if (y < (int)heightNoiseValue) ChunkData[x, y, z] = Blocks.dirt;
+                        if (y == (int)heightNoiseValue) ChunkData[x, y, z] = Blocks.grass;
+                        if (y < 14 && y > 10 && y == (int)heightNoiseValue) ChunkData[x, y, z] = Blocks.sand;
                     }
                 }
             }
@@ -104,7 +121,6 @@ namespace VoxelWorld.Classes.World
 
         public void Dispose()// Очищение данных чанка
         {
-            Noise = null;
             Renderer.Dispose();
             Renderer = null;
             ChunkData = null;

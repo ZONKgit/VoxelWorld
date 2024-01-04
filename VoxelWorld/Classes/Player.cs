@@ -26,9 +26,18 @@ namespace VoxelWorld.Classes
         public float moveSpeed = 0.1f;
         public Block[] Slots = new[] {Blocks.grass, Blocks.stone, Blocks.glass};
         public byte selectedSlot = 0;
-        private Vector3 handPos = new Vector3(0.5f, -0.5f, -0.5f);
 
         private TexturedCube handBlock = new TexturedCube();
+        private Vector3 handPos = new Vector3(0.5f, -0.5f, -0.5f);
+        private Vector3 handRot = -new Vector3(0,0,0);
+        
+        
+        private Vector3 blockPlacementStart;
+        private Vector3 blockPlacementEnd = new Vector3(-5f, 33f, -10.5f);
+        private float blockPlacementAnimationTime;
+        private float blockPlacementAnimationDuration = 0.2f; // You can adjust the duration as needed
+        private bool isBlockPlacementAnimating;
+
     
         public Player(GameWorld world)
         {
@@ -49,10 +58,10 @@ namespace VoxelWorld.Classes
         {
             camera.RenderProcess();
             
+            // Рисование обводки наведенного блока
             DrawCursorBlock();
-            
-            handBlock.Draw(handPos, camera.position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.rotation.X, Rotation.Y, camera.rotation.Z), Slots[selectedSlot].TextureFaces);
-            
+            // Рисование блока в руке
+            handBlock.Draw(handPos, camera.position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.rotation.X, Rotation.Y, camera.rotation.Z)+handRot, Slots[selectedSlot].TextureFaces);
             // Рисование hitbox-а
             if (Game.isDrawDebugHitBox) BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }

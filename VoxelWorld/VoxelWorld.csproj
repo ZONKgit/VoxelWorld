@@ -144,7 +144,6 @@
     <Compile Include="Classes\Engine\Input.cs" />
     <Compile Include="Classes\Engine\EngineMathHelper.cs" />
     <Compile Include="Classes\Engine\NetWork.cs" />
-    <Compile Include="Classes\Engine\PerlinNoise.cs" />
     <Compile Include="Classes\Engine\TextureHelper.cs" />
     <Compile Include="Classes\Engine\TextureLoader.cs" />
     <Compile Include="Classes\Engine\Game.cs" />
