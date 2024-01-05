@@ -201,24 +201,37 @@ namespace VoxelWorld.Classes
 
             int X,Y,Z,oldX=0,oldY=0,oldZ=0;
             float RayLenght = 0.5f;
+
+            Vector3 NormalizedXYZ = new Vector3(
+                (float)-Math.Sin(angleX / 180 * Math.PI),
+                (float)Math.Tan(angleY / 180 * Math.PI),
+                (float)-Math.Cos(angleX / 180 * Math.PI)
+            );
+            NormalizedXYZ.Normalize();
             
-            x += (float)-Math.Sin(angleX / 180 * Math.PI);
-            X = (int)(x / 2.0f);
-            y += (float)Math.Tan(angleY / 180 * Math.PI);
-            Y = (int)(y / 2.0f);
-            z += (float)-Math.Cos(angleX / 180 * Math.PI);
-            Z = (int)(z / 2.0f);
+            x += NormalizedXYZ.X;
+            y += NormalizedXYZ.Y;
+            z += NormalizedXYZ.Z;
             
             float dist=0;
             while (dist < RayLenght) // радиус действия
             {
                 dist+=0.001f;
                 
-                x += (float)-Math.Sin(angleX / 180 * Math.PI)*0.01f;
+                
+               NormalizedXYZ = new Vector3(
+                    (float)-Math.Sin(angleX / 180 * Math.PI),
+                    (float)Math.Tan(angleY / 180 * Math.PI),
+                    (float)-Math.Cos(angleX / 180 * Math.PI)
+                );
+                NormalizedXYZ.Normalize();
+            
+                x += NormalizedXYZ.X*0.01f;
+                y += NormalizedXYZ.Y*0.01f;
+                z += NormalizedXYZ.Z*0.01f;
+                
                 X = (int)Math.Round(x);
-                y += (float)Math.Tan(angleY / 180 * Math.PI)*0.01f;
                 Y = (int)Math.Round(y);
-                z += (float)-Math.Cos(angleX / 180 * Math.PI)*0.01f;
                 Z = (int)Math.Round(z);
                 
                 if (check(X,Y,Z))
