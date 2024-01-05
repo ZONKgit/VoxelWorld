@@ -56,10 +56,10 @@ namespace VoxelWorld.Classes.World
                     {
                         //float mountainNoiseValue = Noise.GetNoiseValue(new Vector2(Position.X*ChunkSizeX+x, Position.Y*ChunkSizeZ+z)) * 10;
                         float heightNoiseValue = (Noise.CalcPixel2D((int)(Position.X * ChunkSizeX + x), (int)(Position.Y * ChunkSizeZ + z), 0.02f) / 255) * 16 + 3;
-                        if (y < 13) ChunkData[x, y, z] = Blocks.water;
-                        if (y < (int)heightNoiseValue) ChunkData[x, y, z] = Blocks.dirt;
-                        if (y == (int)heightNoiseValue) ChunkData[x, y, z] = Blocks.grass;
-                        if (y < 14 && y > 10 && y == (int)heightNoiseValue) ChunkData[x, y, z] = Blocks.sand;
+                        if (y < 13) ChunkData[x, y, z] = Blocks.water;// Вода
+                        if (y < (int)heightNoiseValue) ChunkData[x, y, z] = Blocks.dirt; // Земля
+                        if (y == (int)heightNoiseValue) ChunkData[x, y, z] = Blocks.grass; // Дерн
+                        if (y < 14 && y > 10 && y == (int)heightNoiseValue) ChunkData[x, y, z] = Blocks.sand; // Песок
                     }
                 }
             }

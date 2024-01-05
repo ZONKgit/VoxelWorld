@@ -38,18 +38,6 @@ namespace VoxelWorld.Classes.World
         public void RenderProcess()
         {
             // Рендерим все чанки
-            // Создаем копию списка чанков
-            List<Chunk> sortedChunks = new List<Chunk>(Chunks);
-
-            // Сортируем чанки по расстоянию от игрока
-            sortedChunks.Sort((chunk1, chunk2) =>
-            {
-                float distance1 = Vector3.DistanceSquared(new Vector3(chunk1.Position.X, 0, chunk1.Position.Y), player.Position);
-                float distance2 = Vector3.DistanceSquared(new Vector3(chunk2.Position.X, 0, chunk2.Position.Y), player.Position);
-                return distance1.CompareTo(distance2);
-            });
-
-            // Рендерим отсортированные чанки
             foreach (var chunk in Chunks)
             {
                 chunk.RenderProcess();

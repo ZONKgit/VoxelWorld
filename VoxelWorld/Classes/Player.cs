@@ -24,7 +24,7 @@ namespace VoxelWorld.Classes
         public Vector3 Velocity = new Vector3(0, 0, 0);
 
         public float moveSpeed = 0.1f;
-        public Block[] Slots = new[] {Blocks.grass, Blocks.stone, Blocks.glass};
+        public Block[] Slots = new[] {Blocks.grass, Blocks.stone, Blocks.glass, Blocks.oak_log, Blocks.oak_planks, Blocks.oak_leaves};
         public byte selectedSlot = 0;
 
         private TexturedCube handBlock = new TexturedCube();
@@ -79,6 +79,9 @@ namespace VoxelWorld.Classes
             if (Input.IsJustKeyPressed(Input.Key1)) selectedSlot = 0;
             else if (Input.IsJustKeyPressed(Input.Key2)) selectedSlot = 1;
             else if (Input.IsJustKeyPressed(Input.Key3)) selectedSlot = 2;
+            else if (Input.IsJustKeyPressed(Input.Key4)) selectedSlot = 3;
+            else if (Input.IsJustKeyPressed(Input.Key5)) selectedSlot = 4;
+            else if (Input.IsJustKeyPressed(Input.Key6)) selectedSlot = 5;
 
             
             

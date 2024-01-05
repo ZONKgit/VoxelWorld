@@ -178,6 +178,28 @@
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\fonts\default.png" />
+    <Content Include="Res\textures\environment\clouds.png" />
+    <Content Include="Res\textures\gui\alchemy.png" />
+    <Content Include="Res\textures\gui\allitems.png" />
+    <Content Include="Res\textures\gui\background.png" />
+    <Content Include="Res\textures\gui\container.png" />
+    <Content Include="Res\textures\gui\crafting.png" />
+    <Content Include="Res\textures\gui\crash_logo.png" />
+    <Content Include="Res\textures\gui\enchant.png" />
+    <Content Include="Res\textures\gui\furnace.png" />
+    <Content Include="Res\textures\gui\gui.png" />
+    <Content Include="Res\textures\gui\icons.png" />
+    <Content Include="Res\textures\gui\inventory.png" />
+    <Content Include="Res\textures\gui\items.png" />
+    <Content Include="Res\textures\gui\particles.png" />
+    <Content Include="Res\textures\gui\slot.png" />
+    <Content Include="Res\textures\gui\trap.png" />
+    <Content Include="Res\textures\gui\unknown_pack.png" />
+    <Content Include="Res\textures\spritesheet.png" />
+    <Content Include="Res\textures\terrain.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\AssimpNet.5.0.0-beta1\build\AssimpNet.targets" Condition="Exists('packages\AssimpNet.5.0.0-beta1\build\AssimpNet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
