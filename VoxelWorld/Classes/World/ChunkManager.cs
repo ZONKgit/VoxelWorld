@@ -10,7 +10,7 @@ using VoxelWorld.Classes.Render;
 
 namespace VoxelWorld.Classes.World
 {
-    public class ChunkManager
+    public class ChunkManager : Node
     {
         public Player player;
         public int renderDistance = 8;
@@ -29,13 +29,13 @@ namespace VoxelWorld.Classes.World
         }
         
 
-        public void Ready()
+        public override  void Ready()
         {
             Game.gameWorld.FogEnd = renderDistance * (Chunk.ChunkSizeZ / 2);
         }
 
         // Отрисовка чанков
-        public void RenderProcess()
+        public override  void RenderProcess()
         {
             // Рендерим все чанки
             foreach (var chunk in Chunks)
@@ -58,7 +58,7 @@ namespace VoxelWorld.Classes.World
         }
 
 
-        public void PhysicsProcess(float delta)
+        public override  void PhysicsProcess()
         {
             // Загруза чанков
             if (GlobalToChunkCoords(player.Position) != oldPlayerChunkPos)

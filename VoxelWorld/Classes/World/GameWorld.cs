@@ -8,7 +8,7 @@ using VoxelWorld.Classes.Render.GUIClasses;
 
 namespace VoxelWorld.Classes.World
 {
-    public class GameWorld
+    public class GameWorld: Node
     {
         public int FogEnd = 25;
         
@@ -18,7 +18,7 @@ namespace VoxelWorld.Classes.World
         private Clouds clouds = new Clouds();
         
         
-        public void Ready()
+        public override  void Ready()
         {
             Game.gameWorld = this;
             player = new Player(this);
@@ -38,7 +38,7 @@ namespace VoxelWorld.Classes.World
             // GL.Fog(FogParameter.FogDensity, 0.1f);
             // GL.Hint(HintTarget.FogHint, HintMode.Nicest);
         }
-        public void RenderProcess()
+        public override  void RenderProcess()
         {
             player.RenderProcess();
             
@@ -49,15 +49,15 @@ namespace VoxelWorld.Classes.World
             guiManager.RenderProcess();
             
         }   
-        public void PhysicsProcess(float delta)
+        public override void PhysicsProcess()
         {
             Game.PhysicsProcess();
-            player.PhysicsProcess(delta);
-            chunkManager.PhysicsProcess(delta);
-            clouds.PhysicsProcess(delta);
+            player.PhysicsProcess();
+            chunkManager.PhysicsProcess();
+            clouds.PhysicsProcess();
         }
 
-        public void OnResizeWindow(EventArgs e)
+        public override  void OnResizeWindow(EventArgs e)
         {
             player.OnResizeWindow(e);
         }

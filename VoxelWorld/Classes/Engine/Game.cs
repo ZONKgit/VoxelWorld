@@ -54,7 +54,8 @@ namespace VoxelWorld.Classes.Engine
         public static void PhysicsProcess()
         {
             time++;
-            if (Input.IsJustKeyPressed(Input.KeyDebugDraw)) isDrawDebug = !isDrawDebug;
+            if (Input.IsJustKeyPressed(Input.KeyDebugPanel)) isDrawDebug = !isDrawDebug;
+            if (Input.IsJustKeyPressed(Input.KeyDebugHitBox)) isDrawDebugHitBox = !isDrawDebugHitBox;
         }
     }
 }

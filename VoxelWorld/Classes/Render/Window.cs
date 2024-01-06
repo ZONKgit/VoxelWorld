@@ -36,6 +36,7 @@ namespace VoxelWorld.Classes.Render
             GL.AlphaFunc(AlphaFunction.Greater, 0.0f);
             
 
+            
             mainTree.Ready();
             //ToggleFullscreen(); //Фуллскрин
         }
@@ -45,9 +46,8 @@ namespace VoxelWorld.Classes.Render
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-            float delta = (float)e.Time;
             
-            mainTree.PhysicsProcess(delta);
+            mainTree.PhysicsProcess();
 
             // Смена режима отрисовки
             if (Input.IsJustKeyPressed(Input.KeyDebugWireframe))

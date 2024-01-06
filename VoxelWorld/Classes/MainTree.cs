@@ -4,21 +4,21 @@ using VoxelWorld.Classes.World;
 
 namespace VoxelWorld.Classes.Render
 {
-    public class MainTree
+    public class MainTree : Node
     {
         private MainMenu mainMenu = new MainMenu();
         private GameWorld gameWorld = new GameWorld();
         public byte selectedScene = 0;
 
 
-        public void Ready()
+        public override void Ready()
         {
             Game.mainTree = this;
             mainMenu.Ready();
             gameWorld.Ready();
         }
         
-        public void RenderProcess()
+        public override  void RenderProcess()
         {
             if (selectedScene == 0)
             {
@@ -29,21 +29,21 @@ namespace VoxelWorld.Classes.Render
             }  
         }
 
-        public void PhysicsProcess(float delta)
+        public override void PhysicsProcess()
         {
             if (selectedScene == 0)
             {
                 mainMenu.PhysicsProcess();
             } else if (selectedScene == 1)
             {
-                gameWorld.PhysicsProcess(delta);
+                gameWorld.PhysicsProcess();
             }
         }
-        public void OnResizeWindow(EventArgs e)
+        public override  void OnResizeWindow(EventArgs e)
         {
             if (selectedScene == 0)
             {
-                mainMenu.PhysicsProcess();
+                mainMenu.OnResizeWindow(e);
             } else if (selectedScene == 1)
             {
                 gameWorld.OnResizeWindow(e);;

@@ -8,7 +8,7 @@ using VoxelWorld.Classes.Render.GUIClasses;
 
 namespace VoxelWorld.Classes.Render
 {
-    public class GUIManager
+    public class GUIManager : Node
     {
         ColorRect crosshair = new ColorRect(new Vector2(0, 0), new Color4(0f, 0f, 0f, 1f), 0.01f);
         TextureRect TextureInventoryBar = new TextureRect(new Vector2(0, -0.74f), new Vector4(0,0,0.7109375f,0.0859375f), new Vector2(0.7109375f*0.7f, 0.0859375f*0.7f));
@@ -57,16 +57,16 @@ namespace VoxelWorld.Classes.Render
 
             // Вывод позиции
             text.Text = "Pos: "+new Vector3(
-                (int)Game.camera.position.X,
-                (int)Game.camera.position.Y,
-                (int)Game.camera.position.Z
-            ).ToString()+"Chunk: "+Game.player.world.chunkManager.GlobalToChunkCoords(Game.camera.position).ToString();
+                (int)Game.camera.Position.X,
+                (int)Game.camera.Position.Y,
+                (int)Game.camera.Position.Z
+            ).ToString()+"Chunk: "+Game.gameWorld.chunkManager.GlobalToChunkCoords(Game.camera.Position).ToString();
             // Вывод поворота
-            textRotation.Text = "Rot: "+Game.camera.rotation.ToString();
+            textRotation.Text = "Rot: "+Game.camera.Rotation.ToString();
             // Вывод OnFloor
             textIsOnFloor.Text = "On floor: " + Game.player.hitbox.IsOnFloor.ToString();
             // Вывод блока в камере
-            textBlockId.Text = "Block id in camera position: " + Game.gameWorld.chunkManager.GetBlockAtPosition(Game.camera.position).ToString();
+            textBlockId.Text = "Block id in camera position: " + Game.gameWorld.chunkManager.GetBlockAtPosition(Game.camera.Position).ToString();
             
             GL.Enable(EnableCap.DepthTest);
         }

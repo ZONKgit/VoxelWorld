@@ -8,7 +8,7 @@ using Vector3 = OpenTK.Vector3;
 
 namespace VoxelWorld.Classes.Render
 {
-    public class Clouds
+    public class Clouds : Node
     {
         public Vector2 Position = new Vector2(0, 0); // Позиция по XZ
         public Vector2 Offset = new Vector2(0,0); // Смещение UV по XZ

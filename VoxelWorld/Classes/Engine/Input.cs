@@ -18,7 +18,8 @@ namespace VoxelWorld.Classes.Engine
         public static readonly MouseButton KeyRemoveBlock = MouseButton.Left;
         //Misc Control
         public static readonly Key KeyDebugWireframe = Key.F8;
-        public static readonly Key KeyDebugDraw = Key.F3;
+        public static readonly Key KeyDebugPanel = Key.F3;
+        public static readonly Key KeyDebugHitBox = Key.B;
         // Буквы
         public static readonly Key KeyA = Key.A;
         public static readonly Key KeyB = Key.B;

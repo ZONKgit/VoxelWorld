@@ -6,27 +6,21 @@ using OpenTK.Graphics.OpenGL;
 using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Render;
 using VoxelWorld.Classes.Render.GUIClasses;
+using Object = VoxelWorld.Classes.Engine.Object;
 
 namespace VoxelWorld.Classes
 {
-    public class Camera
+    public class Camera: Object
     {
-        Player player;
-        
         public Camera(Player player)
         {
-            this.player = player;
             Input.OnMouseMove += HandleMouseMove;
         }
+        
 
-        public Vector3 LocalRotation = new Vector3(0, 0, 0);
-        public Vector3 LocalPosition = new Vector3(0, 0.65f, 0);
-
-        public Vector3 rotation = new Vector3(0, 0, 0);
-        public Vector3 position = new Vector3(0, 0, 0);
-
-        public void Ready()
+        public override void Ready()
         {
+            LocalPosition = new Vector3(0, 0.65f, 0);
             Game.camera = this;
             
             GL.Enable(EnableCap.DepthTest); // Включение буффера глубины
@@ -40,7 +34,7 @@ namespace VoxelWorld.Classes
             GL.MatrixMode(MatrixMode.Modelview);
         }
 
-        public void RenderProcess()
+        public override void RenderProcess()
         {
             GL.ClearColor(new Color4(0.7f, 0.7f, 1f, 1.0f)); // Очищение экрана цветом...
             GL.Clear(ClearBufferMask.ColorBufferBit);
@@ -49,10 +43,10 @@ namespace VoxelWorld.Classes
             
             // Применение преобразовний
             GL.LoadIdentity();
-            GL.Rotate(rotation.X, 1f, 0f, 0f);
-            GL.Rotate(rotation.Y, 0f, 1f, 0f);
-            GL.Rotate(rotation.Z, 0f, 0f, 1f);
-            GL.Translate(-position);
+            GL.Rotate(Rotation.X, 1f, 0f, 0f);
+            GL.Rotate(Rotation.Y, 0f, 1f, 0f);
+            GL.Rotate(Rotation.Z, 0f, 0f, 1f);
+            GL.Translate(-Position);
             
             
             // Отладочный прицел
@@ -61,13 +55,13 @@ namespace VoxelWorld.Classes
 
         void DebugDrawCrosshair()
         {
-            float angleX = -rotation.Y;
-            float angleY = -rotation.X;
-            float angleZ = rotation.Z;
+            float angleX = -Rotation.Y;
+            float angleY = -Rotation.X;
+            float angleZ = Rotation.Z;
             
-            float x1 = position.X;
-            float y1 = position.Y;
-            float z1 = position.Z;
+            float x1 = Position.X;
+            float y1 = Position.Y;
+            float z1 = Position.Z;
 
             float dist = 0.1f;
    
@@ -91,7 +85,7 @@ namespace VoxelWorld.Classes
 
             GL.End();
         }
-        public void PhysicsProcess()
+        public override void PhysicsProcess()
         {
 
         }
@@ -102,7 +96,7 @@ namespace VoxelWorld.Classes
             if (LocalRotation.X > 90.0f) LocalRotation.X = 90.0f; // Ограничение от -90 до 90 градусов
             else if (LocalRotation.X < -90.0f) LocalRotation.X = -90.0f;
         }
-        public void OnResizeWindow(EventArgs e)
+        public override void OnResizeWindow(EventArgs e)
         {
             float aspectRatio = (float)Window.WindowWidth / Window.WindowHeight;
             Matrix4 perspective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(90), aspectRatio, 0.1f, 1000f);

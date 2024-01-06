@@ -10,7 +10,7 @@ using Button = VoxelWorld.Classes.Render.GUIClasses.Button;
 
 namespace VoxelWorld.Classes
 {
-    public class MainMenu
+    public class MainMenu : Node
     {
         Button StartButton = new Button(new Vector2(0.625f, 0.125f));
         

@@ -8,18 +8,18 @@ using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Physics;
 using VoxelWorld.Classes.World;
 using VoxelWorld.Classes.Render;
+using Object = VoxelWorld.Classes.Engine.Object;
 
 namespace VoxelWorld.Classes
 {
-    public class Player
+    public class Player: Object
     {
-        public GameWorld world;
         Camera camera;
         public HitBox hitbox = new HitBox(new Vector3(0.5f,1.8f,0.5f));
 
         const float MaxFallVelocity = -2f;
 
-        public Vector3 Position = new Vector3(0, 12, 0);    
+        public Vector3 Position = new Vector3(0, 17, 0);    
         public Vector3 Rotation = new Vector3(0, 0, 0);
         public Vector3 Velocity = new Vector3(0, 0, 0);
 
@@ -41,7 +41,6 @@ namespace VoxelWorld.Classes
     
         public Player(GameWorld world)
         {
-            this.world = world;
             Input.OnMouseMove += HandleMouseMove;
         }
 
@@ -54,21 +53,21 @@ namespace VoxelWorld.Classes
         }
 
 
-        public void RenderProcess()
+        public override void RenderProcess()
         {
             camera.RenderProcess();
             
             // Рисование обводки наведенного блока
             DrawCursorBlock();
             // Рисование блока в руке
-            handBlock.Draw(handPos, camera.position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.rotation.X, Rotation.Y, camera.rotation.Z)+handRot, Slots[selectedSlot].TextureFaces);
+            handBlock.Draw(handPos, camera.Position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.Rotation.X, Rotation.Y, camera.Rotation.Z)+handRot, Slots[selectedSlot].TextureFaces);
             // Рисование hitbox-а
-            if (Game.isDrawDebugHitBox) BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, Position, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
+            if (Game.isDrawDebugHitBox) BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, camera.Position-camera.LocalPosition, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
 
        
 
-        public void PhysicsProcess(float delta)
+        public override void PhysicsProcess()
         {
             // Установка и ломание блока
             if (Input.IsMouseButtonJustPressed(Input.KeyPlaceBlock)) PlaceBlock();
@@ -89,8 +88,10 @@ namespace VoxelWorld.Classes
             // {
                 //Velocity.Y -= 0.1f;
             //}
-            camera.position = Position+camera.LocalPosition;
-            camera.rotation = Rotation+camera.LocalRotation;
+            // camera.SetPosition(Position);
+            // camera.SetRotation(Rotation);
+            camera.Position = Position+camera.LocalPosition;
+            camera.Rotation = Rotation+camera.LocalRotation;
             camera.PhysicsProcess();
 
             // Ходьба
@@ -144,7 +145,7 @@ namespace VoxelWorld.Classes
             {
                 float CameraShakeSpeed = 1.4f; // Скорость покачивания
                 float CameraShakeHeight = 0.1f; // Высота покачивания
-                camera.position.Y += (float)Math.Sin((Position.X + Position.Z) * CameraShakeSpeed) * CameraShakeHeight;
+                camera.Position.Y += (float)Math.Sin((Position.X + Position.Z) * CameraShakeSpeed) * CameraShakeHeight;
             }
 
             if (Velocity.X != 0 || Velocity.Z != 0)
@@ -168,7 +169,7 @@ namespace VoxelWorld.Classes
             Rotation.Y += mouseRelative.X * Input.mouseSensitivity;
         }
 
-        public void OnResizeWindow(EventArgs e)
+        public override void  OnResizeWindow(EventArgs e)
         {
             camera.OnResizeWindow(e);
         }
@@ -181,23 +182,23 @@ namespace VoxelWorld.Classes
         
         private void PlaceBlock()
         {
-            if (RayCast()[0] != RayCast()[1]) world.chunkManager.SetBlock(RayCast()[1], Slots[selectedSlot]);
+            if (RayCast()[0] != RayCast()[1]) Game.gameWorld.chunkManager.SetBlock(RayCast()[1], Slots[selectedSlot]);
         }
 
         private void RemoveBlock()
         {
-            if (RayCast()[0] != RayCast()[1]) world.chunkManager.RemoveBlock(RayCast()[0]);
+            if (RayCast()[0] != RayCast()[1]) Game.gameWorld.chunkManager.RemoveBlock(RayCast()[0]);
         }
 
         private Vector3[] RayCast()
         {
-            float angleX = -camera.rotation.Y;
-            float angleY = -camera.rotation.X;
-            float angleZ = camera.rotation.Z;
+            float angleX = -camera.Rotation.Y;
+            float angleY = -camera.Rotation.X;
+            float angleZ = camera.Rotation.Z;
             
-            float x = camera.position.X;
-            float y = camera.position.Y;
-            float z = camera.position.Z;
+            float x = camera.Position.X;
+            float y = camera.Position.Y;
+            float z = camera.Position.Z;
 
             int X,Y,Z,oldX=0,oldY=0,oldZ=0;
             float RayLenght = 0.5f;
@@ -249,101 +250,101 @@ namespace VoxelWorld.Classes
         private void MoveAndCollide()
         {
             // Обработка столкновенний
-            // if (Velocity.X < 0) //-X
-            // {
-            //     if (check((int)(Position.X + Velocity.X+0.5f - (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.X = 0;
-            //     }
-            //     if (check((int)(Position.X + Velocity.X +0.5f- (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.X = 0;
-            //     }
-            // }
-            // if (Velocity.Y > 0) // +Y
-            // {
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.Y = 0;
-            //     }
-            //
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.Y = 0;
-            //     }
-            // }
-            // if (Velocity.Z > 0) //+Z
-            // {
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            // }
-            //
-            // if (Velocity.X > 0) //+X
-            // {
-            //     if (check((int)(Position.X + Velocity.X + (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.X = 0;
-            //     }
-            //     if (check((int)(Position.X + Velocity.X + (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.X = 0;
-            //     }
-            // }
-            // if (Velocity.Y < 0) // -Y
-            // {
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.Y = 0;
-            //         hitbox.IsOnFloor = true;
-            //     }
-            //     
-            // }
-            // if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
-            // {
-            //     Velocity.Y = 0;
-            //     hitbox.IsOnFloor = true;
-            // }
-            //    
-            // if (Velocity.Z < 0) //-Z
-            // {
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            // }
+            if (Velocity.X < 0) //-X
+            {
+                if (check((int)(Position.X + Velocity.X+0.5f - (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.X = 0;
+                }
+                if (check((int)(Position.X + Velocity.X +0.5f- (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.X = 0;
+                }
+            }
+            if (Velocity.Y > 0) // +Y
+            {
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.Y = 0;
+                }
+            
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.Y = 0;
+                }
+            }
+            if (Velocity.Z > 0) //+Z
+            {
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+            }
+            
+            if (Velocity.X > 0) //+X
+            {
+                if (check((int)(Position.X + Velocity.X + (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.X = 0;
+                }
+                if (check((int)(Position.X + Velocity.X + (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.X = 0;
+                }
+            }
+            if (Velocity.Y < 0) // -Y
+            {
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
+                {
+                    Velocity.Y = 0;
+                    hitbox.IsOnFloor = true;
+                }
+                
+            }
+            if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
+            {
+                Velocity.Y = 0;
+                hitbox.IsOnFloor = true;
+            }
+               
+            if (Velocity.Z < 0) //-Z
+            {
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+                if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
+                {
+                    Velocity.Z = 0;
+                }
+            }
 
             Position += Velocity;
             NetWork.SendMessage(Position.ToString());
         }
         bool check(int X, int Y, int Z)
         {
-            return world.chunkManager.CheckBlock(new Vector3(X,Y,Z));
+            return Game.gameWorld.chunkManager.CheckBlock(new Vector3(X,Y,Z));
         }
     }
 }
