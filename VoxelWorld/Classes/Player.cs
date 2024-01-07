@@ -12,16 +12,13 @@ using Object = VoxelWorld.Classes.Engine.Object;
 
 namespace VoxelWorld.Classes
 {
-    public class Player: Object
+    public class Player: Entity
     {
         Camera camera;
-        public HitBox hitbox = new HitBox(new Vector3(0.5f,1.8f,0.5f));
 
         const float MaxFallVelocity = -2f;
-
-        public Vector3 Position = new Vector3(0, 17, 0);    
+        
         public Vector3 Rotation = new Vector3(0, 0, 0);
-        public Vector3 Velocity = new Vector3(0, 0, 0);
 
         public float moveSpeed = 0.1f;
         public Block[] Slots = new[] {Blocks.grass, Blocks.stone, Blocks.glass, Blocks.oak_log, Blocks.oak_planks, Blocks.oak_leaves};
@@ -41,11 +38,13 @@ namespace VoxelWorld.Classes
     
         public Player(GameWorld world)
         {
+            hitbox = new HitBox(new Vector3(0.5f,1.8f,0.5f));
             Input.OnMouseMove += HandleMouseMove;
         }
 
         public void Ready()
         {
+            Position = new Vector3(0, 17, 0);
             Game.player = this;
             camera = new Camera(this);
             camera.Ready();
@@ -165,8 +164,10 @@ namespace VoxelWorld.Classes
 
         private void HandleMouseMove(Vector2 mouseRelative)
         {
-            // Вращение телом
-            Rotation.Y += mouseRelative.X * Input.mouseSensitivity;
+            if (!Game.window.CursorVisible) {
+                // Вращение телом
+                Rotation.Y += mouseRelative.X * Input.mouseSensitivity;
+            }
         }
 
         public override void  OnResizeWindow(EventArgs e)
@@ -235,7 +236,7 @@ namespace VoxelWorld.Classes
                 Y = (int)Math.Round(y);
                 Z = (int)Math.Round(z);
                 
-                if (check(X,Y,Z))
+                if (Game.gameWorld.chunkManager.CheckBlock(new Vector3(X,Y,Z)))
                 {
                     return new Vector3[] {new Vector3(X,Y,Z), new Vector3(oldX,oldY,oldZ)};
                     break;
@@ -247,104 +248,5 @@ namespace VoxelWorld.Classes
             return new Vector3[] {new Vector3(0,0,0), new Vector3(0,0,0)};
         }
         
-        private void MoveAndCollide()
-        {
-            // Обработка столкновенний
-            // if (Velocity.X < 0) //-X
-            // {
-            //     if (check((int)(Position.X + Velocity.X+0.5f - (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.X = 0;
-            //     }
-            //     if (check((int)(Position.X + Velocity.X +0.5f- (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.X = 0;
-            //     }
-            // }
-            // if (Velocity.Y > 0) // +Y
-            // {
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.Y = 0;
-            //     }
-            //
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y + (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.Y = 0;
-            //     }
-            // }
-            // if (Velocity.Z > 0) //+Z
-            // {
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z + (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            // }
-            //
-            // if (Velocity.X > 0) //+X
-            // {
-            //     if (check((int)(Position.X + Velocity.X + (hitbox.HitBoxSize.X / 2)), (int)(Position.Y + hitbox.HitBoxSize.Y/2), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.X = 0;
-            //     }
-            //     if (check((int)(Position.X + Velocity.X + (hitbox.HitBoxSize.X / 2)), (int)(Position.Y - hitbox.HitBoxSize.Y/2), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.X = 0;
-            //     }
-            // }
-            // if (Velocity.Y < 0) // -Y
-            // {
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z - hitbox.HitBoxSize.Z/2)))
-            //     {
-            //         Velocity.Y = 0;
-            //         hitbox.IsOnFloor = true;
-            //     }
-            //     
-            // }
-            // if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + Velocity.Y - (hitbox.HitBoxSize.Y / 2)), (int)(Position.Z + hitbox.HitBoxSize.Z/2)))
-            // {
-            //     Velocity.Y = 0;
-            //     hitbox.IsOnFloor = true;
-            // }
-            //    
-            // if (Velocity.Z < 0) //-Z
-            // {
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X - hitbox.HitBoxSize.X/2), (int)(Position.Y + hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            //     if (check((int)(Position.X + hitbox.HitBoxSize.X/2), (int)(Position.Y - hitbox.HitBoxSize.Z/2), (int)(Position.Z + Velocity.Z+0.5f - (hitbox.HitBoxSize.Z / 2)))) //+Z
-            //     {
-            //         Velocity.Z = 0;
-            //     }
-            // }
-
-            Position += Velocity;
-            NetWork.SendMessage(Position.ToString());
-        }
-        bool check(int X, int Y, int Z)
-        {
-            return Game.gameWorld.chunkManager.CheckBlock(new Vector3(X,Y,Z));
-        }
     }
 }

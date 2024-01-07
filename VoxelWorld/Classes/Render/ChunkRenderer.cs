@@ -41,8 +41,7 @@ namespace VoxelWorld.Classes.Render
                             float colorG = 1f;
                             float colorB = 1f;
                             float colorA = 1f;
-                            //&& chunk.GetBlockAtPosition(new Vector3(x, y, z)).DrawGroup == chunk.GetBlockAtPosition(new Vector3(x, y, z)).DrawGroup
-
+                            
                             
                             //Front side
                             if (chunk.GetBlockAtPosition(new Vector3(x, y, z-1)).IsTransparent && chunk.GetBlockAtPosition(new Vector3(x, y, z-1)).DrawGroup != chunk.GetBlockAtPosition(new Vector3(x, y, z)).DrawGroup) GenerateFrontSide(new Vector3(ChunkPos.X * Chunk.ChunkSizeX + x, y, ChunkPos.Y* Chunk.ChunkSizeZ + z), colorR, colorG, colorB, colorA, TextureHelper.IDToUVCoords(chunk.ChunkData[x, y, z].TextureFaces[2]));

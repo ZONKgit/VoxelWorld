@@ -91,10 +91,12 @@ namespace VoxelWorld.Classes
         }
         private void HandleMouseMove(Vector2 mouseRelative)
         {
-            // Вращение камерой
-            LocalRotation.X += mouseRelative.Y * Input.mouseSensitivity;
-            if (LocalRotation.X > 90.0f) LocalRotation.X = 90.0f; // Ограничение от -90 до 90 градусов
-            else if (LocalRotation.X < -90.0f) LocalRotation.X = -90.0f;
+            if (!Game.window.CursorVisible) {
+                // Вращение камерой
+                LocalRotation.X += mouseRelative.Y * Input.mouseSensitivity;
+                if (LocalRotation.X > 90.0f) LocalRotation.X = 90.0f; // Ограничение от -90 до 90 градусов
+                else if (LocalRotation.X < -90.0f) LocalRotation.X = -90.0f;
+            }
         }
         public override void OnResizeWindow(EventArgs e)
         {

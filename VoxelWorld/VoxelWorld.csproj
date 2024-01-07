@@ -141,6 +141,7 @@
   <ItemGroup>
     <Compile Include="Classes\Camera.cs" />
     <Compile Include="Classes\Engine\Animation.cs" />
+    <Compile Include="Classes\Engine\Entity.cs" />
     <Compile Include="Classes\Engine\Input.cs" />
     <Compile Include="Classes\Engine\EngineMathHelper.cs" />
     <Compile Include="Classes\Engine\NetWork.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Classes\Render\GUIClasses\TextureRect.cs" />
     <Compile Include="Classes\Render\GUIManager.cs" />
     <Compile Include="Classes\Render\Line3D.cs" />
+    <Compile Include="Classes\Render\Particle.cs" />
     <Compile Include="Classes\Render\Text3D.cs" />
     <Compile Include="Classes\Render\GUI.cs" />
     <Compile Include="Classes\Render\GUIClasses\ColorRect.cs" />

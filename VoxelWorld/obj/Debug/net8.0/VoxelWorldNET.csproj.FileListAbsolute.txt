@@ -1,0 +1,5 @@
+D:\Desktop\C#\VoxelWorld\VoxelWorldNET\VoxelWorldNET\VoxelWorldNET\obj\Debug\net8.0\VoxelWorldNET.GeneratedMSBuildEditorConfig.editorconfig
+D:\Desktop\C#\VoxelWorld\VoxelWorldNET\VoxelWorldNET\VoxelWorldNET\obj\Debug\net8.0\VoxelWorldNET.AssemblyInfoInputs.cache
+D:\Desktop\C#\VoxelWorld\VoxelWorldNET\VoxelWorldNET\VoxelWorldNET\obj\Debug\net8.0\VoxelWorldNET.AssemblyInfo.cs
+D:\Desktop\C#\VoxelWorld\VoxelWorldNET\VoxelWorldNET\VoxelWorldNET\obj\Debug\net8.0\VoxelWorldNET.csproj.CoreCompileInputs.cache
+D:\Desktop\C#\VoxelWorld\VoxelWorldNET\VoxelWorldNET\VoxelWorldNET\obj\Debug\net8.0\VoxelWorldNET.sourcelink.json

@@ -11,6 +11,7 @@ namespace VoxelWorld.Classes.World
     public class GameWorld: Node
     {
         public int FogEnd = 25;
+        public List<Particle> Particles;
         
         Player player; // Создание игрока
         public ChunkManager chunkManager;
@@ -38,6 +39,12 @@ namespace VoxelWorld.Classes.World
             // GL.Fog(FogParameter.FogDensity, 0.1f);
             // GL.Hint(HintTarget.FogHint, HintMode.Nicest);
         }
+        
+        public void AddParticle()
+        {
+            
+        }
+        
         public override  void RenderProcess()
         {
             player.RenderProcess();

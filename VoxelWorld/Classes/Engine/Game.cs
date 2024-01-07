@@ -16,6 +16,7 @@ namespace VoxelWorld.Classes.Engine
         public static int CloudsTexture = TextureLoader.LoadTexture("Res/textures/environment/clouds.png");
         public static int GUITexture = TextureLoader.LoadTexture("Res/textures/gui/gui.png");
 
+        public static Window window;
         public static MainTree mainTree;
         public static Player player;
         public static Camera camera;
