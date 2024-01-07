@@ -73,83 +73,188 @@ namespace VoxelWorld.Classes.Render
             vertices = null;
         }
 
-    private void GenerateFrontSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
+    private void GenerateFrontSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV) //-Z
     {
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        float a = GetAmbientOcclusionFactor(Pos, new Vector3(-1,-1,-1));  // -X; -Y
+        float b = GetAmbientOcclusionFactor(Pos, new Vector3(+1,+1,-1));  // +X; +Y
+        float c = GetAmbientOcclusionFactor(Pos, new Vector3(+1,-1,-1));  // +X; -Y
+        float d = GetAmbientOcclusionFactor(Pos, new Vector3(-1,+1,-1));  // -X: +Y
 
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        float e = GetAmbientOcclusionFactor(Pos, new Vector3(+1, 0, -1)); // +X
+        float f = GetAmbientOcclusionFactor(Pos, new Vector3(-1, 0, -1)); // -X
+        float g = GetAmbientOcclusionFactor(Pos, new Vector3(0, +1, -1)); // +Y
+        float h = GetAmbientOcclusionFactor(Pos, new Vector3(0, -1, -1)); // -Y
+        
+        if (e != 1) { b = e; c = e; }
+        if (f != 1) { a = f; d = f; }
+        if (g != 1) { b = g; d = g; }
+        if (h != 1) { a = h; c = h; }
+
+
+        vertices.Add(new Vertex() {X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() {X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f,R = colorR * b, G = colorG * b, B = colorB * b, A = colorA,U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() {X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f,R = colorR * c, G = colorG * c, B = colorB * c, A = colorA,U = UV.Z, V = UV.W });
+
+        vertices.Add(new Vertex() {X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f,R = colorR * b, G = colorG * b, B = colorB * b, A = colorA,U = UV.Z, V = UV.Y});
+        vertices.Add(new Vertex() {X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f,R = colorR * a, G = colorG * a, B = colorB * a, A = colorA,U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() {X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f,R = colorR * d, G = colorG * d, B = colorB * d, A = colorA,U = UV.X, V = UV.Y });
     }
 
     private void GenerateBackSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        float a = GetAmbientOcclusionFactor(Pos, new Vector3(-1,-1,+1));  // -X; -Y
+        float b = GetAmbientOcclusionFactor(Pos, new Vector3(+1,+1,+1));  // +X; +Y
+        float c = GetAmbientOcclusionFactor(Pos, new Vector3(+1,-1,+1));  // +X; -Y
+        float d = GetAmbientOcclusionFactor(Pos, new Vector3(-1,+1,+1));  // -X: +Y
 
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        float e = GetAmbientOcclusionFactor(Pos, new Vector3(+1, 0, +1)); // +X
+        float f = GetAmbientOcclusionFactor(Pos, new Vector3(-1, 0, +1)); // -X
+        float g = GetAmbientOcclusionFactor(Pos, new Vector3(0, +1, +1)); // +Y
+        float h = GetAmbientOcclusionFactor(Pos, new Vector3(0, -1, +1)); // -Y
+        
+        if (e != 1) { b = e; c = e; }
+        if (f != 1) { a = f; d = f; }
+        if (g != 1) { b = g; d = g; }
+        if (h != 1) { a = h; c = h; }
+        
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z + 0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z + 0.5f, R = colorR * c, G = colorG * c, B = colorB* c, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.Z, V = UV.Y });
+
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * d, G = colorG * d, B = colorB * d, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z + 0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.X, V = UV.W });
 
         
     }
 
     private void GenerateRightSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        float a = GetAmbientOcclusionFactor(Pos, new Vector3(-1,-1,-1));  // -Y; -Z
+        float b = GetAmbientOcclusionFactor(Pos, new Vector3(-1,+1,+1));  // +Y; +Z
+        float c = GetAmbientOcclusionFactor(Pos, new Vector3(-1,-1,+1));  // -Y; +Z
+        float d = GetAmbientOcclusionFactor(Pos, new Vector3(-1,+1,-1));  // +Y: -Z
 
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        float e = GetAmbientOcclusionFactor(Pos, new Vector3(-1, +1, 0)); // +Y
+        float f = GetAmbientOcclusionFactor(Pos, new Vector3(-1, -1, 0)); // -Y
+        float g = GetAmbientOcclusionFactor(Pos, new Vector3(-1, 0, +1)); // +Z
+        float h = GetAmbientOcclusionFactor(Pos, new Vector3(-1, 0, -1)); // -Z
+        
+        if (e != 1) { b = e; d = e; }
+        if (f != 1) { a = f; c = f; }
+        if (g != 1) { b = g; c = g; }
+        if (h != 1) { a = h; d = h; }
+        
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z - 0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z - 0.5f, R = colorR * d, G = colorG * d, B = colorB * d, A = colorA, U = UV.Z, V = UV.Y });
+
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z - 0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z + 0.5f, R = colorR * c, G = colorG * c, B = colorB * c, A = colorA, U = UV.X, V = UV.W });
 
     }
 
     private void GenerateLeftSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
+        float a = GetAmbientOcclusionFactor(Pos, new Vector3(+1,-1,-1));  // -Y; -Z
+        float b = GetAmbientOcclusionFactor(Pos, new Vector3(+1,+1,+1));  // +Y; +Z
+        float c = GetAmbientOcclusionFactor(Pos, new Vector3(+1,-1,+1));  // -Y; +Z
+        float d = GetAmbientOcclusionFactor(Pos, new Vector3(+1,+1,-1));  // +Y: -Z
 
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
+        float e = GetAmbientOcclusionFactor(Pos, new Vector3(+1, +1, 0)); // +Y
+        float f = GetAmbientOcclusionFactor(Pos, new Vector3(+1, -1, 0)); // -Y
+        float g = GetAmbientOcclusionFactor(Pos, new Vector3(+1, 0, +1)); // +Z
+        float h = GetAmbientOcclusionFactor(Pos, new Vector3(+1, 0, -1)); // -Z
+        
+        if (e != 1) { b = e; d = e; }
+        if (f != 1) { a = f; c = f; }
+        if (g != 1) { b = g; c = g; }
+        if (h != 1) { a = h; d = h; }
+        
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z - 0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z - 0.5f, R = colorR * d, G = colorG * d, B = colorB * d, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.X, V = UV.Y });
+
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z + 0.5f, R = colorR * c, G = colorG * c, B = colorB * c, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z - 0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.Z, V = UV.W });
     }
-
-
-
-
-    private void GenerateTopSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
+    
+    
+    private void GenerateTopSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV) //+Y
     {
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        float a = GetAmbientOcclusionFactor(Pos, new Vector3(-1,1,-1)); //-X; -Z
+        float b = GetAmbientOcclusionFactor(Pos, new Vector3(+1,1,+1)); //+X; +Z
+        float c = GetAmbientOcclusionFactor(Pos, new Vector3(+1,1,-1)); //+X; -Z
+        float d = GetAmbientOcclusionFactor(Pos, new Vector3(-1,1,+1)); //-X; +Z
 
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        float e = GetAmbientOcclusionFactor(Pos, new Vector3(+1, 1, 0)); //+X
+        float f = GetAmbientOcclusionFactor(Pos, new Vector3(-1, 1, 0)); //-X
+        float g = GetAmbientOcclusionFactor(Pos, new Vector3(0, 1, +1)); //+Z
+        float h = GetAmbientOcclusionFactor(Pos, new Vector3(0, 1, -1)); //-Z
+
+        if (e != 1) { b = e; c = e; }
+        if (f != 1) { a = f; d = f; }
+        if (g != 1) { b = g; d = g; }
+        if (h != 1) { a = h; c = h; }
+
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR * c, G = colorG * c, B = colorB * c, A = colorA, U = UV.Z, V = UV.Y });
+
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + -0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + 0.5f, Z = Pos.Z + 0.5f, R = colorR * d, G = colorG * d, B = colorB * d, A = colorA, U = UV.X, V = UV.W });
     }
-
-
-
-
-
+    
     private void GenerateBottomSide(Vector3 Pos, float colorR, float colorG, float colorB, float colorA, Vector4 UV)
     {
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.W });
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
+        float a = GetAmbientOcclusionFactor(Pos, new Vector3(-1,-1,-1)); //-X; -Z
+        float b = GetAmbientOcclusionFactor(Pos, new Vector3(+1,-1,+1)); //+X; +Z
+        float c = GetAmbientOcclusionFactor(Pos, new Vector3(+1,-1,-1)); //+X; -Z
+        float d = GetAmbientOcclusionFactor(Pos, new Vector3(-1,-1,+1)); //-X; +Z
+
+        float e = GetAmbientOcclusionFactor(Pos, new Vector3(+1, -1, 0)); //+X
+        float f = GetAmbientOcclusionFactor(Pos, new Vector3(-1, -1, 0)); //-X
+        float g = GetAmbientOcclusionFactor(Pos, new Vector3(0, -1, +1)); //+Z
+        float h = GetAmbientOcclusionFactor(Pos, new Vector3(0, -1, -1)); //-Z
+
+        if (e != 1) { b = e; c = e; }
+        if (f != 1) { a = f; d = f; }
+        if (g != 1) { b = g; d = g; }
+        if (h != 1) { a = h; c = h; }
+        
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z - 0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z - 0.5f, R = colorR * c, G = colorG * c, B = colorB * c, A = colorA, U = UV.Z, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.Z, V = UV.Y });
         
 
-        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.Z, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + 0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.Y });
-        vertices.Add(new Vertex() { X = Pos.X + -0.5f, Y = Pos.Y + -0.5f, Z = Pos.Z + -0.5f, R = colorR, G = colorG, B = colorB, A = colorA, U = UV.X, V = UV.W });
+        vertices.Add(new Vertex() { X = Pos.X + 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z + 0.5f, R = colorR * b, G = colorG * b, B = colorB * b, A = colorA, U = UV.Z, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z + 0.5f, R = colorR * d, G = colorG * d, B = colorB * d, A = colorA, U = UV.X, V = UV.Y });
+        vertices.Add(new Vertex() { X = Pos.X - 0.5f, Y = Pos.Y - 0.5f, Z = Pos.Z - 0.5f, R = colorR * a, G = colorG * a, B = colorB * a, A = colorA, U = UV.X, V = UV.W });
        
+    } 
+
+private float GetAmbientOcclusionFactor(Vector3 pos, Vector3 offset)
+{
+    Vector3 neighborPos = new Vector3(
+        pos.X + offset.X,
+        pos.Y + offset.Y,
+        pos.Z + offset.Z
+        );
+
+    if (Game.gameWorld.chunkManager.GetBlockAtPosition(neighborPos).IsTransparent)
+    {
+        return 1.0f; 
     }
+
+    return 0.8f;
+}
+
+
+
+
 
 
 
