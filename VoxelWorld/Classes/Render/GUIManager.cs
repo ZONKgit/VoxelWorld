@@ -18,6 +18,7 @@ namespace VoxelWorld.Classes.Render
         Text2D textRotation = new Text2D(new Vector2(-49f , 24.3f), "Camera rotation", 0.03f);
         Text2D textIsOnFloor = new Text2D(new Vector2(-49f, 23.1f), "IsOnFloor", 0.03f);
         Text2D textBlockId = new Text2D(new Vector2(-49f, 21.8f), "textBlockId", 0.03f);
+        Text2D textParticelsCount = new Text2D(new Vector2(-1, 1), "Particels:", 0.03f);
 
         public void Ready()
         {
@@ -26,6 +27,7 @@ namespace VoxelWorld.Classes.Render
             textRotation.Ready();
             textIsOnFloor.Ready();
             textBlockId.Ready();
+            textParticelsCount.Ready();
             TextureInventoryBar.Texture = Game.GUITexture;
             TextureInventoryBarSelected.Texture = Game.GUITexture;
         }
@@ -44,6 +46,7 @@ namespace VoxelWorld.Classes.Render
                 textRotation.RenderProcess();
                 textIsOnFloor.RenderProcess();
                 textBlockId.RenderProcess();
+                textParticelsCount.RenderProcess();
             }
             else
             {
@@ -66,7 +69,9 @@ namespace VoxelWorld.Classes.Render
             // Вывод OnFloor
             textIsOnFloor.Text = "On floor: " + Game.player.hitbox.IsOnFloor.ToString();
             // Вывод блока в камере
-            textBlockId.Text = "Block id in camera position: " + Game.gameWorld.chunkManager.GetBlockAtPosition(Game.camera.Position).ToString();
+            textBlockId.Text = "Block id in camera position: " + Game.gameWorld.chunkManager.GetBlockAtPosition(Game.camera.Position);
+            // Вывод кол-ва частиц в мире
+            textParticelsCount.Text = "Particels: " + Game.gameWorld.Particles.Count + " / 4000";
             
             GL.Enable(EnableCap.DepthTest);
         }

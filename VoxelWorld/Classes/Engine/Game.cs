@@ -32,7 +32,8 @@ namespace VoxelWorld.Classes.Engine
         public static int ScreenHeight = 1080 / 2;
         public static float ScreenAspect = 1.777777777777778f;
 
-        public static int time = 0;
+        public static int time = 0; // Прошедшее время с момента запуска игры в ms
+        public static int tick = 0;// Прошедшее кол-во тиков с момента запуска игры
         
         // Приватный конструктор, чтобы предотвратить создание экземпляров извне
         private Game()

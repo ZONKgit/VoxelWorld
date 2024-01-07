@@ -39,9 +39,11 @@ namespace VoxelWorld.Classes.World
             // GL.Hint(HintTarget.FogHint, HintMode.Nicest);
         }
         
-        public void AddParticle(Vector3 pos, Vector3 vel, Vector3 grav, byte texId)
-        {
+        public void AddParticle(Vector3 pos, Vector3 vel, Vector3 grav, byte texId) {
             Particles.Add(new Particle(pos, vel, grav, texId));
+        }
+        public void RemoveParticle(Particle particle) {
+            Particles.Remove(particle);
         }
         
         public override  void RenderProcess()
@@ -49,6 +51,7 @@ namespace VoxelWorld.Classes.World
             player.RenderProcess();
             
             clouds.RenderProcess();
+
             foreach (var particle in Particles)
             {
                 particle.RenderProcess();   
@@ -65,7 +68,9 @@ namespace VoxelWorld.Classes.World
             player.PhysicsProcess();
             chunkManager.PhysicsProcess();
             clouds.PhysicsProcess();
-            foreach (var particle in Particles)
+            
+            List<Particle> particlesCopy = new List<Particle>(Particles);
+            foreach (var particle in particlesCopy)
             {
                 particle.PhysicsProcess();   
             }

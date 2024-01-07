@@ -15,6 +15,9 @@ namespace VoxelWorld.Classes.Render
 
         public byte SelectedDebugDraw = 0;
         
+        private const float PhysicsUpdateInterval = 1.0f / 20.0f; // 20 раз в секунду
+        private float timeSinceLastPhysicsUpdate = 0.0f;
+        
         public Window() : base(WindowWidth, WindowHeight, GraphicsMode.Default, "Voxel World")
         {
             VSync = VSyncMode.On;
@@ -54,11 +57,18 @@ namespace VoxelWorld.Classes.Render
         {
             base.OnUpdateFrame(e);
             
+            timeSinceLastPhysicsUpdate += (float)e.Time;
+            if (timeSinceLastPhysicsUpdate >= PhysicsUpdateInterval)
+            {
+                Game.tick += 1;
+                timeSinceLastPhysicsUpdate -= PhysicsUpdateInterval;
+            }
+
             if (!CursorVisible)
             {
                 mainTree.PhysicsProcess();
             }
-
+            
             // Телепортация курсора в центре окна, если он не отображаеться
             if (!CursorVisible) {
                 // Рассчитываем центр окна

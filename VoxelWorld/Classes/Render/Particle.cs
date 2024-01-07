@@ -8,11 +8,13 @@ namespace VoxelWorld.Classes.Render
     public class Particle : Entity
     {
         public TexturedCube Mesh;
-        public byte Lifetime = 5; //До 255 (в тиках)
+        public int TickStart;
+        public byte LifeTime = 100; //До 255 (в тиках)
         public byte TextureID;
 
         public Particle(Vector3 pos, Vector3 vel, Vector3 grav, byte texId)
         {
+            TickStart = Game.tick;
             Position = pos;
             Velocity = vel;
             Gravity = grav;
@@ -28,6 +30,11 @@ namespace VoxelWorld.Classes.Render
 
         public override void PhysicsProcess()
         {
+            if (Game.tick-TickStart >= LifeTime)
+            {
+                Game.gameWorld.RemoveParticle(this);
+                Console.WriteLine("Destroy");
+            }
             Velocity += Gravity;
             Position += Velocity;
         }
