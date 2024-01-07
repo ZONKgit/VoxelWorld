@@ -117,15 +117,26 @@ namespace VoxelWorld.Classes.World
         {
             for (byte i = 0; i < 15; i++)
             {
+                Vector3 particlePos = new Vector3(
+                    Pos.X + ChunkSizeX * Position.X + ((float)Game.random.NextDouble() - 0.5f),
+                    Pos.Y + (float)(Game.random.NextDouble() - 0.5f),
+                    Pos.Z + ChunkSizeZ * Position.Y + (float)(Game.random.NextDouble() - 0.5f));
+
+                // Вычисляем вектор от центра к текущему положению частицы
+                Vector3 centerToParticle = particlePos - new Vector3(Pos.X + ChunkSizeX * Position.X,Pos.Y,Pos.Z + ChunkSizeZ * Position.Y); // CenterPoint - это центральная точка
+
+                // Используем этот вектор как новый Velocity
+                centerToParticle.Normalize();
+                Vector3 newVelocity = centerToParticle * 0.032f; // VelocityMagnitude - это длина Velocity
+
                 Game.gameWorld.AddParticle(
-                    new Vector3(Pos.X+ChunkSizeX*Position.X + ((float)Game.random.NextDouble() - 0.5f),
-                        Pos.Y + (float)(Game.random.NextDouble() - 0.5f),
-                        Pos.Z+ChunkSizeZ*Position.Y + (float)(Game.random.NextDouble() - 0.5f)),
-                    new Vector3(0, 0.032f, 0),
+                    particlePos,
+                    newVelocity,
                     new Vector3(0, -0.005f, 0),
                     (byte)ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z].TextureFaces[2]
                 );
             }
+
             
             ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = Blocks.air;
             

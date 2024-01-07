@@ -120,3 +120,8 @@ D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\Newtonsoft.Json.xml
 D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csprojAssemblyReference.cache
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\ImGui.NET.dll
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\ImGui.NET.xml
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\ImGuiNet.OpenTK.dll
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\cimgui.dll
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.Mathematics.dll
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.Mathematics.pdb
+D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.Mathematics.xml

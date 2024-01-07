@@ -9,15 +9,29 @@
   <component name="ChangeListManager">
     <list default="true" id="94b2f80b-e327-4487-ac93-97d2e1b785f9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VoxelWorld/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VoxelWorld/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Engine/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Engine/Game.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Render/GUIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Render/GUIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Render/Particle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Render/Particle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.config" beforeDir="false" afterPath="$PROJECT_DIR$/App.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/Render/Window.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Render/Window.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/World/GameWorld.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/World/GameWorld.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/World/Chunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/World/Chunk.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VoxelWorld.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VoxelWorld.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/ImGui.NET.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/ImGui.NET.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/ImGui.NET.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/ImGui.NET.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe.config" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/VoxelWorld.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/VoxelWorld.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.exe.config" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.exe.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages.config" beforeDir="false" afterPath="$PROJECT_DIR$/packages.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/ImGui.NET.0.4.3/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/ImGui.NET.0.4.3/ImGui.NET.0.4.3.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/ImGui.NET.0.4.3/lib/netstandard1.1/ImGui.NET.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/ImGui.NET.0.4.3/lib/netstandard1.1/ImGui.NET.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/ImGui.NET.0.4.3/runtimes/osx-x64/native/cimgui.dylib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/ImGui.NET.0.4.3/runtimes/ubuntu-x64/native/cimgui.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/ImGui.NET.0.4.3/runtimes/win-x64/native/cimgui.dll" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,13 +43,11 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/43e1792d07b64839b8a660a4a9d221552800/c8/87fc1d2d/Noise.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/728ad5f4405a4cff8423b8136437e69311c00/30/c669daa1/ComboFlags.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7dc2adcaf4764bc399689f338c0b523035e790/a2/7f4ef52f/Timer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ead312d883264a52a6690f0f3559ad955b6578/68/f565e850/Button.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f36fce4601e8428098336ee44a35d65257c800/c8/a9840e3b/MathHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f36fce4601e8428098336ee44a35d65257c800/d2/29982c39/Vector3.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Classes/Engine/Input.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Classes/Render/GUIManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Classes/World/Block.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -50,32 +62,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.VoxelWorld.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.VoxelWorld.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\rysta\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\rysta\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\rysta\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\rysta\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\rysta\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\rysta\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="VoxelWorld" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin/Debug" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -85,7 +98,41 @@
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
       <option name="PROJECT_KIND" value="Console" />
-      <option name="PROJECT_TFM" value="" />
+      <option name="PROJECT_TFM" value=".NETFramework,Version=v4.6.2" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration default="true" type="DotNetProject" factoryName=".NET Project">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin/Debug" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/VoxelWorld.csproj" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="Console" />
+      <option name="PROJECT_TFM" value=".NETFramework,Version=v4.6.2" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration default="true" type="DotNetStaticMethod" factoryName=".NET Static Method">
+      <option name="EXE_PATH" value="D:\Program Files\JetBrains Rider 2023.3.1\lib\ReSharperHost\JetLauncherILc.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin/Debug" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/VoxelWorld.csproj" />
+      <option name="PROJECT_TFM" value=".NETFramework,Version=v4.6.2" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -134,7 +181,7 @@
       <workItem from="1704394915352" duration="3595000" />
       <workItem from="1704448429962" duration="12897000" />
       <workItem from="1704554140939" duration="16580000" />
-      <workItem from="1704606246190" duration="28021000" />
+      <workItem from="1704606246190" duration="33942000" />
     </task>
     <servers />
   </component>

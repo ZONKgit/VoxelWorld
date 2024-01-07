@@ -41,8 +41,11 @@
     <Reference Include="AssimpNet, Version=5.0.0.0, Culture=neutral, PublicKeyToken=0d51b391f59f42a6, processorArchitecture=MSIL">
       <HintPath>packages\AssimpNet.5.0.0-beta1\lib\net40\AssimpNet.dll</HintPath>
     </Reference>
-    <Reference Include="ImGui.NET, Version=0.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ImGui.NET.0.4.3\lib\netstandard1.1\ImGui.NET.dll</HintPath>
+    <Reference Include="ImGui.NET, Version=1.90.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ImGui.NET.1.90.0\lib\netstandard2.0\ImGui.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="ImGuiNet.OpenTK, Version=0.1.6.122, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ImGuiNet.OpenTK.0.1.6.123-beta\lib\netstandard2.0\ImGuiNet.OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
@@ -54,6 +57,9 @@
     </Reference>
     <Reference Include="OpenTK, Version=3.3.2.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>packages\OpenTK.3.3.2\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.Mathematics, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\OpenTK.Mathematics.4.0.0-pre9.4\lib\netstandard2.0\OpenTK.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="SimplexNoise, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\SimplexNoise.2.0.0\lib\net45\SimplexNoise.dll</HintPath>
@@ -211,5 +217,7 @@
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\AssimpNet.5.0.0-beta1\build\AssimpNet.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\AssimpNet.5.0.0-beta1\build\AssimpNet.targets'))" />
+    <Error Condition="!Exists('packages\ImGui.NET.1.90.0\build\net40\ImGui.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\ImGui.NET.1.90.0\build\net40\ImGui.NET.targets'))" />
   </Target>
+  <Import Project="packages\ImGui.NET.1.90.0\build\net40\ImGui.NET.targets" Condition="Exists('packages\ImGui.NET.1.90.0\build\net40\ImGui.NET.targets')" />
 </Project>

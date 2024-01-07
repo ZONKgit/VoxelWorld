@@ -1,10 +1,10 @@
 ﻿using System;
+using ImGuiNET;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using VoxelWorld.Classes.Engine;
-using VoxelWorld.Classes.World;
 
 namespace VoxelWorld.Classes.Render
 {
@@ -24,13 +24,8 @@ namespace VoxelWorld.Classes.Render
         }
 
         MainTree mainTree = new MainTree();
-
         
-        public enum DebugDraw
-        {
-            Normal,
-            Wireframe
-        }
+        public enum DebugDraw { Normal, Wireframe }
         
         protected override void OnLoad(EventArgs e)
         {
@@ -56,6 +51,7 @@ namespace VoxelWorld.Classes.Render
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
+            
             
             timeSinceLastPhysicsUpdate += (float)e.Time;
             if (timeSinceLastPhysicsUpdate >= PhysicsUpdateInterval)
@@ -113,6 +109,11 @@ namespace VoxelWorld.Classes.Render
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
+            
+            
+
+
+            
             
             mainTree.RenderProcess();
       
