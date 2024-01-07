@@ -115,7 +115,21 @@ namespace VoxelWorld.Classes.World
 
         public void RemoveBlock(Vector3 Pos)
         {
+            for (byte i = 0; i < 15; i++)
+            {
+                Game.gameWorld.AddParticle(
+                    new Vector3(Pos.X+ChunkSizeX*Position.X + ((float)Game.random.NextDouble() - 0.5f),
+                        Pos.Y + (float)(Game.random.NextDouble() - 0.5f),
+                        Pos.Z+ChunkSizeZ*Position.Y + (float)(Game.random.NextDouble() - 0.5f)),
+                    new Vector3(0, 0.032f, 0),
+                    new Vector3(0, -0.005f, 0),
+                    (byte)ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z].TextureFaces[2]
+                );
+            }
+            
             ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z] = Blocks.air;
+            
+            
             UpdateMesh();
         }
 

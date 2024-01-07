@@ -11,7 +11,7 @@ namespace VoxelWorld.Classes.World
     public class GameWorld: Node
     {
         public int FogEnd = 25;
-        public List<Particle> Particles;
+        public List<Particle> Particles = new List<Particle>();
         
         Player player; // Создание игрока
         public ChunkManager chunkManager;
@@ -28,8 +28,7 @@ namespace VoxelWorld.Classes.World
             chunkManager.Ready();
             clouds.Ready();
             guiManager.Ready();
-            
-            
+
             // Настройки тумана
             // GL.Enable(EnableCap.Fog);
             // GL.Fog(FogParameter.FogMode, (int)FogMode.Linear);
@@ -40,9 +39,9 @@ namespace VoxelWorld.Classes.World
             // GL.Hint(HintTarget.FogHint, HintMode.Nicest);
         }
         
-        public void AddParticle()
+        public void AddParticle(Vector3 pos, Vector3 vel, Vector3 grav, byte texId)
         {
-            
+            Particles.Add(new Particle(pos, vel, grav, texId));
         }
         
         public override  void RenderProcess()
@@ -50,6 +49,10 @@ namespace VoxelWorld.Classes.World
             player.RenderProcess();
             
             clouds.RenderProcess();
+            foreach (var particle in Particles)
+            {
+                particle.RenderProcess();   
+            }
             chunkManager.RenderProcess();
             
             
@@ -62,6 +65,10 @@ namespace VoxelWorld.Classes.World
             player.PhysicsProcess();
             chunkManager.PhysicsProcess();
             clouds.PhysicsProcess();
+            foreach (var particle in Particles)
+            {
+                particle.PhysicsProcess();   
+            }
         }
 
         public override  void OnResizeWindow(EventArgs e)

@@ -6,36 +6,12 @@ namespace VoxelWorld.Classes.Engine
     public class Entity : Object
     {
         public HitBox hitbox;
-
         public Vector3 Velocity;
-
-        private bool CheckBlockCollision(float x, float y, float z, float width, float height)
-        {
-            int minX = (int)(x - width / 2);
-            int minY = (int)(y - height / 2);
-            int maxX = (int)(x + width / 2);
-            int maxY = (int)(y + height / 2);
-
-            for (int i = minX; i <= maxX; i++)
-            {
-                for (int j = minY; j <= maxY; j++)
-                {
-                    if (Game.gameWorld.chunkManager.CheckBlock(new Vector3(i, j, (int)z)))
-                    {
-                        return true; // Столкновение с блоком
-                    }
-                }
-            }
-
-            return false; // Нет столкновения с блоком
-        }
-
+        public Vector3 Gravity;
 
         public void MoveAndCollide()
         {
             // Обработка столкновенний
-            
-            
             Position += Velocity;
             NetWork.SendMessage(Position.ToString());
         }

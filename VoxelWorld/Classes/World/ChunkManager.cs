@@ -213,8 +213,8 @@ namespace VoxelWorld.Classes.World
             return Blocks.air;
         }
         
-        // Проверяет есть ли блок в позиции...
-        public bool CheckBlock(Vector3 GlobalPos)
+        // Проверяет есть ли блок твердый в позиции...
+        public bool HasSolidBlock(Vector3 GlobalPos)
         {
             Vector2 chunkCoords = GlobalToChunkCoords(GlobalPos);
             if (HasChunk(chunkCoords))

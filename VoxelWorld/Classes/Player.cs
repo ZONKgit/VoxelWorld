@@ -59,7 +59,7 @@ namespace VoxelWorld.Classes
             // Рисование обводки наведенного блока
             DrawCursorBlock();
             // Рисование блока в руке
-            handBlock.Draw(handPos, camera.Position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.Rotation.X, Rotation.Y, camera.Rotation.Z)+handRot, Slots[selectedSlot].TextureFaces);
+            handBlock.Draw(handPos, camera.Position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.Rotation.X, Rotation.Y, camera.Rotation.Z)+handRot, Slots[selectedSlot].TextureFaces, 1);
             // Рисование hitbox-а
             if (Game.isDrawDebugHitBox) BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, camera.Position-camera.LocalPosition, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
@@ -181,13 +181,11 @@ namespace VoxelWorld.Classes
                 new Color4(0.0f, 0.0f, 0.0f, 1.0f), 3.5f);
         }
         
-        private void PlaceBlock()
-        {
+        private void PlaceBlock() {
             if (RayCast()[0] != RayCast()[1]) Game.gameWorld.chunkManager.SetBlock(RayCast()[1], Slots[selectedSlot]);
         }
 
-        private void RemoveBlock()
-        {
+        private void RemoveBlock(){
             if (RayCast()[0] != RayCast()[1]) Game.gameWorld.chunkManager.RemoveBlock(RayCast()[0]);
         }
 
@@ -236,7 +234,7 @@ namespace VoxelWorld.Classes
                 Y = (int)Math.Round(y);
                 Z = (int)Math.Round(z);
                 
-                if (Game.gameWorld.chunkManager.CheckBlock(new Vector3(X,Y,Z)))
+                if (Game.gameWorld.chunkManager.HasSolidBlock(new Vector3(X,Y,Z)))
                 {
                     return new Vector3[] {new Vector3(X,Y,Z), new Vector3(oldX,oldY,oldZ)};
                     break;
