@@ -17,6 +17,11 @@ namespace VoxelWorld.Classes.Render
         private const float PhysicsUpdateInterval = 1.0f / 20.0f; // 20 раз в секунду
         private float timeSinceLastPhysicsUpdate = 0.0f;
         
+        private int frameCount = 0;
+        private double elapsedTime = 0.0;
+        private double fps = 0.0;
+
+        
         public Window() : base(WindowWidth, WindowHeight, GraphicsMode.Default, "Voxel World")
         {
             VSync = VSyncMode.On;
@@ -88,6 +93,20 @@ namespace VoxelWorld.Classes.Render
             
             
             Input.Update();
+            
+            
+            // Обновление счетчика кадров и расчет FPS
+            frameCount++;
+            elapsedTime += e.Time;
+
+            if (elapsedTime >= 1.0) // Пересчитываем FPS каждую секунду
+            {
+                fps = frameCount / elapsedTime;
+                Game.fps = (int)fps;
+
+                frameCount = 0;
+                elapsedTime = 0.0;
+            }
         }
 
         public void SetDebugDraw(DebugDraw mode)

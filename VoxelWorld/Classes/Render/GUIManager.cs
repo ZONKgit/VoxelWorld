@@ -19,6 +19,7 @@ namespace VoxelWorld.Classes.Render
         Text2D textIsOnFloor = new Text2D(new Vector2(-45f, 23.1f), "IsOnFloor", 0.03f);
         Text2D textBlockId = new Text2D(new Vector2(-45f, 21.8f), "textBlockId", 0.03f);
         Text2D textParticelsCount = new Text2D(new Vector2(-45f, 19.5f), "Particels:", 0.03f);
+        Text2D textFPS = new Text2D(new Vector2(-45f, 18.2f), "FPS:", 0.03f);
 
         public void Ready()
         {
@@ -28,6 +29,7 @@ namespace VoxelWorld.Classes.Render
             textIsOnFloor.Ready();
             textBlockId.Ready();
             textParticelsCount.Ready();
+            textFPS.Ready();
             TextureInventoryBar.Texture = Game.GUITexture;
             TextureInventoryBarSelected.Texture = Game.GUITexture;
         }
@@ -48,6 +50,7 @@ namespace VoxelWorld.Classes.Render
                 textIsOnFloor.RenderProcess();
                 textBlockId.RenderProcess();
                 textParticelsCount.RenderProcess();
+                textFPS.RenderProcess();
             }
             else
             {
@@ -73,6 +76,8 @@ namespace VoxelWorld.Classes.Render
             textBlockId.Text = "Block id in camera position: " + Game.gameWorld.chunkManager.GetBlockAtPosition(Game.camera.Position).Id;
             // Вывод кол-ва частиц в мире
             textParticelsCount.Text = "Particels: " + Game.gameWorld.Particles.Count + " / 4000";
+            // Вывод FPS
+            textFPS.Text = "FPS: " + Game.fps;
             
             GL.Enable(EnableCap.DepthTest);
             GL.PopMatrix();
