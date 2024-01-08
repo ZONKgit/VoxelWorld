@@ -13,12 +13,12 @@ namespace VoxelWorld.Classes.Render
         ColorRect crosshair = new ColorRect(new Vector2(0, 0), new Color4(0f, 0f, 0f, 1f), 0.01f);
         TextureRect TextureInventoryBar = new TextureRect(new Vector2(0, -0.74f), new Vector4(0,0,0.7109375f,0.0859375f), new Vector2(0.7109375f*0.7f, 0.0859375f*0.7f));
         TextureRect TextureInventoryBarSelected = new TextureRect(new Vector2(0, -0.745f), new Vector4(0,0.09375f,0.09375f,0.0859375f+0.09375f), new Vector2(0.09375f*0.7f, 0.09375f*0.7f));
-        Text2D nullText = new Text2D(new Vector2(0f, 0), "", 0.03f);
-        Text2D text = new Text2D(new Vector2(-49f, 25.5f), "Camera position", 0.03f);
-        Text2D textRotation = new Text2D(new Vector2(-49f , 24.3f), "Camera rotation", 0.03f);
-        Text2D textIsOnFloor = new Text2D(new Vector2(-49f, 23.1f), "IsOnFloor", 0.03f);
-        Text2D textBlockId = new Text2D(new Vector2(-49f, 21.8f), "textBlockId", 0.03f);
-        Text2D textParticelsCount = new Text2D(new Vector2(-1, 1), "Particels:", 0.03f);
+        Text2D nullText = new Text2D(new Vector2(0f, 0), "", 1f);
+        Text2D text = new Text2D(new Vector2(-45f, 25.5f), "Camera position", 0.03f);
+        Text2D textRotation = new Text2D(new Vector2(-45f , 24.3f), "Camera rotation", 0.03f);
+        Text2D textIsOnFloor = new Text2D(new Vector2(-45f, 23.1f), "IsOnFloor", 0.03f);
+        Text2D textBlockId = new Text2D(new Vector2(-45f, 21.8f), "textBlockId", 0.03f);
+        Text2D textParticelsCount = new Text2D(new Vector2(-45f, 19.5f), "Particels:", 0.03f);
 
         public void Ready()
         {
@@ -34,6 +34,7 @@ namespace VoxelWorld.Classes.Render
         
         public void RenderProcess()
         {
+            GL.PushMatrix();
             GL.LoadIdentity();
             GL.Ortho(-1,1,-1,1,0,1);
             GL.Disable(EnableCap.DepthTest);
@@ -63,17 +64,18 @@ namespace VoxelWorld.Classes.Render
                 (int)Game.camera.Position.X,
                 (int)Game.camera.Position.Y,
                 (int)Game.camera.Position.Z
-            ).ToString()+"Chunk: "+Game.gameWorld.chunkManager.GlobalToChunkCoords(Game.camera.Position).ToString();
+            )+"Chunk: "+Game.gameWorld.chunkManager.GlobalToChunkCoords(Game.camera.Position).ToString();
             // Вывод поворота
             textRotation.Text = "Rot: "+Game.camera.Rotation.ToString();
             // Вывод OnFloor
             textIsOnFloor.Text = "On floor: " + Game.player.hitbox.IsOnFloor.ToString();
             // Вывод блока в камере
-            textBlockId.Text = "Block id in camera position: " + Game.gameWorld.chunkManager.GetBlockAtPosition(Game.camera.Position);
+            textBlockId.Text = "Block id in camera position: " + Game.gameWorld.chunkManager.GetBlockAtPosition(Game.camera.Position).Id;
             // Вывод кол-ва частиц в мире
             textParticelsCount.Text = "Particels: " + Game.gameWorld.Particles.Count + " / 4000";
             
             GL.Enable(EnableCap.DepthTest);
+            GL.PopMatrix();
         }
 
         

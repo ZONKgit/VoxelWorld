@@ -40,7 +40,7 @@ namespace VoxelWorld.Classes.World
         }
         
         public void AddParticle(Vector3 pos, Vector3 vel, Vector3 grav, byte texId) {
-            Particles.Add(new Particle(pos, vel, grav, texId));
+            if (Particles.Count < 4000) Particles.Add(new Particle(pos, vel, grav, texId));
         }
         public void RemoveParticle(Particle particle) {
             Particles.Remove(particle);
@@ -60,7 +60,6 @@ namespace VoxelWorld.Classes.World
             
             
             guiManager.RenderProcess();
-            
         }   
         public override void PhysicsProcess()
         {

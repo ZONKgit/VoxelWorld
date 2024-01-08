@@ -8,7 +8,7 @@ namespace VoxelWorld.Classes.Render
     {
         private MainMenu mainMenu = new MainMenu();
         private GameWorld gameWorld = new GameWorld();
-        public byte selectedScene = 0;
+        public byte selectedScene = 1;
 
 
         public override void Ready()

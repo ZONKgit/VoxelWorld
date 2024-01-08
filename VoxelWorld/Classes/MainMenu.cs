@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using VoxelWorld.Classes.Engine;
@@ -12,25 +13,25 @@ namespace VoxelWorld.Classes
 {
     public class MainMenu : Node
     {
-        Button StartButton = new Button(new Vector2(0.625f, 0.125f));
+        Button StartButton = new Button(new Vector2(1f, 1f));
         
         
         public void Ready()
         {
-            Game.mainTree.selectedScene = 1; // Убрать эту строку кода!
             StartButton.Texture.Texture = Game.GUITexture;
         }
 
-        public void RenderProcess()
+        public override void RenderProcess()
         {
+            GL.PushMatrix();
             GL.LoadIdentity();
-            GL.Ortho(-1,1,-1,1,0,1);
-            GL.Disable(EnableCap.DepthTest);
-            
+            GL.Ortho(0,Game.ScreenWidth,Game.ScreenHeight,0,-1,1);
+    
             StartButton.RenderProcess();
-            
-            GL.Enable(EnableCap.DepthTest);
+    
+            GL.PopMatrix();
         }
+
 
         public void PhysicsProcess()
         {

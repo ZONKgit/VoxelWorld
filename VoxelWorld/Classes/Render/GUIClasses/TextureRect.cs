@@ -2,6 +2,7 @@ using System;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using VoxelWorld.Classes.Engine;
 
 namespace VoxelWorld.Classes.Render.GUIClasses
 {

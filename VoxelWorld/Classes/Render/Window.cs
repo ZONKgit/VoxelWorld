@@ -1,5 +1,4 @@
 ﻿using System;
-using ImGuiNET;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -109,14 +108,7 @@ namespace VoxelWorld.Classes.Render
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
-            
-            
-
-
-            
-            
-            mainTree.RenderProcess();
-      
+                mainTree.RenderProcess();
             SwapBuffers();
         }
 

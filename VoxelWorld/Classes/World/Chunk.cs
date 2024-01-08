@@ -123,11 +123,11 @@ namespace VoxelWorld.Classes.World
                     Pos.Z + ChunkSizeZ * Position.Y + (float)(Game.random.NextDouble() - 0.5f));
 
                 // Вычисляем вектор от центра к текущему положению частицы
-                Vector3 centerToParticle = particlePos - new Vector3(Pos.X + ChunkSizeX * Position.X,Pos.Y,Pos.Z + ChunkSizeZ * Position.Y); // CenterPoint - это центральная точка
+                Vector3 centerToParticle = particlePos - new Vector3(Pos.X + ChunkSizeX * Position.X,Pos.Y,Pos.Z + ChunkSizeZ * Position.Y);
 
                 // Используем этот вектор как новый Velocity
                 centerToParticle.Normalize();
-                Vector3 newVelocity = centerToParticle * 0.032f; // VelocityMagnitude - это длина Velocity
+                Vector3 newVelocity = centerToParticle * 0.032f;
 
                 Game.gameWorld.AddParticle(
                     particlePos,
