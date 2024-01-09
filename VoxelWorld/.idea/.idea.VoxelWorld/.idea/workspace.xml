@@ -9,13 +9,123 @@
   <component name="ChangeListManager">
     <list default="true" id="94b2f80b-e327-4487-ac93-97d2e1b785f9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VoxelWorld/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VoxelWorld/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Engine/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Engine/Game.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Camera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Camera.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Engine/Entity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Engine/Entity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Engine/Input.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Engine/Input.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Engine/NetWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Engine/NetWork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Player.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/Render/GUIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Render/GUIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Render/Window.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Render/Window.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/World/GameWorld.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/World/GameWorld.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VoxelWorld.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VoxelWorld.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/Microsoft.Win32.Primitives.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/Microsoft.Win32.Primitives.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.AppContext.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.AppContext.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Collections.Concurrent.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Collections.Concurrent.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Collections.NonGeneric.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Collections.NonGeneric.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Collections.Specialized.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Collections.Specialized.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Collections.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Collections.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.ComponentModel.EventBasedAsync.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.ComponentModel.EventBasedAsync.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.ComponentModel.Primitives.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.ComponentModel.Primitives.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.ComponentModel.TypeConverter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.ComponentModel.TypeConverter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.ComponentModel.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.ComponentModel.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Console.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Console.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Data.Common.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Data.Common.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Contracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Contracts.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Debug.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Debug.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.FileVersionInfo.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.FileVersionInfo.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Process.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Process.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.StackTrace.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.StackTrace.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.TextWriterTraceListener.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.TextWriterTraceListener.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Tools.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Tools.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.TraceSource.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.TraceSource.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Tracing.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Diagnostics.Tracing.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Drawing.Primitives.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Drawing.Primitives.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Dynamic.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Dynamic.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Globalization.Calendars.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Globalization.Calendars.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Globalization.Extensions.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Globalization.Extensions.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Globalization.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Globalization.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.Compression.ZipFile.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.Compression.ZipFile.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.Compression.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.Compression.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.FileSystem.DriveInfo.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.FileSystem.DriveInfo.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.FileSystem.Primitives.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.FileSystem.Primitives.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.FileSystem.Watcher.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.FileSystem.Watcher.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.FileSystem.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.FileSystem.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.IsolatedStorage.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.IsolatedStorage.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.MemoryMappedFiles.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.MemoryMappedFiles.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.Pipes.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.Pipes.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.UnmanagedMemoryStream.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.UnmanagedMemoryStream.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.IO.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.IO.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Linq.Expressions.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Linq.Expressions.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Linq.Parallel.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Linq.Parallel.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Linq.Queryable.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Linq.Queryable.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Linq.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Linq.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.Http.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.Http.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.NameResolution.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.NameResolution.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.NetworkInformation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.NetworkInformation.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.Ping.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.Ping.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.Primitives.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.Primitives.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.Requests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.Requests.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.Security.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.Security.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.Sockets.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.Sockets.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.WebHeaderCollection.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.WebHeaderCollection.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.WebSockets.Client.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.WebSockets.Client.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Net.WebSockets.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Net.WebSockets.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.ObjectModel.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.ObjectModel.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Reflection.Extensions.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Reflection.Extensions.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Reflection.Primitives.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Reflection.Primitives.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Reflection.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Reflection.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Resources.Reader.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Resources.Reader.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Resources.ResourceManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Resources.ResourceManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Resources.Writer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Resources.Writer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.CompilerServices.VisualC.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.CompilerServices.VisualC.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.Extensions.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.Extensions.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.Handles.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.Handles.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.InteropServices.RuntimeInformation.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.InteropServices.RuntimeInformation.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.InteropServices.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.InteropServices.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.Numerics.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.Numerics.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.Serialization.Formatters.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.Serialization.Formatters.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.Serialization.Json.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.Serialization.Json.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.Serialization.Primitives.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.Serialization.Primitives.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.Serialization.Xml.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.Serialization.Xml.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Runtime.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Runtime.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Claims.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Claims.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Algorithms.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Algorithms.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Csp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Csp.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Encoding.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Encoding.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Primitives.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.Primitives.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.X509Certificates.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Cryptography.X509Certificates.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.Principal.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.Principal.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Security.SecureString.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Security.SecureString.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Text.Encoding.Extensions.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Text.Encoding.Extensions.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Text.Encoding.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Text.Encoding.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Text.RegularExpressions.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Text.RegularExpressions.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Threading.Overlapped.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Threading.Overlapped.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Threading.Tasks.Parallel.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Threading.Tasks.Parallel.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Threading.Tasks.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Threading.Tasks.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Threading.Thread.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Threading.Thread.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Threading.ThreadPool.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Threading.ThreadPool.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Threading.Timer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Threading.Timer.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Threading.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Threading.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.ValueTuple.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.ValueTuple.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Xml.ReaderWriter.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Xml.ReaderWriter.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Xml.XDocument.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Xml.XDocument.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Xml.XPath.XDocument.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Xml.XPath.XDocument.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Xml.XPath.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Xml.XPath.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Xml.XmlDocument.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Xml.XmlDocument.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/System.Xml.XmlSerializer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/System.Xml.XmlSerializer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/VoxelWorld.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/VoxelWorld.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/netstandard.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/netstandard.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.SuggestedBindingRedirects.cache" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/bin/Debug/VoxelWorldServer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/bin/Debug/VoxelWorldServer.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/bin/Debug/VoxelWorldServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/bin/Debug/VoxelWorldServer.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/obj/Debug/VoxelWorldServer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/obj/Debug/VoxelWorldServer.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/obj/Debug/VoxelWorldServer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../VoxelWorldServer/VoxelWorldServer/obj/Debug/VoxelWorldServer.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +187,7 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="RUNTIME_TYPE" value="netfw" />
       <option name="PROJECT_PATH" value="$PROJECT_DIR$/VoxelWorld.csproj" />
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
@@ -166,7 +277,8 @@
       <workItem from="1704448429962" duration="12897000" />
       <workItem from="1704554140939" duration="16580000" />
       <workItem from="1704606246190" duration="34801000" />
-      <workItem from="1704722951071" duration="7639000" />
+      <workItem from="1704722951071" duration="13994000" />
+      <workItem from="1704783977178" duration="1820000" />
     </task>
     <servers />
   </component>

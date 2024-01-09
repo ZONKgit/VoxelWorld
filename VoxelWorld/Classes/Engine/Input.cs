@@ -23,6 +23,7 @@ namespace VoxelWorld.Classes.Engine
 
         public static readonly Key KeyFullscreenMode = Key.F11;
         public static readonly Key KeyPause = Key.Escape;
+        public static readonly Key KeyCameraZoom = Key.C;
         // Буквы
         public static readonly Key KeyA = Key.A;
         public static readonly Key KeyB = Key.B;

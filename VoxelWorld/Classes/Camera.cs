@@ -5,7 +5,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Render;
-using VoxelWorld.Classes.Render.GUIClasses;
+using VoxelWorld.Classes.EngineMath;
 using Object = VoxelWorld.Classes.Engine.Object;
 
 namespace VoxelWorld.Classes
@@ -16,6 +16,8 @@ namespace VoxelWorld.Classes
         {
             Input.OnMouseMove += HandleMouseMove;
         }
+
+        private float FOV = 90;
         
 
         public override void Ready()
@@ -47,7 +49,23 @@ namespace VoxelWorld.Classes
             GL.Rotate(Rotation.Y, 0f, 1f, 0f);
             GL.Rotate(Rotation.Z, 0f, 0f, 1f);
             GL.Translate(-Position);
-            
+
+            if (Input.IsKeyPressed(Input.KeyCameraZoom))
+            {
+                FOV = FOV + (35 - FOV) * Game.time*0.001f;
+            }
+            else
+            {
+                FOV = FOV + (90 - FOV) * Game.time*0.001f;
+            }
+            FOV = Linear.Clamp(FOV, 35.0f, 90.0f);
+
+            float aspectRatio = (float)Window.WindowWidth / Window.WindowHeight;
+            Matrix4 perspective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(FOV), aspectRatio, 0.1f, 600f);
+        
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(ref perspective);
+            GL.MatrixMode(MatrixMode.Modelview);
             
             // Отладочный прицел
             if(Game.isDrawDebug) DebugDrawCrosshair();

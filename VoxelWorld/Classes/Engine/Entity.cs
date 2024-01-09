@@ -13,7 +13,6 @@ namespace VoxelWorld.Classes.Engine
         {
             // Обработка столкновенний
             Position += Velocity;
-            NetWork.SendMessage(Position.ToString());
         }
     }
 }

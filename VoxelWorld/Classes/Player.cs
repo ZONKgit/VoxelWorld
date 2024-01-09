@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
 using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Physics;
 using VoxelWorld.Classes.World;
 using VoxelWorld.Classes.Render;
-using Object = VoxelWorld.Classes.Engine.Object;
 
 namespace VoxelWorld.Classes
 {
@@ -34,8 +31,10 @@ namespace VoxelWorld.Classes
         private float blockPlacementAnimationTime;
         private float blockPlacementAnimationDuration = 0.2f; // You can adjust the duration as needed
         private bool isBlockPlacementAnimating;
-
-    
+        
+        private System.Timers.Timer sendCoordinatesTimer;
+        
+        
         public Player(GameWorld world)
         {
             hitbox = new HitBox(new Vector3(0.5f,1.8f,0.5f));

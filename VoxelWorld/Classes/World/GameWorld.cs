@@ -2,6 +2,7 @@
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
+using OpenTK.Graphics;
 using VoxelWorld.Classes.Engine;
 using VoxelWorld.Classes.Render;
 using VoxelWorld.Classes.Render.GUIClasses;
@@ -49,9 +50,10 @@ namespace VoxelWorld.Classes.World
         public override  void RenderProcess()
         {
             player.RenderProcess();
-            
             clouds.RenderProcess();
 
+            // BoxEdges.DrawBoxEdges(new Vector3(0.5f,0.5f,0.5f), new Vector3(NetWork.networkData[0], NetWork.networkData[1], NetWork.networkData[2]), new Color4(0f,1f,0f,1f), 10f);
+            
             foreach (var particle in Particles)
             {
                 particle.RenderProcess();   

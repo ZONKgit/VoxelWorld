@@ -124,5 +124,4 @@ D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\cimgui.dll
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.Mathematics.dll
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.Mathematics.pdb
 D:\Desktop\C#\VoxelWorld\VoxelWorld\bin\Debug\OpenTK.Mathematics.xml
-D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.AssemblyReference.cache
-D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csproj.SuggestedBindingRedirects.cache
+D:\Desktop\C#\VoxelWorld\VoxelWorld\obj\Debug\VoxelWorld.csprojAssemblyReference.cache

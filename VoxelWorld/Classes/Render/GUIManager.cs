@@ -20,6 +20,20 @@ namespace VoxelWorld.Classes.Render
         Text2D textBlockId = new Text2D(new Vector2(-45f, 21.8f), "textBlockId", 0.03f);
         Text2D textParticelsCount = new Text2D(new Vector2(-45f, 19.5f), "Particels:", 0.03f);
         Text2D textFPS = new Text2D(new Vector2(-45f, 18.2f), "FPS:", 0.03f);
+        
+
+        private TexturedCube[] blockSlots = new[]
+        {
+            new TexturedCube(),
+            new TexturedCube(),
+            new TexturedCube(),
+            new TexturedCube(),
+            new TexturedCube(),
+            new TexturedCube(),
+            new TexturedCube(),
+            new TexturedCube(),
+            new TexturedCube()
+        };
 
         public void Ready()
         {
@@ -32,8 +46,12 @@ namespace VoxelWorld.Classes.Render
             textFPS.Ready();
             TextureInventoryBar.Texture = Game.GUITexture;
             TextureInventoryBarSelected.Texture = Game.GUITexture;
+
+            for (int i = 0; i < blockSlots.Length; i++)
+            {
+                blockSlots[i].texture = Game.BlocksTexture;
+            }
         }
-        
         public void RenderProcess()
         {
             GL.PushMatrix();
@@ -58,6 +76,29 @@ namespace VoxelWorld.Classes.Render
             }
             TextureInventoryBar.RenderProcess();
             TextureInventoryBarSelected.RenderProcess();
+            TextureInventoryBarSelected.Position.X = (Game.player.selectedSlot * 0.77f / 7)-(4*0.77f/7);
+            
+            GL.PushMatrix();
+            GL.LoadIdentity();
+            float aspectRatio = (float)Window.WindowWidth / Window.WindowHeight;
+            Matrix4 perspective = Matrix4.CreatePerspectiveFieldOfView(MathHelper.DegreesToRadians(90), aspectRatio, 0.1f, 150f);
+
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(ref perspective);
+            GL.MatrixMode(MatrixMode.Modelview);
+            
+            for (int i = 0; i < 6; i++)
+            {
+                blockSlots[i].Draw(
+                    new Vector3(0, 0, 0),
+                    new Vector3((i * 3.4f)-(4*3.4f), -23.1f, -25),
+                    new Vector3(0.5f,0.5f,0.5f),
+                    new Vector3(5,45,15),
+                    Game.player.Slots[i].TextureFaces,
+                    1);
+            }
+            
+            GL.PopMatrix();
 
 
 
