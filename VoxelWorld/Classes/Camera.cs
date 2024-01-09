@@ -50,14 +50,9 @@ namespace VoxelWorld.Classes
             GL.Rotate(Rotation.Z, 0f, 0f, 1f);
             GL.Translate(-Position);
 
-            if (Input.IsKeyPressed(Input.KeyCameraZoom))
-            {
-                FOV = FOV + (35 - FOV) * Game.time*0.001f;
-            }
-            else
-            {
-                FOV = FOV + (90 - FOV) * Game.time*0.001f;
-            }
+            // Зум камеры
+            if (Input.IsKeyPressed(Input.KeyCameraZoom)) { FOV = Linear.Interpolation(FOV, 35, 0.001f); }
+            else { FOV = Linear.Interpolation(FOV, 90, 0.001f); }
             FOV = Linear.Clamp(FOV, 35.0f, 90.0f);
 
             float aspectRatio = (float)Window.WindowWidth / Window.WindowHeight;
