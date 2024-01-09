@@ -17,11 +17,6 @@ namespace VoxelWorld.Classes.World
         private List<Chunk> Chunks = new List<Chunk>();
 
         private Vector2 oldPlayerChunkPos = new Vector2(999, 999);
-        public List<Chunk> WaitChunks = new List<Chunk>(); // Чанки которые генерируються в другом потоке
-        public Queue<Chunk> ReadyChunks = new Queue<Chunk>(); // Чанки которые уже сгенерировались в другом потоке
-        private object chunksLock = new object();
-        
-        private bool useMultiThreading = false;
         
         public ChunkManager(Player player)
         {
@@ -38,25 +33,7 @@ namespace VoxelWorld.Classes.World
         public override  void RenderProcess()
         {
             // Рендерим все чанки
-            foreach (var chunk in Chunks)
-            {
-                if (chunk != null)
-                {
-                    chunk.RenderProcess();
-                }
-            }
-            
-            if (useMultiThreading)
-            {
-                // Добавляем чанки, которые сгенерировались в другом потоке
-                if (ReadyChunks.Count > 0 && ReadyChunks.Peek() != null)
-                {
-                    ReadyChunks.Peek().Renderer = new ChunkRenderer(ReadyChunks.Peek());
-                    ReadyChunks.Peek().Renderer.GenerateChunkMesh(Chunk.ChunkSizeX, Chunk.ChunkSizeY, Chunk.ChunkSizeZ, ReadyChunks.Peek().Position);
-                    Chunks.Add(ReadyChunks.Peek());
-                    ReadyChunks.Dequeue();
-                }
-            }
+            foreach (var chunk in Chunks) { chunk.RenderProcess(); }
         }
 
 
@@ -98,38 +75,20 @@ namespace VoxelWorld.Classes.World
                     i--; // Уменьшаем i, чтобы не пропустить следующий элемент после удаления
                 }
             }
-
-
         }
 
         public void LoadChunk(int x, int z)
         {
             Chunk newChunk = new Chunk(new Vector2(x, z), this);
-            if (useMultiThreading)
-            {
-                lock (chunksLock)
-                {
-                    // Проверяем, нет ли уже чанка с такой позицией
-                    if (!Chunks.Any(chunk => chunk.Position == new Vector2(x * Chunk.ChunkSizeX, z * Chunk.ChunkSizeZ)))
-                    {
-                        WaitChunks.Add(newChunk);
-                        Task.Run(() => newChunk.GenerateChunk());
-                    }
-                }
-            }
-            else
-            {
-                Chunks.Add(newChunk);
-                newChunk.Ready();
-            }
+            Chunks.Add(newChunk);
+            newChunk.Ready();
+            
         }
 
         // Конвертирует мировые координаты в координаты внутри чанка
         public Vector3 GlobalToLocalCoords(Vector3 globalPosition)
         {
             Vector2 chunkCoords = GlobalToChunkCoords(globalPosition);
-            
-
             return new Vector3((int)Math.Round(globalPosition.X - chunkCoords.X * Chunk.ChunkSizeX), (int)Math.Round(
                 globalPosition.Y),(int)Math.Round(globalPosition.Z - chunkCoords.Y * Chunk.ChunkSizeZ));
         }

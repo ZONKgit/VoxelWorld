@@ -58,9 +58,7 @@ namespace VoxelWorld.Classes.World
                 }
             }
 
-      
-            Manager.WaitChunks.Remove(this);
-            Manager.ReadyChunks.Enqueue(this);
+            
             
         }
 

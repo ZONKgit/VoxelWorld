@@ -10,15 +10,10 @@
     <list default="true" id="94b2f80b-e327-4487-ac93-97d2e1b785f9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VoxelWorld/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VoxelWorld/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/Camera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Camera.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/EngineMath/Linear.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/EngineMath/LinearMath.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Render/GUIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Render/GUIManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/World/Chunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/World/Chunk.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/World/ChunkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/World/ChunkManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VoxelWorld.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VoxelWorld.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/VoxelWorld.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/VoxelWorld.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/VoxelWorld.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/VoxelWorld.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/VoxelWorld.pdb" afterDir="false" />
     </list>
@@ -173,7 +168,7 @@
       <workItem from="1704554140939" duration="16580000" />
       <workItem from="1704606246190" duration="34801000" />
       <workItem from="1704722951071" duration="13994000" />
-      <workItem from="1704783977178" duration="14364000" />
+      <workItem from="1704783977178" duration="17004000" />
     </task>
     <servers />
   </component>
