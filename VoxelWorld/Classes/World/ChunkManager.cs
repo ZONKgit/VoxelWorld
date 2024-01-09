@@ -13,7 +13,7 @@ namespace VoxelWorld.Classes.World
     public class ChunkManager : Node
     {
         public Player player;
-        public int renderDistance = 2;
+        public int renderDistance = 4;
         private List<Chunk> Chunks = new List<Chunk>();
 
         private Vector2 oldPlayerChunkPos = new Vector2(999, 999);
@@ -40,14 +40,16 @@ namespace VoxelWorld.Classes.World
             // Рендерим все чанки
             foreach (var chunk in Chunks)
             {
-                chunk.RenderProcess();
+                if (chunk != null)
+                {
+                    chunk.RenderProcess();
+                }
             }
-            
             
             if (useMultiThreading)
             {
-                // Добовляем чанки которые сгенерировались в другом потоке
-                if (ReadyChunks.Count > 0)
+                // Добавляем чанки, которые сгенерировались в другом потоке
+                if (ReadyChunks.Count > 0 && ReadyChunks.Peek() != null)
                 {
                     ReadyChunks.Peek().Renderer = new ChunkRenderer(ReadyChunks.Peek());
                     ReadyChunks.Peek().Renderer.GenerateChunkMesh(Chunk.ChunkSizeX, Chunk.ChunkSizeY, Chunk.ChunkSizeZ, ReadyChunks.Peek().Position);
@@ -83,19 +85,19 @@ namespace VoxelWorld.Classes.World
             }
             
             // Выгрузка чанков
-            // for (int i = 0; i < Chunks.Count; i++)
-            // {
-            //     // Получаем позицию чанка
-            //     Vector2 chunkPosition = Chunks[i].Position;
-            //
-            //     // Проверяем, выходит ли чанк за пределы радиуса
-            //     if (Math.Abs(chunkPosition.X - GlobalToChunkCoords(player.Position).X) > renderDistance+1 ||
-            //         Math.Abs(chunkPosition.Y - GlobalToChunkCoords(player.Position).Y) > renderDistance+1)
-            //     {
-            //         Chunks.RemoveAt(i);
-            //         i--; // Уменьшаем i, чтобы не пропустить следующий элемент после удаления
-            //     }
-            // }
+            for (int i = 0; i < Chunks.Count; i++)
+            {
+                // Получаем позицию чанка
+                Vector2 chunkPosition = Chunks[i].Position;
+            
+                // Проверяем, выходит ли чанк за пределы радиуса
+                if (Math.Abs(chunkPosition.X - GlobalToChunkCoords(player.Position).X) > renderDistance+1 ||
+                    Math.Abs(chunkPosition.Y - GlobalToChunkCoords(player.Position).Y) > renderDistance+1)
+                {
+                    Chunks.RemoveAt(i);
+                    i--; // Уменьшаем i, чтобы не пропустить следующий элемент после удаления
+                }
+            }
 
 
         }
@@ -128,20 +130,20 @@ namespace VoxelWorld.Classes.World
             Vector2 chunkCoords = GlobalToChunkCoords(globalPosition);
             
 
-            return new Vector3((int)(globalPosition.X - chunkCoords.X * Chunk.ChunkSizeX), (int)globalPosition.Y,(int)(globalPosition.Z - chunkCoords.Y * Chunk.ChunkSizeZ));
+            return new Vector3((int)Math.Round(globalPosition.X - chunkCoords.X * Chunk.ChunkSizeX), (int)Math.Round(
+                globalPosition.Y),(int)Math.Round(globalPosition.Z - chunkCoords.Y * Chunk.ChunkSizeZ));
         }
         
 
         // Конвертирует мировые координаты в координаты чанка
         public Vector2 GlobalToChunkCoords(Vector3 globalPosition)
         {
-            int chunkX = (int)(globalPosition.X / Chunk.ChunkSizeX);
-            int chunkZ = (int)(globalPosition.Z / Chunk.ChunkSizeZ);
-            if (globalPosition.X < 0) chunkX--;
-            if (globalPosition.Z < 0) chunkZ--; 
+            int chunkX = (int)Math.Floor(globalPosition.X / Chunk.ChunkSizeX);
+            int chunkZ = (int)Math.Floor(globalPosition.Z / Chunk.ChunkSizeZ);
 
             return new Vector2(chunkX, chunkZ);
         }
+
 
 
         // Устанавливает блок в позиции...

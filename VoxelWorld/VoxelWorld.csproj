@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Camera.cs" />
+    <Compile Include="Classes\EngineMath\VectorMath.cs" />
     <Compile Include="Classes\Engine\Animation.cs" />
     <Compile Include="Classes\Engine\Entity.cs" />
     <Compile Include="Classes\Engine\Input.cs" />
@@ -158,7 +159,7 @@
     <Compile Include="Classes\Engine\Game.cs" />
     <Compile Include="Classes\MainMenu.cs" />
     <Compile Include="Classes\MainTree.cs" />
-    <Compile Include="Classes\EngineMath\Linear.cs" />
+    <Compile Include="Classes\EngineMath\LinearMath.cs" />
     <Compile Include="Classes\Physics\HitBox.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Render\BoxEdges.cs" />

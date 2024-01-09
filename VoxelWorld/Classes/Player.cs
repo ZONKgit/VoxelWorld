@@ -84,9 +84,9 @@ namespace VoxelWorld.Classes
 
 
             //globalHandPos = camera.Position;
-            globalHandPos.X = Linear.Interpolation(globalHandPos.X, camera.Position.X, 0.07f*delta);
-            globalHandPos.Y = Linear.Interpolation(globalHandPos.Y, camera.Position.Y, 0.07f*delta);
-            globalHandPos.Z = Linear.Interpolation(globalHandPos.Z, camera.Position.Z, 0.07f*delta);
+            globalHandPos.X = LinearMath.Interpolation(globalHandPos.X, camera.Position.X, 0.07f*delta);
+            globalHandPos.Y = LinearMath.Interpolation(globalHandPos.Y, camera.Position.Y, 0.07f*delta);
+            globalHandPos.Z = LinearMath.Interpolation(globalHandPos.Z, camera.Position.Z, 0.07f*delta);
             
             // if (!hitbox.IsOnFloor)
             // {

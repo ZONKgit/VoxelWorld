@@ -34,19 +34,13 @@ namespace VoxelWorld.Classes.World
         
         public void GenerateChunk() // Эта функция выполняеться в отдельном потоке
         {
+            Console.WriteLine($"Generating chunk at position {Position}");
             // Инициализация массива ChunkData
             ChunkData = new Block[ChunkSizeX, ChunkSizeY, ChunkSizeZ];
 
             // Заполнение данных
-            for (int x = 0; x < ChunkSizeX; x++)
-            {
-                for (int y = 0; y < ChunkSizeY; y++)
-                {
-                    for (int z = 0; z < ChunkSizeZ; z++)
-                    {
-                        ChunkData[x, y, z] = Blocks.air; }
-                }
-            }
+            for (int x = 0; x < ChunkSizeX; x++) for (int y = 0; y < ChunkSizeY; y++) for (int z = 0; z < ChunkSizeZ; z++) { ChunkData[x, y, z] = Blocks.air; }
+
             
             for (int x = 0; x < ChunkSizeX; x++)
             {
@@ -64,8 +58,10 @@ namespace VoxelWorld.Classes.World
                 }
             }
 
+      
             Manager.WaitChunks.Remove(this);
             Manager.ReadyChunks.Enqueue(this);
+            
         }
 
         public Block GetBlockAtPosition(Vector3 Pos)
@@ -90,8 +86,12 @@ namespace VoxelWorld.Classes.World
         {
             Renderer = new ChunkRenderer(this);
             GenerateChunk();
+
+      
             Renderer.GenerateChunkMesh(ChunkSizeX, ChunkSizeY, ChunkSizeZ, Position);
+            
         }
+
 
         public void RenderProcess()
         {

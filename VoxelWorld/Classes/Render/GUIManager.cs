@@ -108,7 +108,7 @@ namespace VoxelWorld.Classes.Render
                 (int)Game.camera.Position.X,
                 (int)Game.camera.Position.Y,
                 (int)Game.camera.Position.Z
-            )+"Chunk: "+Game.gameWorld.chunkManager.GlobalToChunkCoords(Game.camera.Position).ToString();
+            )+"Chunk: "+Game.gameWorld.chunkManager.GlobalToChunkCoords(Game.camera.Position)+" Local: "+Game.gameWorld.chunkManager.GlobalToLocalCoords(Game.camera.Position);
             // Вывод поворота
             textRotation.Text = "Rot: "+Game.camera.Rotation.ToString();
             // Вывод OnFloor
