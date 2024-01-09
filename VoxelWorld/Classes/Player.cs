@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using OpenTK;
 using OpenTK.Graphics;
 using VoxelWorld.Classes.Engine;
+using VoxelWorld.Classes.EngineMath;
 using VoxelWorld.Classes.Physics;
 using VoxelWorld.Classes.World;
 using VoxelWorld.Classes.Render;
@@ -17,12 +18,13 @@ namespace VoxelWorld.Classes
         
         public Vector3 Rotation = new Vector3(0, 0, 0);
 
-        public float moveSpeed = 0.1f;
+        public float moveSpeed = 5.612f;
         public Block[] Slots = new[] {Blocks.grass, Blocks.stone, Blocks.glass, Blocks.oak_log, Blocks.oak_planks, Blocks.oak_leaves};
         public byte selectedSlot = 0;
 
         private TexturedCube handBlock = new TexturedCube();
         private Vector3 handPos = new Vector3(0.5f, -0.5f, -0.5f);
+        private Vector3 globalHandPos = new Vector3(0,0,0);
         private Vector3 handRot = -new Vector3(0,0,0);
         
         
@@ -58,14 +60,14 @@ namespace VoxelWorld.Classes
             // Рисование обводки наведенного блока
             DrawCursorBlock();
             // Рисование блока в руке
-            handBlock.Draw(handPos, camera.Position, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.Rotation.X, Rotation.Y, camera.Rotation.Z)+handRot, Slots[selectedSlot].TextureFaces, 1);
+            handBlock.Draw(handPos, globalHandPos, new Vector3(0.15f, 0.15f, 0.15f), -new Vector3(camera.Rotation.X, Rotation.Y, camera.Rotation.Z)+handRot, Slots[selectedSlot].TextureFaces, 1);
             // Рисование hitbox-а
             if (Game.isDrawDebugHitBox) BoxEdges.DrawBoxEdges(hitbox.HitBoxSize / 2, camera.Position-camera.LocalPosition, new Color4(1.0f, 1.0f, 1.0f, 1.0f), 2.0f);  
         }
 
        
 
-        public override void PhysicsProcess()
+        public override void PhysicsProcess(float delta)
         {
             // Установка и ломание блока
             if (Input.IsMouseButtonJustPressed(Input.KeyPlaceBlock)) PlaceBlock();
@@ -80,7 +82,11 @@ namespace VoxelWorld.Classes
             else if (Input.IsJustKeyPressed(Input.Key5)) selectedSlot = 4;
             else if (Input.IsJustKeyPressed(Input.Key6)) selectedSlot = 5;
 
-            
+
+            //globalHandPos = camera.Position;
+            globalHandPos.X = Linear.Interpolation(globalHandPos.X, camera.Position.X, 0.07f*delta);
+            globalHandPos.Y = Linear.Interpolation(globalHandPos.Y, camera.Position.Y, 0.07f*delta);
+            globalHandPos.Z = Linear.Interpolation(globalHandPos.Z, camera.Position.Z, 0.07f*delta);
             
             // if (!hitbox.IsOnFloor)
             // {
@@ -90,7 +96,7 @@ namespace VoxelWorld.Classes
             // camera.SetRotation(Rotation);
             camera.Position = Position+camera.LocalPosition;
             camera.Rotation = Rotation+camera.LocalRotation;
-            camera.PhysicsProcess();
+            camera.PhysicsProcess(delta);
 
             // Ходьба
             float YAngle = -Rotation.Y / 180f * (float)Math.PI;
@@ -128,7 +134,7 @@ namespace VoxelWorld.Classes
                 //     hitbox.IsOnFloor = false;
                 //     Velocity.Y += 1.5f;
                 // }
-                Velocity.Y += 0.2f;
+                Velocity.Y += moveSpeed*2;
             }
             if (Input.IsKeyPressed(Input.KeyCrouch))
             {
@@ -145,16 +151,8 @@ namespace VoxelWorld.Classes
                 float CameraShakeHeight = 0.1f; // Высота покачивания
                 camera.Position.Y += (float)Math.Sin((Position.X + Position.Z) * CameraShakeSpeed) * CameraShakeHeight;
             }
-
-            if (Velocity.X != 0 || Velocity.Z != 0)
-            {
-                handPos = Animation.SinusoidalMotion(new Vector3(0.5f, -0.5f, -0.5f), 0.08f, 0.05f, Game.time);
-            }
-            else if (Velocity.X == 0 && Velocity.Z == 0 && handPos != new Vector3(0.5f, -0.5f, -0.5f))
-            {
-                List<Vector3> handKeyFrames = new List<Vector3>{handPos, new Vector3(0.5f, -0.5f, -0.5f)};
-                handPos = Animation.KeyframeAnimation(handKeyFrames, Game.time*0.0001f);
-            }
+            
+            
             
             Velocity.X = 0; Velocity.Z = 0;
             Velocity.Y = 0;

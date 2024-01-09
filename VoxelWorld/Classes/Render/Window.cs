@@ -24,10 +24,10 @@ namespace VoxelWorld.Classes.Render
         
         public Window() : base(WindowWidth, WindowHeight, GraphicsMode.Default, "Voxel World")
         {
-            VSync = VSyncMode.On;
+            VSync = VSyncMode.Off;
         }
 
-        MainTree mainTree = new MainTree();
+        MainTree mainTree = new MainTree(); 
         
         public enum DebugDraw { Normal, Wireframe }
         
@@ -55,6 +55,7 @@ namespace VoxelWorld.Classes.Render
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
+            Game.delta = (float)e.Time;
             
             
             timeSinceLastPhysicsUpdate += (float)e.Time;
@@ -63,10 +64,9 @@ namespace VoxelWorld.Classes.Render
                 Game.tick += 1;
                 timeSinceLastPhysicsUpdate -= PhysicsUpdateInterval;
             }
-
             if (!CursorVisible)
             {
-                mainTree.PhysicsProcess();
+                mainTree.PhysicsProcess((float)e.Time);
             }
             
             // Телепортация курсора в центре окна, если он не отображаеться
@@ -159,14 +159,7 @@ namespace VoxelWorld.Classes.Render
             WindowState = WindowState == WindowState.Fullscreen ? WindowState.Normal : WindowState.Fullscreen;
             WindowBorder = WindowState == WindowState.Fullscreen ? WindowBorder.Hidden : WindowBorder.Resizable;
         }
-
-        static void Main(string[] args)
-        {
-            using (var game = new Window())
-            {
-                game.Run(60.0);
-            }
-        }
+        
     }
 }
 

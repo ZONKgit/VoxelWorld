@@ -127,12 +127,12 @@ namespace VoxelWorld.Classes.World
 
                 // Используем этот вектор как новый Velocity
                 centerToParticle.Normalize();
-                Vector3 newVelocity = centerToParticle * 0.032f;
+                Vector3 newVelocity = centerToParticle * 0.8f;
 
                 Game.gameWorld.AddParticle(
                     particlePos,
                     newVelocity,
-                    new Vector3(0, -0.005f, 0),
+                    new Vector3(0, -5f, 0),
                     (byte)ChunkData[(int)Pos.X, (int)Pos.Y, (int)Pos.Z].TextureFaces[2]
                 );
             }

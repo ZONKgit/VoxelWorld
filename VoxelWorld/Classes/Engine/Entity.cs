@@ -12,7 +12,7 @@ namespace VoxelWorld.Classes.Engine
         public void MoveAndCollide()
         {
             // Обработка столкновенний
-            Position += Velocity;
+            Position += Velocity*Game.delta;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace VoxelWorld.Classes.Engine
         public virtual void RenderProcess(){
         }
         
-        public virtual void PhysicsProcess(){
+        public virtual void PhysicsProcess(float delta){
         }
 
         public virtual void OnResizeWindow(EventArgs e) {

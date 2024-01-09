@@ -29,14 +29,14 @@ namespace VoxelWorld.Classes.Render
             }  
         }
 
-        public override void PhysicsProcess()
+        public override void PhysicsProcess(float delta)
         {
             if (selectedScene == 0)
             {
                 mainMenu.PhysicsProcess();
             } else if (selectedScene == 1)
             {
-                gameWorld.PhysicsProcess();
+                gameWorld.PhysicsProcess(delta);
             }
         }
         public override  void OnResizeWindow(EventArgs e)

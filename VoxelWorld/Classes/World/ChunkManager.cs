@@ -58,7 +58,7 @@ namespace VoxelWorld.Classes.World
         }
 
 
-        public override  void PhysicsProcess()
+        public override  void PhysicsProcess(float delta)
         {
             // Загруза чанков
             if (GlobalToChunkCoords(player.Position) != oldPlayerChunkPos)

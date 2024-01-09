@@ -28,15 +28,15 @@ namespace VoxelWorld.Classes.Render
            Mesh.Draw(new Vector3(0,0,0), Position, new Vector3(0.1f,0.1f,0.1f), Rotation, new []{(int)TextureID,(int)TextureID,(int)TextureID,(int)TextureID,(int)TextureID,(int)TextureID}, 4);
         }
 
-        public override void PhysicsProcess()
+        public override void PhysicsProcess(float delta)
         {
-            if (Game.tick-TickStart >= LifeTime)
+            if ((Game.tick - TickStart)*delta >= LifeTime)
             {
                 Game.gameWorld.RemoveParticle(this);
                 Console.WriteLine("Destroy");
             }
-            Velocity += Gravity;
-            Position += Velocity;
+            Velocity += Gravity*delta;
+            MoveAndCollide();
         }
     }
 }

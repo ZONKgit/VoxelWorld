@@ -63,17 +63,17 @@ namespace VoxelWorld.Classes.World
             
             guiManager.RenderProcess();
         }   
-        public override void PhysicsProcess()
+        public override void PhysicsProcess(float delta)
         {
             Game.PhysicsProcess();
-            player.PhysicsProcess();
-            chunkManager.PhysicsProcess();
-            clouds.PhysicsProcess();
+            player.PhysicsProcess(delta);
+            chunkManager.PhysicsProcess(delta);
+            clouds.PhysicsProcess(delta);
             
             List<Particle> particlesCopy = new List<Particle>(Particles);
             foreach (var particle in particlesCopy)
             {
-                particle.PhysicsProcess();   
+                particle.PhysicsProcess(delta);   
             }
         }
 

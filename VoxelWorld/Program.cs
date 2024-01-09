@@ -9,7 +9,7 @@ namespace VoxelWorld
         {
             using (var game = new Window())
             {
-                game.Run(60.0);
+                game.Run(0.0);
             }
         }
     }
